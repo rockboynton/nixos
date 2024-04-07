@@ -45,6 +45,11 @@
               image = ./gruvbox.png;
               polarity = "dark";
               base16Scheme = "${tinted-theming}/base16/gruvbox-dark-medium.yaml";
+              opacity.terminal = 0.8;
+              fonts.monospace = {
+                package = nixpkgs.legacyPackages.${system}.fira-code-nerdfont;
+                name = "FiraCode Nerd Font";
+              };
             };
           }
         ];
