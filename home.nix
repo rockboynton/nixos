@@ -13,7 +13,6 @@
       neofetch
       neovim
       nerdfonts
-      nil
       nix-direnv
       fd
       fzf
