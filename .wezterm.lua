@@ -16,5 +16,6 @@ config.initial_cols = 120
 config.initial_rows = 40
 config.scrollback_lines = 5000
 config.tab_and_split_indices_are_zero_based = true
+config.enable_kitty_keyboard = true
 
 return config

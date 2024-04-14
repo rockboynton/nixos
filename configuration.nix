@@ -135,6 +135,10 @@
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.nvidia = {
+    open = true;
+    modesetting.enable = true;
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -152,6 +156,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.rockboynton = {
     isNormalUser = true;
@@ -159,7 +165,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
 
   # Enable automatic login for the user.
@@ -183,10 +189,12 @@
 
   environment.pathsToLink = [
     "/share/zsh"
+    "/share/fish"
     "/share/nix-direnv"
   ];
 
   programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

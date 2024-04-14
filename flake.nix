@@ -20,6 +20,9 @@
   outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming }:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -35,12 +38,16 @@
               users.rockboynton = import ./home.nix;
               extraSpecialArgs = { inherit inputs; };
               sharedModules = [{
-                stylix.targets.helix.enable = false;
+                stylix.targets = {
+                  helix.enable = false;
+                  fish.enable = false;
+                };
               }];
             };
           }
 
-          stylix.nixosModules.stylix {
+          stylix.nixosModules.stylix
+          {
             stylix = {
               image = ./gruvbox.png;
               polarity = "dark";
@@ -52,6 +59,12 @@
               };
             };
           }
+        ];
+      };
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          nil
+          nixpkgs-fmt
         ];
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
