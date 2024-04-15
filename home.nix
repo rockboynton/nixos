@@ -43,6 +43,7 @@
 
     helix = {
       enable = true;
+      defaultEditor = true;
       settings = {
         theme = "gruvbox";
         editor = {
@@ -53,9 +54,55 @@
             select = "underline";
           };
           file-picker.hidden = false;
+          rulers = [ 120 ];
+          color-modes = true;
+          text-width = 120;
+          cursorline = true;
+          shell = [ "fish" "-c" ];
+          statusline = {
+            mode = {
+              normal = "NORMAL";
+              insert = "INSERT";
+              select = "SELECT";
+            };
+          };
+          lsp = {
+            display-messages = true;
+            display-inlay-hints = true;
+          };
+          auto-pairs = {
+            "(" = ")";
+            "{" = "}";
+            "[" = "]";
+            "\"" = "\"";
+            "`" = "`";
+            "<" = ">";
+          };
+          whitespace = {
+            render = {
+              space = "all";
+              tab = "all";
+            };
+          };
+          indent-guides = {
+            render = true;
+            skip-levels = 1;
+          };
+        };
+        keys = {
+          normal = {
+            tab = "move_parent_node_end";
+            S-tab = "move_parent_node_start";
+          };
+          insert = {
+            S-tab = "move_parent_node_start";
+          };
+          select = {
+            tab = "extend_parent_node_end";
+            S-tab = "extend_parent_node_start";
+          };
         };
       };
-      defaultEditor = true;
       languages = {
         language = [
           {
@@ -94,7 +141,8 @@
         end
       '';
       shellAbbrs = {
-        "nrs" = "nixos-rebuild switch --use-remote-sudo";
+        nrs = "nixos-rebuild switch --use-remote-sudo";
+        zj = "zellij";
       };
       functions = {
         set_gruvbox_theme = {
@@ -352,6 +400,13 @@
       enable = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
+      settings = {
+        keybinds = {
+          normal = {
+            unbind = [ "Alt -" "Alt +" "Alt =" ];
+          };
+        };
+      };
     };
 
     zoxide = {
