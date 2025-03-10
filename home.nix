@@ -1,117 +1,75 @@
-{ pkgs, ... }:
+{ pkgs, config, inputs, ... }:
 
+let
+  username = "rockboynton";
+  nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
+in
 {
-  home = rec {
-    username = "rockboynton";
+  home = {
+    inherit username;
     homeDirectory = "/home/${username}";
-    stateVersion = "23.11";
-    packages = with pkgs; [
-      bat
-      bottom
-      direnv
-      dust
-      neofetch
-      neovim
-      nerdfonts
-      nix-direnv
-      fd
-      fish
-      fzf
-      helix
-      jq
-      lsd
-      nix-output-monitor
-      ripgrep
-      tree
-      starship
-      tealdeer
-      thefuck
-      tokei
-      unzip
-      usbutils
-      wezterm
-      which
-      zip
-      zellij
-      zoxide
-      zsh
-    ];
+    stateVersion = "24.11";
+
+    file.".config/helix/" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/helix/";
+      recursive = true;
+    };
+
+    file.".config/starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/starship/starship.toml";
+
+    file.".config/zellij/" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/zellij/";
+      recursive = true;
+    };
+
+    file.".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
+
+    packages = with pkgs;
+      [
+        bat
+        bottom
+        direnv
+        dust
+        fd
+        fish
+        fzf
+        gitui
+        google-chrome
+        jq
+        lazygit
+        lsd
+        neofetch
+        neovim
+        nerd-fonts.fira-code
+        nix-direnv
+        nix-output-monitor
+        patchy
+        qmk
+        qmk-udev-rules
+        ripgrep
+        starship
+        tealdeer
+        thefuck
+        tokei
+        tree
+        unzip
+        usbutils
+        wezterm
+        which
+        yazi
+        # zellij
+        zip
+        zoxide
+      ];
   };
 
   programs = {
     home-manager.enable = true;
-
-    helix = {
+    helix.package = inputs.helix.packages.${pkgs.system}.helix;
+    starship = {
       enable = true;
-      defaultEditor = true;
-      settings = {
-        theme = "gruvbox";
-        editor = {
-          line-number = "relative";
-          cursor-shape = {
-            insert = "bar";
-            normal = "block";
-            select = "underline";
-          };
-          file-picker.hidden = false;
-          rulers = [ 120 ];
-          color-modes = true;
-          text-width = 120;
-          cursorline = true;
-          shell = [ "fish" "-c" ];
-          statusline = {
-            mode = {
-              normal = "NORMAL";
-              insert = "INSERT";
-              select = "SELECT";
-            };
-          };
-          lsp = {
-            display-messages = true;
-            display-inlay-hints = true;
-          };
-          auto-pairs = {
-            "(" = ")";
-            "{" = "}";
-            "[" = "]";
-            "\"" = "\"";
-            "`" = "`";
-            "<" = ">";
-          };
-          whitespace = {
-            render = {
-              space = "all";
-              tab = "all";
-            };
-          };
-          indent-guides = {
-            render = true;
-            skip-levels = 1;
-          };
-        };
-        keys = {
-          normal = {
-            tab = "move_parent_node_end";
-            S-tab = "move_parent_node_start";
-          };
-          insert = {
-            S-tab = "move_parent_node_start";
-          };
-          select = {
-            tab = "extend_parent_node_end";
-            S-tab = "extend_parent_node_start";
-          };
-        };
-      };
-      languages = {
-        language = [
-          {
-            name = "nix";
-            formatter = { command = "nixpkgs-fmt"; };
-            auto-format = true;
-          }
-        ];
-      };
+      enableFishIntegration = true;
+      enableTransience = true;
     };
 
     fish = {
@@ -143,6 +101,46 @@
       shellAbbrs = {
         nrs = "nixos-rebuild switch --use-remote-sudo";
         zj = "zellij";
+        ns = "nix shell nixpkgs#";
+        yz = "yazi";
+        gt = "gitui";
+        fixup = "git add -u && git commit --amend --no-edit && git push -f";
+        hxu = "~/sources/scripts/open-in-helix-under";
+        copy = "sed -z '\$ s/\n\$//' | ssh rboynton-macbook14.corp.anduril.com pbcopy";
+        l = "ls -a";
+        la = "ls -a";
+        lla = "ls -la";
+        lt = "ls --tree";
+        gs = "git status";
+        gc = "git commit";
+        gca = "git commit --amend";
+        gcan = "git commit --amend --no-edit";
+        gpull = "git pull";
+        gpush = "git push";
+        gpf = "git push --force-with-lease";
+        gpr = "git pull --rebase origin master";
+        glog = "git log";
+        gl = "git lg";
+        gf = "git fetch";
+        gco = "git checkout";
+        gcob = "git checkout -b";
+        ga = "git add";
+        gr = "git rebase";
+        gra = "git rebase --abort";
+        grc = "git rebase --continue";
+        grs = "git reset --hard";
+        gd = "git diff";
+        gds = "DELTA_FEATURES=+side-by-side git diff";
+        glast = "git rev-parse HEAD";
+        man = "batman";
+        cd = "z";
+        da = "direnv allow";
+        dr = "direnv reload";
+        
+        # fixup = 
+      };
+      shellAliases = {
+        ls = "lsd --group-directories-first";
       };
       functions = {
         set_gruvbox_theme = {
@@ -173,13 +171,13 @@
 
             # Use defined colors from the Gruvbox palette
             set -g fish_color_normal $gruvbox_fg
-            set -g fish_color_command $gruvbox_blue --bold
+            set -g fish_color_command $gruvbox_green --bold
             set -g fish_color_keyword $gruvbox_red --bold
             set -g fish_color_quote $gruvbox_green_bright
             set -g fish_color_redirection $gruvbox_orange
             set -g fish_color_end $gruvbox_orange
             set -g fish_color_error $gruvbox_red_bright --italics
-            set -g fish_color_param $gruvbox_fg
+            set -g fish_color_param $gruvbox_blue
             set -g fish_color_comment $gruvbox_gray
             set -g fish_color_match --background=$gruvbox_bg0_h
             set -g fish_color_search_match --background=$gruvbox_yellow --foreground=$gruvbox_bg
@@ -206,212 +204,45 @@
       enable = true;
     };
 
-    wezterm = {
-      enable = true;
-      enableZshIntegration = true;
-      extraConfig = builtins.readFile ./.wezterm.lua;
-    };
-
-    zsh = {
-      enable = true;
-      autosuggestion.enable = true;
-      # defaultKeymap = "viins";
-      enableCompletion = true;
-      history.expireDuplicatesFirst = true;
-      shellAliases = {
-        fixup = "git add -u && git commit --amend --no-edit && git push -f";
-        zj = "zellij";
-        ncu = "nixos-rebuild switch --use-remote-sudo";
-      };
-      syntaxHighlighting = {
-        enable = true;
-        highlighters = [
-          "main"
-          "brackets"
-        ];
-      };
-    };
+    # wezterm = {
+    #   enable = true;
+    #   # extraConfig = builtins.readFile ./.wezterm.lua;
+    # };
 
     git = {
       enable = true;
       userName = "Rock Boynton";
       userEmail = "rock.boynton@yahoo.com";
+      extraConfig = {
+        commit.gpgsign = true;
+        gpg.format = "ssh";
+        user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsfk0fRSkV21MX4xmXqPXxf25zcDOpOwKSmM9cMwVmu rock.boynton@yahoo.com";
+      };
     };
 
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      enableZshIntegration = true;
       # enableFishIntegration = true;
     };
 
     fzf = {
       enable = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
-    };
-
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-      enableFishIntegration = true;
-      enableTransience = true;
-      settings = {
-        palette = "gruvbox_dark";
-        palettes.gruvbox_dark = {
-          color_fg0 = "#fbf1c7";
-          color_bg1 = "#3c3836";
-          color_bg3 = "#665c54";
-          color_blue = "#458588";
-          color_aqua = "#689d6a";
-          color_green = "#98971a";
-          color_orange = "#d65d0e";
-          color_purple = "#b16286";
-          color_red = "#cc241d";
-          color_yellow = "#d79921";
-        };
-        format = builtins.concatStringsSep "" [
-          "[](color_orange)"
-          "$os"
-          "$username"
-          "[](bg:color_yellow fg:color_orange)"
-          "$directory"
-          "[](fg:color_yellow bg:color_aqua)"
-          "$git_branch"
-          "$git_status"
-          "$git_state"
-          "[](fg:color_aqua bg:color_blue)"
-          "$c"
-          "$rust"
-          "$haskell"
-          "$python"
-          "[](fg:color_blue bg:color_bg3)"
-          "$nix_shell"
-          "[](fg:color_bg3 bg:color_bg1)"
-          "$time"
-          "$cmd_duration"
-          "[ ](fg:color_bg1)"
-          "$line_break$character"
-        ];
-        os = {
-          disabled = false;
-          style = "bg:color_orange fg:color_fg0";
-          symbols = {
-            NixOS = " ";
-            Macos = " ";
-          };
-        };
-        username = {
-          show_always = true;
-          style_user = "bg:color_orange fg:color_fg0";
-          style_root = "bg:color_orange fg:color_fg0";
-          format = "[ $user ]($style)";
-        };
-
-        directory = {
-          style = "fg:color_fg0 bg:color_yellow";
-          format = "[ $path ]($style)";
-          truncation_length = 3;
-          truncation_symbol = "…/";
-        };
-
-        git_branch = {
-          symbol = "";
-          style = "bg:color_aqua";
-          format = "[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)";
-        };
-
-        git_status = {
-          style = "bg:color_aqua";
-          format = "[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)";
-        };
-
-        git_state = {
-          style = "bg:color_aqua";
-          format = "[[\\($state( $progress_current/$progress_total)\\)](fg:color_yellow bg:color_aqua)]($style)";
-        };
-
-        c = {
-          symbol = " ";
-          style = "bg:color_blue";
-          format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-        };
-
-        rust = {
-          symbol = "";
-          style = "bg:color_blue";
-          format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-        };
-
-        haskell = {
-          symbol = "";
-          style = "bg:color_blue";
-          format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-        };
-
-        python = {
-          symbol = "";
-          style = "bg:color_blue";
-          format = "[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)";
-        };
-
-        nix_shell = {
-          symbol = "󱄅";
-          style = "bg:color_blue";
-          format = "[[ $symbol $state( \\($name\\))](fg:#83a598 bg:color_bg3)]($style)";
-          heuristic = true;
-        };
-
-        time = {
-          disabled = false;
-          time_format = "%R";
-          style = "bg:color_bg1";
-          format = "[[  $time ](fg:color_fg0 bg:color_bg1)]($style)";
-        };
-
-        cmd_duration = {
-          style = "bg:color_bg1";
-          format = "[[ took $duration ](fg:color_yellow bg:color_bg1)]($style)";
-        };
-
-        line_break = {
-          disabled = false;
-        };
-
-        character = {
-          disabled = false;
-          success_symbol = "[󱞩](bold fg:color_green)";
-          error_symbol = "[󱞩](bold fg:color_red)";
-          vimcmd_symbol = "[](bold fg:color_green)";
-          vimcmd_replace_one_symbol = "[](bold fg:color_yellow)";
-          vimcmd_replace_symbol = "[](bold fg:color_orange)";
-          vimcmd_visual_symbol = "[](bold fg:color_purple)";
-        };
-      };
     };
 
     thefuck = {
       enable = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
 
     zellij = {
       enable = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
-      settings = {
-        keybinds = {
-          normal = {
-            unbind = [ "Alt -" "Alt +" "Alt =" ];
-          };
-        };
-      };
     };
 
     zoxide = {
       enable = true;
-      enableZshIntegration = true;
       enableFishIntegration = true;
     };
   };

@@ -1,0 +1,129 @@
+theme = "modified_gruvbox" # modified to make background transparent, that's it
+
+[editor]
+mouse = false
+true-color = true
+line-number = "relative"
+rulers = [120]
+color-modes = true
+text-width = 120
+cursorline = true
+shell = ["fish", "-c"]
+jump-label-alphabet = "asdf;lkjghqweruioptyzxc/.,mbn" # inward rolls of home-row, top-row, and bottom-row on qwerty keyboard
+bufferline = "multiple"
+completion-trigger-len = 1
+completion-timeout = 100
+undercurl = true
+file-picker.hidden = false
+end-of-line-diagnostics = "hint"
+clipboard-provider = "termcode"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 300
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+right = [
+  "diagnostics",
+  "selections",
+  "register",
+  "position",
+  "position-percentage",
+  "file-encoding",
+]
+
+[editor.statusline.mode]
+normal = "NORMAL"
+insert = "INSERT"
+select = "SELECT"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+
+[editor.indent-guides]
+render = true
+skip-levels = 1
+character = "┊"
+
+[keys.normal]
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+C-u = ["page_cursor_half_up", "align_view_center"]
+C-d = ["page_cursor_half_down", "align_view_center"]
+A-y = [":yank-join"]
+A-o = "jump_backward"
+A-i = "jump_forward"
+A-c = "copy_selection_on_prev_line"
+"["."[" = "goto_previous_buffer"
+"]"."]" = "goto_next_buffer"
+"}" = "goto_next_paragraph"
+"{" = "goto_prev_paragraph"
+X = "extend_line_above"
+D = ["move_char_left", "delete_selection"]
+H = "jump_view_left"
+L = "jump_view_right"
+A-f = ":format"
+A-r = ":reload-all"
+A-R = ":reflow"
+A-W = "move_next_sub_word_start"
+A-B = "move_prev_sub_word_start"
+A-E = "move_next_sub_word_end"
+ret = "goto_word"
+
+[keys.normal.space]
+x = ":buffer-close"
+X = ":buffer-close-others"
+A-f = "file_picker_in_current_buffer_directory"
+A-y = ":clipboard-yank-join"
+"." = ":toggle-option file-picker.git-ignore"
+n = ":new"
+l = ":lsp-restart"
+q = ":quit-all"
+# B = "file_browser" # PR 11285
+# A-B = "file_browser_in_current_buffer_directory" # PR 11285
+
+[keys.normal."'"]
+# yazi as a file picker
+y = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Yazi Picker' -- /home/rboynton/.config/fish/scripts/open_in_helix_from_yazi.fish"
+r = ":reset-diff-change"
+g.t = [
+  ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% --close-on-exit -- gitui",
+  ":reload-all",
+]
+g.b = ":pipe-to /home/rboynton/sources/scripts/helix-git-blame"
+g.u = ":sh /home/rboynton/sources/scripts/helix-gh-url copy"
+g.o = ":sh /home/rboynton/sources/scripts/helix-gh-url open"
+g.d.i = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Inline)' -- git diff"
+g.d.s = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Split)' -- /home/rboynton/sources/scripts/side-by-side-diff.fish"
+# make resolving merge conflicts easier
+g.c = ":sh /home/rboynton/sources/scripts/helix-find-next-conflict"
+"'" = ":sh zellij action new-pane --floating -x 5% -y 6% --height 88% --width 91%"
+s = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'live grep' -- /home/rboynton/sources/scripts/helix-live-grep"
+
+[keys.insert]
+S-tab = "move_parent_node_start"
+A-left = "move_prev_word_start"
+A-right = ["move_next_word_end", "move_char_right"]
+A-p = "command_palette"
+
+[keys.select]
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
+X = "select_line_above"
+A-W = "extend_next_sub_word_start"
+A-B = "extend_prev_sub_word_start"
+A-E = "extend_next_sub_word_end"

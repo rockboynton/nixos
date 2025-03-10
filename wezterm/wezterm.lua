@@ -8,7 +8,14 @@ end
 config.color_scheme = 'Gruvbox dark, medium (base16)'
 config.font = wezterm.font 'FiraCode Nerd Font'
 config.font_size = 11.0
-config.window_background_opacity = 0.9
+-- config.window_background_opacity = 0.5
+config.background = {
+    {
+        source = {
+            File = '/home/rockboynton/Downloads/honeycomb-modified (1).png',
+        },
+    }
+};
 config.window_decorations = 'RESIZE'
 config.front_end = 'WebGpu'
 config.hide_tab_bar_if_only_one_tab = true;

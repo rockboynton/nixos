@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    helix = {
+      url = "github:rockboynton/helix?ref=patchy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +21,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming }:
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -40,6 +44,7 @@
               sharedModules = [{
                 stylix.targets = {
                   helix.enable = false;
+                  wezterm.enable = false;
                   fish.enable = false;
                 };
               }];
