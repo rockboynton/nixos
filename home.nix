@@ -65,7 +65,11 @@ in
 
   programs = {
     home-manager.enable = true;
-    helix.package = inputs.helix.packages.${pkgs.system}.helix;
+    helix = {
+      enable = true;
+      package = inputs.helix.packages.${pkgs.system}.helix;
+      defaultEditor = true;
+    };
     starship = {
       enable = true;
       enableFishIntegration = true;
@@ -74,7 +78,7 @@ in
 
     fish = {
       enable = true;
-      interactiveShellInit = ''
+      interactiveShellInit = /* fish */ ''
         # use empty greeting
         set fish_greeting 
 
@@ -144,7 +148,7 @@ in
       };
       functions = {
         set_gruvbox_theme = {
-          body = ''
+          body = /* fish */ ''
             # Gruvbox color palette with medium contrast
             set -l gruvbox_bg 282828     # Dark background
             set -l gruvbox_fg ebdbb2     # Light foreground
@@ -203,11 +207,6 @@ in
     bat = {
       enable = true;
     };
-
-    # wezterm = {
-    #   enable = true;
-    #   # extraConfig = builtins.readFile ./.wezterm.lua;
-    # };
 
     git = {
       enable = true;

@@ -52,75 +52,75 @@
 
   services.blueman.enable = true;
 
-  services.logiops = {
-    enable = true;
+  # services.logiops = {
+  #   enable = true;
 
-    settings = {
-      devices = [{
-        name = "Wireless Mouse MX Master 3";
+  #   settings = {
+  #     devices = [{
+  #       name = "Wireless Mouse MX Master 3";
 
-        smartshift = {
-          on = true;
-          threshold = 30;
-          torque = 50;
-        };
+  #       smartshift = {
+  #         on = true;
+  #         threshold = 30;
+  #         torque = 50;
+  #       };
 
-        hiresscroll = {
-          hires = true;
-          invert = false;
-          target = false;
-        };
+  #       hiresscroll = {
+  #         hires = true;
+  #         invert = false;
+  #         target = false;
+  #       };
 
-        dpi = 1000;
+  #       dpi = 1000;
 
-        buttons = [
-          {
-            cid = "0x53";
-            action = {
-              type = "Keypress";
-              keys = [ "KEY_FORWARD" ];
-            };
-          }
-          {
-            cid = "0x56";
-            action = {
-              type = "Keypress";
-              keys = [ "KEY_BACK" ];
-            };
-          }
-          {
-            cid = "0xc3";
-            action = {
-              type = "Gestures";
-              gestures = [
-                {
-                  direction = "Left";
-                  action = {
-                    type = "Keypress";
-                    keys = [ "KEY_LEFTCTRL" "KEY_C" ];
-                  };
-                }
-                {
-                  direction = "Right";
-                  action = {
-                    type = "Keypress";
-                    keys = [ "KEY_LEFTCTRL" "KEY_V" ];
-                  };
-                }
-                {
-                  direction = "None";
-                  action = {
-                    type = "Keypress";
-                    keys = [ "KEY_ENTER" ];
-                  };
-                }
-              ];
-            };
-          }
-        ];
-      }];
-    };
-  };
+  #       buttons = [
+  #         {
+  #           cid = "0x53";
+  #           action = {
+  #             type = "Keypress";
+  #             keys = [ "KEY_FORWARD" ];
+  #           };
+  #         }
+  #         {
+  #           cid = "0x56";
+  #           action = {
+  #             type = "Keypress";
+  #             keys = [ "KEY_BACK" ];
+  #           };
+  #         }
+  #         {
+  #           cid = "0xc3";
+  #           action = {
+  #             type = "Gestures";
+  #             gestures = [
+  #               {
+  #                 direction = "Left";
+  #                 action = {
+  #                   type = "Keypress";
+  #                   keys = [ "KEY_LEFTCTRL" "KEY_C" ];
+  #                 };
+  #               }
+  #               {
+  #                 direction = "Right";
+  #                 action = {
+  #                   type = "Keypress";
+  #                   keys = [ "KEY_LEFTCTRL" "KEY_V" ];
+  #                 };
+  #               }
+  #               {
+  #                 direction = "None";
+  #                 action = {
+  #                   type = "Keypress";
+  #                   keys = [ "KEY_ENTER" ];
+  #                 };
+  #               }
+  #             ];
+  #           };
+  #         }
+  #       ];
+  #     }];
+  #   };
+  # };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

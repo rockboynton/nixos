@@ -1,114 +1,87 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-  inherit (lib) mkPackageOption mkEnableOption mkIf mkOption types;
-  cfg = config.services.logiops;
-  format = pkgs.formats.libconfig { };
-in
 {
-  options.services.logiops = {
-    enable = mkEnableOption "logiops, an unofficial userspace driver for HID++ Logitech devices";
-    package = mkPackageOption pkgs "logiops" {
-      example = "logiops_0_2_3";
-    };
-
-    settings = mkOption {
-      type = types.submodule { freeformType = format.type; };
-      description = ''
-        Configuration for logiops.
-
-        See <https://github.com/PixlOne/logiops/wiki/Configuration> for more details.
-        Also see <https://github.com/PixlOne/logiops/blob/main/logid.example.cfg> for an example config.
-      '';
-      default = { };
-      example = {
-        devices = [{
-          name = "Wireless Mouse MX Master";
-          dpi = 1000;
-          buttons = [
-            {
-              cid = "0xc3";
-              action = {
-                type = "Gestures";
-                gestures = [
-                  {
-                    direction = "Up";
-                    mode = "OnRelease";
-                    action = {
-                      type = "Keypress";
-                      keys = [ "KEY_UP" ];
-                    };
-                  }
-                  {
-                    direction = "None";
-                    mode = "NoPress";
-                  }
-                ];
-              };
-            }
-            {
-              cid = "0xc4";
-              action = {
-                type = "Keypress";
-                keys = [ "KEY_A" ];
-              };
-            }
-          ];
-        }];
-      };
+  # Create systemd service
+  # https://github.com/PixlOne/logiops/blob/5547f52cadd2322261b9fbdf445e954b49dfbe21/src/logid/logid.service.in
+  systemd.services.logiops = {
+    description = "Logitech Configuration Daemon";
+    startLimitIntervalSec = 0;
+    after = [ "graphical.target" ];
+    wantedBy = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.logiops_0_2_3}/bin/logid";
+      User = "root";
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.etc."logid.cfg".source = format.generate "logid.cfg" cfg.settings;
-    systemd.services.logiops = {
-      description = "Logitech Configuration Daemon";
-      documentation = [ "https://github.com/PixlOne/logiops" ];
+  # Add a `udev` rule to restart `logiops` when the mouse is connected
+  # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
+  services.udev.extraRules = ''
+    ACTION=="change", SUBSYSTEM=="power_supply", ATTRS{manufacturer}=="Logitech", ATTRS{model_name}=="Wireless Mouse MX Master 3", RUN{program}="${pkgs.systemd}/bin/systemctl --no-block try-restart logiops.service"
+  '';
 
-      wantedBy = [ "multi-user.target" ];
-
-      startLimitIntervalSec = 0;
-      after = [ "multi-user.target" ];
-      wants = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/logid";
-        Restart = "always";
-        User = "root";
-
-        RuntimeDirectory = "logiops";
-
-        CapabilityBoundingSet = [ "CAP_SYS_NICE" ];
-        DeviceAllow = [ "/dev/uinput rw" "char-hidraw rw" ];
-        ProtectClock = true;
-        PrivateNetwork = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        PrivateUsers = true;
-        PrivateMounts = true;
-        PrivateTmp = true;
-        RestrictNamespaces = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        MemoryDenyWriteExecute = true;
-        RestrictRealtime = true;
-        LockPersonality = true;
-        ProtectProc = "invisible";
-        SystemCallFilter = [ "nice" "@system-service" "~@privileged" ];
-        RestrictAddressFamilies = [ "AF_NETLINK" "AF_UNIX" ];
-        RestrictSUIDSGID = true;
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProcSubset = "pid";
-        UMask = "0077";
+  # Configuration for logiops
+  environment.etc."logid.cfg".text = /* json */ ''
+    devices: ({
+      name: "Wireless Mouse MX Master 3";
+      smartshift: {
+        on: true;
+        threshold: 12;
       };
-    };
-
-    # Add a `udev` rule to restart `logiops` when the mouse is connected
-    # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
-    services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${config.systemd.package}/bin/systemctl --no-block try-restart logiops.service"
-    '';
-  };
+      hiresscroll: {
+        hires: true;
+        target: false;
+      };
+      dpi: 1200;
+      buttons: ({
+        cid: 0xc3;
+        action: {
+          type: "Gestures";
+          gestures: ({
+            direction: "Left";
+            mode: "OnRelease";
+            action: {
+              type: "Keypress";
+              keys: ["KEY_F15"];
+            };
+          }, {
+            direction: "Right";
+            mode: "OnRelease";
+            action: {
+              type: "Keypress";
+              keys: ["KEY_F16"];
+            };
+          }, {
+            direction: "Down";
+            mode: "OnRelease";
+            action: {
+              type: "Keypress";
+              keys: ["KEY_F17"];
+            };
+          }, {
+            direction: "Up";
+            mode: "OnRelease";
+            action: {
+              type: "Keypress";
+              keys: ["KEY_F18"];
+            };
+          }, {
+            direction: "None";
+            mode: "OnRelease";
+            action: {
+              type: "Keypress";
+              keys: ["KEY_PLAYPAUSE"];
+            };
+          });
+        };
+      }, {
+        cid: 0xc4;
+        action: {
+          type: "Keypress";
+          keys: [ "KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_M" ];
+        };
+      });
+    });
+  '';
 }
