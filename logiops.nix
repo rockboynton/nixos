@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   # Create systemd service
@@ -15,6 +15,9 @@
       Restart = "on-failure";
       RestartSec = "5s";
     };
+    restartTriggers = [
+      config.environment.etc."logid.cfg".source
+    ];
   };
 
   # Configuration for logiops
