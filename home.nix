@@ -27,6 +27,7 @@ in
     packages = with pkgs;
       [
         bat
+        bat-extras.batman
         bottom
         direnv
         dust
@@ -206,6 +207,18 @@ in
 
     bat = {
       enable = true;
+    };
+
+    jujutsu = {
+      package = inputs.jj.outputs.packages.${pkgs.stdenv.hostPlatform.system}.jujutsu;
+      enable = true;
+      settings = {
+        user = {
+          name = "Rock Boynton";
+          email = "rock.boynton@yahoo.com";
+        };
+        ui.merge-editor = ":builtin";
+      };
     };
 
     git = {

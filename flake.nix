@@ -19,9 +19,13 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
+    jj = {
+      url = "github:jj-vcs/jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix }:
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
