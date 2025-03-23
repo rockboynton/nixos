@@ -29,6 +29,7 @@ in
         bat
         bat-extras.batman
         bottom
+        delta
         direnv
         dust
         fd
@@ -219,12 +220,25 @@ in
           name = "Rock Boynton";
           email = "rock.boynton@yahoo.com";
         };
-        ui.merge-editor = ":builtin";
+        ui = {
+          merge-editor = ":builtin";
+          # pager = ":builtin";
+          pager = "delta";
+          diff.format = "git";
+        };
       };
     };
 
     git = {
       enable = true;
+      delta = {
+        enable = true;
+        options = {
+          syntax-theme = "gruvbox-dark";
+          true-color = "always";
+          line-numbers = true;
+        };
+      };
       userName = "Rock Boynton";
       userEmail = "rock.boynton@yahoo.com";
       extraConfig = {
