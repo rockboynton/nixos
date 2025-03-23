@@ -42,8 +42,10 @@ in
         neofetch
         neovim
         nerd-fonts.fira-code
+        nixd
         nix-direnv
         nix-output-monitor
+        nixpkgs-fmt
         patchy
         qmk
         qmk-udev-rules
@@ -141,7 +143,7 @@ in
         cd = "z";
         da = "direnv allow";
         dr = "direnv reload";
-        
+
         # fixup = 
       };
       shellAliases = {

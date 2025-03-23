@@ -71,10 +71,7 @@
         ];
       };
       devShells.${system}.default = pkgs.mkShell {
-        packages = with pkgs; [
-          nil
-          nixpkgs-fmt
-        ];
+        packages = [ ];
       };
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
     };
