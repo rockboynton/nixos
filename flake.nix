@@ -23,9 +23,13 @@
       url = "github:jj-vcs/jj";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    yazi = {
+      url = "github:sxyazi/yazi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj }:
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj, yazi }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {

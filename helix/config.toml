@@ -83,6 +83,7 @@ A-W = "move_next_sub_word_start"
 A-B = "move_prev_sub_word_start"
 A-E = "move_next_sub_word_end"
 ret = "goto_word"
+C-S = "save_selection"
 
 [keys.normal.space]
 x = ":buffer-close"
@@ -93,6 +94,13 @@ A-y = ":clipboard-yank-join"
 n = ":new"
 l = ":lsp-restart"
 q = ":quit-all"
+B = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+]
 # B = "file_browser" # PR 11285
 # A-B = "file_browser_in_current_buffer_directory" # PR 11285
 

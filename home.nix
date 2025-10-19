@@ -29,6 +29,7 @@ in
         bat
         bat-extras.batman
         bottom
+        discord
         delta
         direnv
         dust
@@ -60,7 +61,7 @@ in
         usbutils
         wezterm
         which
-        yazi
+        # yazi
         # zellij
         zip
         zoxide
@@ -68,6 +69,11 @@ in
   };
 
   programs = {
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+      package = inputs.yazi.packages.${pkgs.system}.yazi;
+    };
     home-manager.enable = true;
     helix = {
       enable = true;
