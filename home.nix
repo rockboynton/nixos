@@ -54,7 +54,6 @@ in
         ripgrep
         starship
         tealdeer
-        thefuck
         tokei
         tree
         unzip
@@ -228,26 +227,35 @@ in
         };
         ui = {
           merge-editor = ":builtin";
-          # pager = ":builtin";
           pager = "delta";
-          diff.format = "git";
+          diff-formatter = "git";
         };
+        revset-aliases = {
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+        };
+        aliases = {
+          tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+          push = ["git" "push"];
+          fetch = ["git" "fetch"];
+        };
+      };
+    };
+
+    delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        syntax-theme = "gruvbox-dark";
+        true-color = "always";
+        line-numbers = true;
       };
     };
 
     git = {
       enable = true;
-      delta = {
-        enable = true;
-        options = {
-          syntax-theme = "gruvbox-dark";
-          true-color = "always";
-          line-numbers = true;
-        };
-      };
-      userName = "Rock Boynton";
-      userEmail = "rock.boynton@yahoo.com";
-      extraConfig = {
+      settings = {
+        user.name = "Rock Boynton";
+        user.email = "rock.boynton@yahoo.com";
         commit.gpgsign = true;
         gpg.format = "ssh";
         user.signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICsfk0fRSkV21MX4xmXqPXxf25zcDOpOwKSmM9cMwVmu rock.boynton@yahoo.com";
@@ -261,11 +269,6 @@ in
     };
 
     fzf = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
-    thefuck = {
       enable = true;
       enableFishIntegration = true;
     };

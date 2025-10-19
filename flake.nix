@@ -50,11 +50,11 @@
               users.rockboynton = import ./home.nix;
               extraSpecialArgs = { inherit inputs; };
               sharedModules = [{
-                stylix.targets = {
-                  helix.enable = false;
-                  wezterm.enable = false;
-                  fish.enable = false;
-                };
+                # stylix.targets = {
+                #   helix.enable = false;
+                #   wezterm.enable = false;
+                #   fish.enable = false;
+                # };
               }];
             };
           }
