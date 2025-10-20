@@ -38,6 +38,7 @@ in
         fzf
         gitui
         google-chrome
+        gh
         jq
         lazygit
         lsd

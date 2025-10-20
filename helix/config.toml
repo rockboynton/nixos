@@ -16,7 +16,7 @@ completion-timeout = 100
 undercurl = true
 file-picker.hidden = false
 end-of-line-diagnostics = "hint"
-clipboard-provider = "termcode"
+rainbow-brackets = true
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
@@ -32,8 +32,12 @@ normal = "block"
 select = "underline"
 
 [editor.statusline]
-right = [
+center = [
   "diagnostics",
+  "spacer",
+  "workspace-diagnostics"
+]
+right = [
   "selections",
   "register",
   "position",
@@ -58,6 +62,11 @@ tab = "all"
 render = true
 skip-levels = 1
 character = "┊"
+
+# [editor.inline-blame]
+# behavior = "cursor-line"
+# compute = "background"
+# format = "{author}, {date} ({time-ago}) - {message} - {commit}"
 
 [keys.normal]
 tab = "move_parent_node_end"
@@ -101,24 +110,30 @@ B = [
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',
 ]
+i = ":toggle lsp.display-inlay-hints"
+t = ":toggle soft-wrap.enable"
 # B = "file_browser" # PR 11285
 # A-B = "file_browser_in_current_buffer_directory" # PR 11285
+
+[keys.normal.space.g]
+# b = "blame_line"
+o = ":sh gh browse %{buffer_name}:%{cursor_line}"
+u = ":sh gh browse %{buffer_name}:%{cursor_line} --no-browser"
+p = "changed_file_picker"
+t = [
+  ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% --close-on-exit -- gitui",
+  ":reload-all",
+]
+b = ":pipe-to /home/rboynton/sources/scripts/helix-git-blame"
+d.i = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Inline)' -- git diff"
+d.s = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Split)' -- /home/rboynton/sources/scripts/side-by-side-diff.fish"
+# make resolving merge conflicts easier
+c = ":sh /home/rboynton/sources/scripts/helix-find-next-conflict"
 
 [keys.normal."'"]
 # yazi as a file picker
 y = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Yazi Picker' -- /home/rboynton/.config/fish/scripts/open_in_helix_from_yazi.fish"
 r = ":reset-diff-change"
-g.t = [
-  ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% --close-on-exit -- gitui",
-  ":reload-all",
-]
-g.b = ":pipe-to /home/rboynton/sources/scripts/helix-git-blame"
-g.u = ":sh /home/rboynton/sources/scripts/helix-gh-url copy"
-g.o = ":sh /home/rboynton/sources/scripts/helix-gh-url open"
-g.d.i = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Inline)' -- git diff"
-g.d.s = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'Git Diff (Split)' -- /home/rboynton/sources/scripts/side-by-side-diff.fish"
-# make resolving merge conflicts easier
-g.c = ":sh /home/rboynton/sources/scripts/helix-find-next-conflict"
 "'" = ":sh zellij action new-pane --floating -x 5% -y 6% --height 88% --width 91%"
 s = ":sh zellij run --floating -x 5% -y 6% --height 88% --width 91% -n 'live grep' -- /home/rboynton/sources/scripts/helix-live-grep"
 
