@@ -61,10 +61,9 @@ in
         usbutils
         wezterm
         which
-        # yazi
-        # zellij
         zip
         zoxide
+        inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
       ];
   };
 
@@ -113,14 +112,13 @@ in
         end
       '';
       shellAbbrs = {
-        nrs = "nixos-rebuild switch --use-remote-sudo";
+        nrs = "nixos-rebuild switch --sudo";
         zj = "zellij";
         ns = "nix shell nixpkgs#";
         yz = "yazi";
         gt = "gitui";
         fixup = "git add -u && git commit --amend --no-edit && git push -f";
         hxu = "~/sources/scripts/open-in-helix-under";
-        copy = "sed -z '\$ s/\n\$//' | ssh rboynton-macbook14.corp.anduril.com pbcopy";
         l = "ls -a";
         la = "ls -a";
         lla = "ls -la";
@@ -229,7 +227,7 @@ in
         ui = {
           merge-editor = ":builtin";
           pager = "delta";
-          diff-formatter = "git";
+          diff-formatter = ":git";
         };
         revset-aliases = {
           "closest_bookmark(to)" = "heads(::to & bookmarks())";

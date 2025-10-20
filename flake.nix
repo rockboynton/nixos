@@ -27,9 +27,14 @@
       url = "github:sxyazi/yazi";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Zoo Design Studio
+    modeling-app = {
+      url = "github:KittyCAD/modeling-app";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj, yazi }:
+  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj, yazi, modeling-app }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -49,13 +54,7 @@
               useUserPackages = true;
               users.rockboynton = import ./home.nix;
               extraSpecialArgs = { inherit inputs; };
-              sharedModules = [{
-                # stylix.targets = {
-                #   helix.enable = false;
-                #   wezterm.enable = false;
-                #   fish.enable = false;
-                # };
-              }];
+              sharedModules = [{ }];
             };
           }
 

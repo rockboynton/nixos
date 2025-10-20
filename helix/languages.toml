@@ -1,6 +1,5 @@
 [[language]]
 name = "nix"
-language-servers = ["nixd"]
 formatter = { command = "nixpkgs-fmt" }
 
 [[language]]
@@ -8,18 +7,18 @@ name = "typst"
 auto-format = true
 formatter.command = "typstfmt"
 
+[[language]]
+name = "haskell"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "fourmolu", args = ["-i"] }
+
 [language-server.rust-analyzer.config]
 check.command = "clippy"
 workspace.symbol.search.kind = "all_symbols"
 
 [language-server.haskell-language-server]
 command = "haskell-language-server"
-config.haskell = { formattingProvider = "fourmolu", plugin.fourmolu.config.external = true }
-
-[[language]]
-name = "haskell"
-indent = { tab-width = 4, unit = "    " }
-formatter = { command = "fourmolu", args = ["-i"] }
+args = ["--lsp"]
 
 [[language]]
 name = "toml"
