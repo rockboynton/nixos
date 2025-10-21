@@ -3,12 +3,21 @@
 let
   username = "rockboynton";
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
+  localPackages = import ./pkgs { inherit pkgs; };
 in
 {
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "24.11";
+
+    pointerCursor = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+      size = 24;
+      x11.enable = true;
+      gtk.enable = true;
+    };
 
     file.".config/helix/" = {
       source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/helix/";
@@ -65,6 +74,8 @@ in
         zoxide
         inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
         inputs.zoo-cli.packages.${pkgs.system}.zoo
+        localPackages.echo-foo
+        localPackages.zoo-design-studio
       ];
   };
 

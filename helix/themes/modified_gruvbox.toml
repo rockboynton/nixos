@@ -1,5 +1,0 @@
-inherits = "gruvbox"
-
-"ui.background" = {}
-"ui.picker.header.column" = { fg = "aqua0", modifiers = [ "bold", "underlined" ] }
-"ui.picker.header.column.active" = { fg = "orange1", modifiers = [ "bold", "underlined" ] }

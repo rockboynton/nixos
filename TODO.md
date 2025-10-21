@@ -2,8 +2,11 @@
 
 - [ ] Program mouse
 - [ ] Program Klor keyboard
-- [ ] Helix
+- [x] Helix
 - [x] Zellij
 - [x] Fish
 - [x] Wezterm
 - [ ] Use a tiling WM (not x11)
+- [ ] Wayland
+- [ ] Rofi
+- [ ] Clipboard manager
