@@ -64,6 +64,7 @@ in
         zip
         zoxide
         inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
+        inputs.zoo-cli.packages.${pkgs.system}.zoo
       ];
   };
 

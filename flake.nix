@@ -32,9 +32,14 @@
       url = "github:KittyCAD/modeling-app";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zoo-cli = {
+      url = "github:kittycad/cli";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, stylix, tinted-theming, helix, jj, yazi, modeling-app }:
+  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
