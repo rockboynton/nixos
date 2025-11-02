@@ -79,6 +79,14 @@ in
       ];
   };
 
+  services = {
+    clipcat = {
+      enable = true;
+      enableZshIntegration = true;
+      enableSystemdUnit = true;
+    };
+  };
+
   programs = {
     yazi = {
       enable = true;
@@ -293,6 +301,10 @@ in
       enable = true;
       enableFishIntegration = true;
     };
+
+    # rofi = {
+    #   enable = true;
+    # };
   };
 }
 
