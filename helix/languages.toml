@@ -1,0 +1,29 @@
+[[language]]
+name = "nix"
+formatter = { command = "nixpkgs-fmt" }
+
+[[language]]
+name = "typst"
+auto-format = true
+formatter.command = "typstfmt"
+
+[[language]]
+name = "haskell"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "fourmolu", args = ["-i"] }
+
+[language-server.rust-analyzer.config]
+check.command = "clippy"
+workspace.symbol.search.kind = "all_symbols"
+
+[language-server.haskell-language-server]
+command = "haskell-language-server"
+args = ["--lsp"]
+
+[[language]]
+name = "toml"
+formatter = { command = "taplo", args = ["fmt", "-"] }
+
+[[language]]
+name = "ld"
+file-types = ["ld", "x"]
