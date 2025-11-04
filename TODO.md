@@ -10,3 +10,4 @@
 - [ ] Wayland
 - [ ] Rofi
 - [ ] Clipboard manager
+- [ ] Omarchy

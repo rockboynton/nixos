@@ -37,9 +37,15 @@
       url = "github:kittycad/cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    omarchy-nix = {
+      url = "github:henrysipp/omarchy-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, omarchy-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -51,9 +57,16 @@
         inherit system;
         modules = [
           ./configuration.nix
+          omarchy-nix.nixosModules.default
 
           home-manager.nixosModules.home-manager
           {
+            omarchy = {
+              full_name = "Rock Boynton";
+              email_address = "rock.boynton@yahoo.com";
+              theme = "gruvbox";
+            };
+
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;

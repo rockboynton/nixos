@@ -6,6 +6,7 @@ let
   localPackages = import ./pkgs { inherit pkgs; };
 in
 {
+  imports = [ inputs.omarchy-nix.homeManagerModules.default ];
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
@@ -33,6 +34,12 @@ in
 
     file.".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
 
+    # file.".config/hypr/" = {
+    #   source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/hypr/";
+    #   recursive = true;
+    # };
+    #
+
     packages = with pkgs;
       [
         bat
@@ -49,11 +56,12 @@ in
         google-chrome
         gh
         jq
+        kitty
         lazygit
         lsd
         neofetch
-        neovim
         nerd-fonts.fira-code
+        nautilus
         nixd
         nix-direnv
         nix-output-monitor
@@ -69,6 +77,7 @@ in
         unzip
         usbutils
         wezterm
+        wofi
         which
         zip
         zoxide
@@ -77,6 +86,15 @@ in
         localPackages.echo-foo
         localPackages.zoo-design-studio
       ];
+  };
+
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts.monospace = [ "Fira Code Nerd Font"];
+  };
+
+  wayland.windowManager.hyprland.settings = {
+    "$terminal" = "wezterm";
   };
 
   services = {
@@ -253,9 +271,9 @@ in
           "closest_bookmark(to)" = "heads(::to & bookmarks())";
         };
         aliases = {
-          tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
-          push = ["git" "push"];
-          fetch = ["git" "fetch"];
+          tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
+          push = [ "git" "push" ];
+          fetch = [ "git" "fetch" ];
         };
       };
     };
@@ -302,9 +320,9 @@ in
       enableFishIntegration = true;
     };
 
-    # rofi = {
-    #   enable = true;
-    # };
+    rofi = {
+      enable = true;
+    };
   };
 }
 
