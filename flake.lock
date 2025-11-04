@@ -205,11 +205,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1760921792,
-        "narHash": "sha256-UT00IJ6D4i5TJqej7i+vtGSZShHxcTVvS9ltlCfdVX4=",
+        "lastModified": 1762128906,
+        "narHash": "sha256-NZfXgds2fpjJK7rYUnB+txaA1dDFL0GuqMnlmm76u5Q=",
         "owner": "rockboynton",
         "repo": "helix",
-        "rev": "9299953a4e8b29f0aa6f205c5ba6ace001cca1b9",
+        "rev": "21f4821809234ab337a346857bd827d228fe0df6",
         "type": "github"
       },
       "original": {
@@ -761,11 +761,11 @@
         "rust-overlay": "rust-overlay_5"
       },
       "locked": {
-        "lastModified": 1760730870,
-        "narHash": "sha256-dQBSSzaFDR0PWmwIuWYjM2wp5NkS02ziDl0aGCtApAQ=",
+        "lastModified": 1761679271,
+        "narHash": "sha256-ty8u3B5WdfSpBVXAamqZkbSKfNF18ArfpHnRrC4eJ4I=",
         "owner": "kittycad",
         "repo": "cli",
-        "rev": "2de0b04753babd2e74eda863b0324fa760a3615d",
+        "rev": "f7f6e4fdfbb33c17ee1730c5b00fb62811db1287",
         "type": "github"
       },
       "original": {
