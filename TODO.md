@@ -10,4 +10,4 @@
 - [ ] Wayland
 - [ ] Rofi
 - [ ] Clipboard manager
-- [ ] Omarchy
+- [ ] treefmt (nix, lua, kdl, toml)

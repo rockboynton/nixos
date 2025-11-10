@@ -38,14 +38,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    omarchy-nix = {
-      url = "github:henrysipp/omarchy-nix";
+    elephant = {
+      url = "github:abenz1267/elephant";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, omarchy-nix, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -55,18 +59,14 @@
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./configuration.nix
-          omarchy-nix.nixosModules.default
 
           home-manager.nixosModules.home-manager
           {
-            omarchy = {
-              full_name = "Rock Boynton";
-              email_address = "rock.boynton@yahoo.com";
-              theme = "gruvbox";
-            };
-
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;

@@ -1,0 +1,200 @@
+// This config is in the KDL format: https://kdl.dev
+// Check the wiki for a full description of the configuration:
+// https://yalter.github.io/niri/Configuration:-Introduction
+
+input {
+    keyboard {
+        repeat-delay 150
+        repeat-rate 50
+        // Enable numlock on startup, omitting this setting disables it.
+        numlock
+    }
+}
+
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+output "HDMI-A-1" {
+    mode "1920x1080@60.000"
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}
+
+output "DP-1" {
+    focus-at-startup
+    mode "2560x1440@74.925"
+    scale 1
+    transform "normal"
+    position x=1920 y=-150
+}
+
+output "HDMI-A-2" {
+    mode "1920x1080@60.000"
+    scale 1
+    transform "270"
+    position x=4480 y=-300
+
+    // TODO add this on next release
+    // layout {
+    //     default-column-width { proportion 1.0; }
+    // }
+}
+
+layout {
+    gaps 10
+
+    always-center-single-column
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.5; }
+
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+
+    focus-ring {
+        width 4
+        active-color "#458588"
+        inactive-color "#504945"
+        urgent-color "#9b0000"
+    }
+
+    border {
+       off
+    }
+
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=-5 y=5
+        color "#1d2021"
+    }
+
+    background-color "#282828"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
+
+animations {
+    slowdown 1.0
+}
+
+window-rule {
+    geometry-corner-radius 6
+    clip-to-geometry true
+}
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Common apps
+    Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
+
+    Mod+Shift+L hotkey-overlay-title="Sleep/Suspend" { spawn-sh "systemctl suspend"; }
+
+    // Example volume keys mappings for PipeWire & WirePlumber.
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    // Misc
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
+
+    // Focusing
+    Mod+H     { focus-column-or-monitor-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-or-monitor-right; }
+    Mod+Ctrl+Alt+H     { focus-monitor-left; }
+    Mod+Ctrl+Alt+L     { focus-monitor-right; }
+    Mod+WheelScrollLeft      cooldown-ms=150 { focus-column-or-monitor-left; }
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-window-or-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-window-or-workspace-up; }
+    Mod+WheelScrollRight     cooldown-ms=150 { focus-column-or-monitor-right; }
+
+    // Moving
+    Mod+Ctrl+H     { move-column-left-or-to-monitor-left; }
+    Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
+    Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    Mod+Ctrl+L     { move-column-right-or-to-monitor-right; }
+    Mod+Shift+Alt+H     { move-column-to-monitor-left; }
+    Mod+Shift+Alt+J     { move-column-to-workspace-down; }
+    Mod+Shift+Alt+K     { move-column-to-workspace-up; }
+    Mod+Shift+Alt+L     { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H  { move-window-to-monitor-left; }
+    Mod+Shift+Ctrl+J  { move-window-to-workspace-down; }
+    Mod+Shift+Ctrl+K  { move-window-to-workspace-up; }
+    Mod+Shift+Ctrl+L    { move-window-to-monitor-right; }
+    Mod+Shift+Ctrl+Alt+H  { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+Alt+J  { move-workspace-down; }
+    Mod+Shift+Ctrl+Alt+K  { move-workspace-up; }
+    Mod+Shift+Ctrl+Alt+L  { move-workspace-to-monitor-right; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    // Move windows between columns
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // Consume one window from the right to the bottom of the focused column.
+    Mod+Comma  { consume-window-into-column; }
+    // Expel the bottom window from the focused column to the right.
+    Mod+Period { expel-window-from-column; }
+
+    // Change dimensions
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    // Adjust views
+    Mod+Alt+C { center-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+
+    // Finer width adjustments.
+    Mod+Minus { set-column-width "-5%"; }
+    Mod+Equal { set-column-width "+5%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-5%"; }
+    Mod+Shift+Equal { set-window-height "+5%"; }
+
+    // Move the focused window between the floating and the tiling layout.
+    // Niri calls this "floating", but I consider this more akin to "pinned"
+    Mod+Shift+W       { toggle-window-floating; }
+    Mod+W { switch-focus-between-floating-and-tiling; }
+
+    Mod+Alt+W { toggle-column-tabbed-display; }
+
+    Mod+P { screenshot; }
+    Mod+Ctrl+P { screenshot-screen; }
+    Mod+Alt+P { screenshot-window; }
+
+    // Toggle allowing niri to always process input
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+}

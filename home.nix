@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 let
   username = "rockboynton";
@@ -6,11 +6,43 @@ let
   localPackages = import ./pkgs { inherit pkgs; };
 in
 {
-  imports = [ inputs.omarchy-nix.homeManagerModules.default ];
+  imports = [ inputs.walker.homeManagerModules.default ];
+
+  systemd.user.services =
+    let
+      Unit = {
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+        Requisite = [ "graphical-session.target" ];
+      };
+    in
+    {
+      # TODO try awww
+      swaybg = {
+        inherit Unit;
+
+        Service = {
+          ExecStart = "${lib.getExe pkgs.swaybg} -m fill -i %h/backgrounds/gruvbox.png";
+          Restart = "on-failure";
+        };
+      };
+      swayidle = {
+        inherit Unit;
+
+        Service = {
+          ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 601 'niri msg action power-off-monitors' timeout 600 'swaylock -f' before-sleep 'swaylock -f'";
+          Restart = "on-failure";
+        };
+      };
+    };
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "24.11";
+
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
 
     pointerCursor = {
       name = "Bibata-Modern-Classic";
@@ -18,6 +50,11 @@ in
       size = 24;
       x11.enable = true;
       gtk.enable = true;
+    };
+
+    file."backgrounds" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/backgrounds/";
+      recursive = true;
     };
 
     file.".config/helix/" = {
@@ -34,34 +71,37 @@ in
 
     file.".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
 
-    # file.".config/hypr/" = {
-    #   source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/hypr/";
-    #   recursive = true;
-    # };
-    #
+    file.".config/niri/" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
+      recursive = true;
+    };
 
     packages = with pkgs;
       [
         bat
         bat-extras.batman
         bottom
-        discord
         delta
         direnv
+        discord
         dust
+        element-desktop
         fd
         fish
         fzf
+        gh
         gitui
         google-chrome
-        gh
+        inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
+        inputs.zoo-cli.packages.${pkgs.system}.zoo
         jq
         kitty
         lazygit
+        localPackages.zoo-design-studio
         lsd
+        nautilus
         neofetch
         nerd-fonts.fira-code
-        nautilus
         nixd
         nix-direnv
         nix-output-monitor
@@ -71,30 +111,24 @@ in
         qmk-udev-rules
         ripgrep
         starship
+        swaybg
         tealdeer
         tokei
         tree
         unzip
         usbutils
         wezterm
-        wofi
         which
+        wl-clipboard
+        xwayland-satellite
         zip
         zoxide
-        inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
-        inputs.zoo-cli.packages.${pkgs.system}.zoo
-        localPackages.echo-foo
-        localPackages.zoo-design-studio
       ];
   };
 
   fonts.fontconfig = {
     enable = true;
-    defaultFonts.monospace = [ "Fira Code Nerd Font"];
-  };
-
-  wayland.windowManager.hyprland.settings = {
-    "$terminal" = "wezterm";
+    defaultFonts.monospace = [ "FiraCode Nerd Font" ];
   };
 
   services = {
@@ -103,9 +137,29 @@ in
       enableZshIntegration = true;
       enableSystemdUnit = true;
     };
+    mako.enable = true;
+    # swayidle = {
+    #   enable = true;
+    # };
   };
 
   programs = {
+    walker = {
+      enable = true;
+      runAsService = true;
+      # config.theme = "gruvbox";
+    };
+    swaylock.enable = true;
+    waybar = {
+      enable = true;
+      systemd.enable = true;
+      settings.mainBar.layer = "top";
+    };
+    # niri = {
+    #   # disable the generated config to use the one from this repo
+    #   config = null;
+    #   enable = true;
+    # };
     yazi = {
       enable = true;
       enableFishIntegration = true;
@@ -313,15 +367,12 @@ in
     zellij = {
       enable = true;
       enableFishIntegration = true;
+      attachExistingSession = true;
     };
 
     zoxide = {
       enable = true;
       enableFishIntegration = true;
-    };
-
-    rofi = {
-      enable = true;
     };
   };
 }
