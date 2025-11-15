@@ -11,14 +11,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    tinted-theming = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
     jj = {
       url = "github:jj-vcs/jj";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,24 +24,17 @@
       url = "github:KittyCAD/modeling-app";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     zoo-cli = {
       url = "github:kittycad/cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    elephant = {
-      url = "github:abenz1267/elephant";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     walker = {
       url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, stylix, tinted-theming, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -73,20 +58,6 @@
               users.rockboynton = import ./home.nix;
               extraSpecialArgs = { inherit inputs; };
               sharedModules = [{ }];
-            };
-          }
-
-          stylix.nixosModules.stylix
-          {
-            stylix = {
-              image = ./gruvbox.png;
-              polarity = "dark";
-              base16Scheme = "${tinted-theming}/base16/gruvbox-dark-medium.yaml";
-              opacity.terminal = 0.8;
-              fonts.monospace = {
-                package = nixpkgs.legacyPackages.${system}.fira-code-nerdfont;
-                name = "FiraCode Nerd Font";
-              };
             };
           }
         ];
