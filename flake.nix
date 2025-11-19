@@ -32,14 +32,16 @@
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -62,10 +64,22 @@
           }
         ];
       };
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [ ];
+
+      formatter.${system} = treefmt-nix.lib.mkWrapper pkgs {
+        programs = {
+          nixpkgs-fmt.enable = true; # nix
+          stylua.enable = true; # lua
+          kdlfmt.enable = true; # kdl
+          taplo.enable = true; # taplo
+          mdformat.enable = true; # markdown
+        };
       };
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+
+      devShells.${system}.default = pkgs.mkShell {
+        packages = [
+          self.formatter.${system}
+        ];
+      };
     };
 }
 
