@@ -2,12 +2,14 @@
 
 - [ ] Program mouse
 - [ ] Program Klor keyboard
-- [x] Helix
-- [x] Zellij
-- [x] Fish
-- [x] Wezterm
-- [ ] Use a tiling WM (not x11)
-- [ ] Wayland
-- [ ] Rofi
-- [ ] Clipboard manager
-- [ ] treefmt (nix, lua, kdl, toml)
+- [ ] `jjui` config, especially delta preview/diff config, see https://github.com/idursun/jjui/issues/314
+
+- [ ] Desktop shell
+
+or
+
+- [ ] Top bar
+- [ ] Wallpaper
+- [ ] Top bar
+- [ ] Idle manager
+- [ ] Lock screen

@@ -2,9 +2,12 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
+spawn-at-startup "google-chrome-stable"
+spawn-at-startup "wezterm"
+
 input {
     keyboard {
-        repeat-delay 150
+        repeat-delay 175
         repeat-rate 50
         // Enable numlock on startup, omitting this setting disables it.
         numlock
@@ -130,6 +133,7 @@ binds {
     // Misc
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
+    Mod+V repeat=false { spawn-sh "walker --provider clipboard"; }
 
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }

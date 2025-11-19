@@ -15,6 +15,7 @@ formatter = { command = "fourmolu", args = ["-i"] }
 [language-server.rust-analyzer.config]
 check.command = "clippy"
 workspace.symbol.search.kind = "all_symbols"
+files.watcher = "notify"
 
 [language-server.haskell-language-server]
 command = "haskell-language-server"

@@ -71,6 +71,14 @@ in
 
     file.".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
 
+    # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
+    file.".config/elephant/clipboard.toml".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
+
+    file.".config/walker/" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/walker";
+      recursive = true;
+    };
+
     file.".config/niri/" = {
       source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
       recursive = true;
@@ -94,6 +102,7 @@ in
         google-chrome
         inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
         inputs.zoo-cli.packages.${pkgs.system}.zoo
+        jjui
         jq
         kitty
         lazygit
@@ -120,6 +129,7 @@ in
         wezterm
         which
         wl-clipboard
+        wtype
         xwayland-satellite
         zip
         zoxide
@@ -147,14 +157,15 @@ in
     walker = {
       enable = true;
       runAsService = true;
-      # config.theme = "gruvbox";
+      # empty config to prevent the default one from being generated (use the config from this repo)
+      config = { };
     };
     swaylock.enable = true;
     waybar = {
       enable = true;
       systemd.enable = true;
-      # settings.mainBar.layer = "top";
     };
+    # TODO use either this or the system package and remove all the redundant settings that they do
     # niri = {
     #   # disable the generated config to use the one from this repo
     #   config = null;
