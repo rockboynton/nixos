@@ -153,7 +153,7 @@ in
     waybar = {
       enable = true;
       systemd.enable = true;
-      settings.mainBar.layer = "top";
+      # settings.mainBar.layer = "top";
     };
     # niri = {
     #   # disable the generated config to use the one from this repo

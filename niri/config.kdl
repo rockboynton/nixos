@@ -11,6 +11,11 @@ input {
     }
 }
 
+cursor {
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
+
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 output "HDMI-A-1" {
@@ -83,6 +88,13 @@ layout {
 
 hotkey-overlay {
     skip-at-startup
+    hide-not-bound
+}
+
+gestures {
+    hot-corners {
+        off
+    }
 }
 
 prefer-no-csd
