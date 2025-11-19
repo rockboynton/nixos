@@ -68,8 +68,15 @@
       formatter.${system} = treefmt-nix.lib.mkWrapper pkgs {
         programs = {
           nixpkgs-fmt.enable = true; # nix
-          stylua.enable = true; # lua
-          kdlfmt.enable = true; # kdl
+          stylua = {
+            # lua
+            enable = true;
+            settings = {
+              indent_type = "Spaces";
+              quote_style = "AutoPreferSingle";
+            };
+          };
+          # kdlfmt.enable = true; # kdl, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
           mdformat.enable = true; # markdown
         };

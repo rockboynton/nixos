@@ -32,11 +32,7 @@ normal = "block"
 select = "underline"
 
 [editor.statusline]
-center = [
-  "diagnostics",
-  "spacer",
-  "workspace-diagnostics"
-]
+center = ["diagnostics", "spacer", "workspace-diagnostics"]
 right = [
   "selections",
   "register",
