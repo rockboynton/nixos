@@ -1,30 +1,46 @@
-[[language]]
-name = "nix"
-formatter = { command = "nixpkgs-fmt" }
+[language-server.harper-ls.config.harper-ls]
+diagnosticSeverity = "warn"
 
-[[language]]
-name = "typst"
-auto-format = true
-formatter.command = "typstfmt"
+[language-server.harper-ls.config.harper-ls.linters]
+ToDoHyphen = false
 
-[[language]]
-name = "haskell"
-indent = { tab-width = 4, unit = "    " }
-formatter = { command = "fourmolu", args = ["-i"] }
+[language-server.haskell-language-server]
+command = "haskell-language-server"
+args = ["--lsp"]
 
 [language-server.rust-analyzer.config]
 check.command = "clippy"
 workspace.symbol.search.kind = "all_symbols"
 files.watcher = "notify"
 
-[language-server.haskell-language-server]
-command = "haskell-language-server"
-args = ["--lsp"]
+[[language]]
+name = "haskell"
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "fourmolu", args = ["-i"] }
+
+[[language]]
+name = "ld"
+file-types = ["ld", "x"]
+
+[[language]]
+name = "markdown"
+formatter = { command = "mdformat", args = ["-"] }
+language-servers = ["marksman", "harper-ls"]
+
+[[language]]
+name = "nix"
+formatter = { command = "nixpkgs-fmt" }
+language-servers = ["nixd", "harper-ls"]
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer", "harper-ls"]
 
 [[language]]
 name = "toml"
 formatter = { command = "taplo", args = ["fmt", "-"] }
 
 [[language]]
-name = "ld"
-file-types = ["ld", "x"]
+name = "typst"
+auto-format = true
+formatter.command = "typstfmt"

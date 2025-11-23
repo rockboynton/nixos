@@ -7,7 +7,7 @@ spawn-at-startup "wezterm"
 
 input {
     keyboard {
-        repeat-delay 175
+        repeat-delay 200
         repeat-rate 50
         // Enable numlock on startup, omitting this setting disables it.
         numlock

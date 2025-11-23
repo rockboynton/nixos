@@ -76,17 +76,27 @@
               quote_style = "AutoPreferSingle";
             };
           };
-          # kdlfmt.enable = true; # kdl, add back when more options like preserving newlines are added
+          # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
           mdformat.enable = true; # markdown
         };
       };
 
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [
-          self.formatter.${system}
-        ];
-      };
+      devShells.${system}.default =
+        let
+          pkgsFromNix = with pkgs; [
+            stylua
+            taplo
+            harper
+            marksman
+            mdformat
+          ];
+        in
+        pkgs.mkShell {
+          packages = [
+            self.formatter.${system}
+          ] ++ pkgsFromNix;
+        };
     };
 }
 

@@ -105,7 +105,6 @@ in
         inputs.zoo-cli.packages.${pkgs.system}.zoo
         jjui
         jq
-        kitty
         lazygit
         localPackages.zoo-design-studio
         lsd
