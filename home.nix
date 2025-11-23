@@ -210,7 +210,7 @@ in
         end
       '';
       shellAbbrs = {
-        nrs = "nixos-rebuild switch --sudo";
+        nrs = "sudo nixos-rebuild switch";
         zj = "zellij";
         ns = "nix shell nixpkgs#";
         yz = "yazi";
@@ -224,7 +224,8 @@ in
         jds = "DELTA_FEATURES=+side-by-side jj diff";
         ju = "jj tug && jj push";
         jl = "jj log";
-        js = "jj squash";
+        jsq = "jj squash";
+        jst = "jj status";
         jp = "jj push";
         jf = "jj fetch";
         jfa = "jj fetch --all-remotes";
