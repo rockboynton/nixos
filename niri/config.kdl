@@ -139,6 +139,10 @@ binds {
     Mod+Shift+BracketLeft { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
     Mod+Shift+BracketRight { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
 
+    // Switch alt (works with mac) with ctrl (works on linux)
+    Alt+Right { spawn-sh "wtype -M ctrl -k right -m ctrl"; }
+    Alt+Left { spawn-sh "wtype -M ctrl -k left -m ctrl"; }
+
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }
     Mod+J     { focus-window-or-workspace-down; }
