@@ -165,12 +165,6 @@ in
       enable = true;
       systemd.enable = true;
     };
-    # TODO use either this or the system package and remove all the redundant settings that they do
-    # niri = {
-    #   # disable the generated config to use the one from this repo
-    #   config = null;
-    #   enable = true;
-    # };
     yazi = {
       enable = true;
       enableFishIntegration = true;
