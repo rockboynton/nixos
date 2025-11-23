@@ -135,6 +135,10 @@ binds {
     Mod+Q repeat=false { close-window; }
     Mod+V repeat=false { spawn-sh "walker --provider clipboard"; }
 
+    // Make custom keyboard rotary encoders work
+    Mod+Shift+BracketLeft { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
+    Mod+Shift+BracketRight { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
+
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }
     Mod+J     { focus-window-or-workspace-down; }
