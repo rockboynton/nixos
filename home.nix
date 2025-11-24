@@ -4,38 +4,26 @@ let
   username = "rockboynton";
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
   localPackages = import ./pkgs { inherit pkgs; };
+  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
   imports = [ inputs.walker.homeManagerModules.default ];
 
-  systemd.user.services =
-    let
+  systemd.user.services = {
+    swayidle = {
       Unit = {
         PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session.target" ];
         Requires = [ "graphical-session.target" ];
-        WantedBy = [ "niri.service" ];
+        WantedBy = [ "graphical-session.target" ];
       };
-    in
-    {
-      # TODO try awww
-      swaybg = {
-        inherit Unit;
 
-        Service = {
-          ExecStart = "${lib.getExe pkgs.swaybg} -m fill -i %h/backgrounds/gruvbox.png";
-          Restart = "on-failure";
-        };
-      };
-      swayidle = {
-        inherit Unit;
-
-        Service = {
-          ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 601 'niri msg action power-off-monitors' timeout 600 'swaylock -f' before-sleep 'swaylock -f'";
-          Restart = "on-failure";
-        };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 601 'niri msg action power-off-monitors' timeout 600 'swaylock -f' before-sleep 'swaylock -f'";
+        Restart = "on-failure";
       };
     };
+  };
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
@@ -54,42 +42,51 @@ in
     };
 
     file."backgrounds" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/backgrounds/";
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/backgrounds/";
       recursive = true;
     };
 
     file.".config/helix/" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/helix/";
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/helix/";
       recursive = true;
     };
 
-    file.".config/starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/starship/starship.toml";
+    file.".config/starship.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/starship/starship.toml";
 
     file.".config/zellij/" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/zellij/";
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/zellij/";
       recursive = true;
     };
 
-    file.".config/wezterm/wezterm.lua".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
+    file.".config/wezterm/wezterm.lua".source = mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
 
-    # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
-    file.".config/elephant/clipboard.toml".source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
+    # `elephant` doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
+    file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
+
+    file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
     file.".config/walker/" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/walker";
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/walker";
       recursive = true;
     };
 
     file.".config/niri/" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
+      recursive = true;
+    };
+
+    file.".config/noctalia/" = {
+      source = mkOutOfStoreSymlink "${nixosConfigDir}/noctalia/";
       recursive = true;
     };
 
     packages = with pkgs;
       [
+        _1password-gui
         bat
         bat-extras.batman
         bottom
+        caprine
         delta
         direnv
         discord
@@ -101,6 +98,7 @@ in
         gh
         gitui
         google-chrome
+        inputs.noctalia.packages.${pkgs.system}.default
         inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
         inputs.zoo-cli.packages.${pkgs.system}.zoo
         jjui
@@ -120,7 +118,6 @@ in
         qmk-udev-rules
         ripgrep
         starship
-        swaybg
         tealdeer
         tokei
         tree
@@ -147,23 +144,14 @@ in
       enableZshIntegration = true;
       enableSystemdUnit = true;
     };
-    mako.enable = true;
-    # swayidle = {
-    #   enable = true;
-    # };
   };
 
   programs = {
     walker = {
       enable = true;
       runAsService = true;
-      # empty config to prevent the default one from being generated (use the config from this repo)
+      # Empty config to prevent the default one from being generated (use the config from this repo)
       config = { };
-    };
-    swaylock.enable = true;
-    waybar = {
-      enable = true;
-      systemd.enable = true;
     };
     yazi = {
       enable = true;
@@ -349,7 +337,6 @@ in
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-      # enableFishIntegration = true;
     };
 
     fzf = {

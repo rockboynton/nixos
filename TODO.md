@@ -7,10 +7,17 @@
 - [ ] `jjui` config, especially delta preview/diff config, see https://github.com/idursun/jjui/issues/314
 
 ## Shell stuff
+
 - [ ] Desktop shell
-or
+
+  or
+
 - [ ] Top bar
+
 - [ ] Wallpaper
+
 - [ ] Top bar
+
 - [ ] Idle manager
+
 - [ ] Lock screen

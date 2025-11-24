@@ -1,5 +1,9 @@
+Bootloader
+FHS
 KDL
 Klor
 TODO
+awww
 lua
+pipewire
 taplo

@@ -5,6 +5,17 @@
 spawn-at-startup "google-chrome-stable"
 spawn-at-startup "wezterm"
 
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
+// Set the overview wallpaper on the backdrop.
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
+
 input {
     keyboard {
         repeat-delay 200
@@ -42,10 +53,9 @@ output "HDMI-A-2" {
     transform "270"
     position x=4480 y=-300
 
-    // TODO add this on next release
-    // layout {
-    //     default-column-width { proportion 1.0; }
-    // }
+    layout {
+        default-column-width { proportion 1.0; }
+    }
 }
 
 layout {
@@ -85,8 +95,6 @@ layout {
         offset x=-5 y=5
         color "#1d2021"
     }
-
-    background-color "#282828"
 }
 
 hotkey-overlay {
@@ -119,16 +127,20 @@ binds {
     // Common apps
     Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
-    Mod+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 
-    Mod+Shift+L hotkey-overlay-title="Sleep/Suspend" { spawn-sh "systemctl suspend"; }
-
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    // Noctalia IPC calls
+    Mod+Alt+L { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
+    Mod+Shift+L { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
+    Mod+S { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
+    Mod+Semicolon { spawn-sh "noctalia-shell ipc call settings toggle"; }
+    Mod+Shift+B { spawn-sh "noctalia-shell ipc call bar toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteOutput"; }
+    Mod+M                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
+    XF86AudioPlay { spawn-sh "noctalia-shell ipc call media playPause"; }
+    Ctrl+Up { toggle-overview; }
 
     // Misc
     Mod+O repeat=false { toggle-overview; }
@@ -136,18 +148,23 @@ binds {
     Mod+Shift+V repeat=false { spawn-sh "walker --provider clipboard"; }
 
     // Make custom keyboard rotary encoders work
+    // Tab scrolling (right encoder)
     Mod+Shift+BracketLeft { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
     Mod+Shift+BracketRight { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
+    // Workspace scrolling (left encoder)
+    Ctrl+Right { focus-workspace-down; }
+    Ctrl+Left { focus-workspace-up; }
 
     // Switch alt (works with mac) with ctrl (works on linux)
     Alt+Right { spawn-sh "wtype -M ctrl -k right -m ctrl"; }
     Alt+Left { spawn-sh "wtype -M ctrl -k left -m ctrl"; }
     Shift+Alt+Right { spawn-sh "wtype -M ctrl -M shift -k right -m shift -m ctrl"; }
     Shift+Alt+Left { spawn-sh "wtype -M ctrl -M shift -k left -m shift -m ctrl"; }
+    Alt+backspace { spawn-sh "wtype -M ctrl -k backspace -m ctrl"; }
 
     // Old habits (from Mac) die hard
     Mod+C { spawn-sh "wtype -M ctrl c -m ctrl"; }
-    Mod+V { spawn-sh "wtype -M ctrl v -m ctrl"; }
+    Mod+V { spawn-sh "wtype -M ctrl -M shift v -m shift -m ctrl"; }
     Mod+W { spawn-sh "wtype -M ctrl w -m ctrl"; }
     Mod+F { spawn-sh "wtype -M ctrl f -m ctrl"; }
 
@@ -198,8 +215,7 @@ binds {
     Mod+Ctrl+R { reset-window-height; }
     Mod+Alt+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
-    // Add on next release
-    // Mod+Shift+Alt+F { maximize-window-to-edges; }
+    Mod+Shift+Alt+F { maximize-window-to-edges; }
     Mod+Shift+Ctrl+Alt+F { toggle-windowed-fullscreen; }
     Mod+Ctrl+F { expand-column-to-available-width; }
 
@@ -223,6 +239,7 @@ binds {
     Mod+Shift+Alt+W { toggle-column-tabbed-display; }
 
     Mod+P { screenshot; }
+    Mod+Shift+4 { screenshot; }
     Mod+Ctrl+P { screenshot-screen; }
     Mod+Alt+P { screenshot-window; }
 

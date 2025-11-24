@@ -207,6 +207,27 @@
         "type": "github"
       }
     },
+    "niri": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": []
+      },
+      "locked": {
+        "lastModified": 1764306526,
+        "narHash": "sha256-Lwz8CwV4ryaqbKNZ4ftnNrhwZI29aoHQ5MRJponTDTY=",
+        "owner": "YaLTeR",
+        "repo": "niri",
+        "rev": "0652342df8fffa93abcc5e567be1afb3eab002f6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "YaLTeR",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1752077645,
@@ -287,13 +308,35 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763943957,
+        "narHash": "sha256-O69zXL2CUMqXJdCNxC9QddymHGOvYynsL+qFJ675Qi4=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "e61a073f57d4e3aed8f0e74b7b9edb07c29c0b85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "helix": "helix",
         "home-manager": "home-manager",
         "jj": "jj",
         "modeling-app": "modeling-app",
+        "niri": "niri",
         "nixpkgs": "nixpkgs_3",
+        "noctalia": "noctalia",
         "treefmt-nix": "treefmt-nix",
         "walker": "walker",
         "yazi": "yazi",

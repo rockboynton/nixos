@@ -1,15 +1,23 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
       ./logiops.nix
+      inputs.noctalia.nixosModules.default
     ];
+
+  # nixpkgs.overlays = [
+  #   inputs.niri.overlays.default
+  # ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # this bricks my system?
+  # services.xserver.videoDrivers = [ "nvidia" ];
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -19,7 +27,7 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -49,6 +57,8 @@
     };
   };
 
+  services.noctalia-shell.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -63,7 +73,7 @@
   hardware.keyboard.qmk.enable = true;
   hardware.graphics.enable = true;
   hardware.nvidia = {
-    open = true;
+    open = false;
     modesetting.enable = true;
   };
   security = {
@@ -93,7 +103,7 @@
   # Enable automatic login for the user.
   services.displayManager.autoLogin.user = "rockboynton";
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # Workaround for GNOME auto login: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
   systemd.packages = [ pkgs.kdePackages.polkit-kde-agent-1 ];
@@ -114,6 +124,7 @@
 
   programs.fish.enable = true;
   programs.niri = {
+    package = inputs.niri.packages.${pkgs.system}.default;
     enable = true;
   };
 
