@@ -133,7 +133,7 @@ binds {
     // Misc
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
-    Mod+V repeat=false { spawn-sh "walker --provider clipboard"; }
+    Mod+Shift+V repeat=false { spawn-sh "walker --provider clipboard"; }
 
     // Make custom keyboard rotary encoders work
     Mod+Shift+BracketLeft { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
@@ -142,6 +142,14 @@ binds {
     // Switch alt (works with mac) with ctrl (works on linux)
     Alt+Right { spawn-sh "wtype -M ctrl -k right -m ctrl"; }
     Alt+Left { spawn-sh "wtype -M ctrl -k left -m ctrl"; }
+    Shift+Alt+Right { spawn-sh "wtype -M ctrl -M shift -k right -m shift -m ctrl"; }
+    Shift+Alt+Left { spawn-sh "wtype -M ctrl -M shift -k left -m shift -m ctrl"; }
+
+    // Old habits (from Mac) die hard
+    Mod+C { spawn-sh "wtype -M ctrl c -m ctrl"; }
+    Mod+V { spawn-sh "wtype -M ctrl v -m ctrl"; }
+    Mod+W { spawn-sh "wtype -M ctrl w -m ctrl"; }
+    Mod+F { spawn-sh "wtype -M ctrl f -m ctrl"; }
 
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }
@@ -188,8 +196,11 @@ binds {
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
+    Mod+Alt+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
+    // Add on next release
+    // Mod+Shift+Alt+F { maximize-window-to-edges; }
+    Mod+Shift+Ctrl+Alt+F { toggle-windowed-fullscreen; }
     Mod+Ctrl+F { expand-column-to-available-width; }
 
     // Adjust views
@@ -207,9 +218,9 @@ binds {
     // Move the focused window between the floating and the tiling layout.
     // Niri calls this "floating", but I consider this more akin to "pinned"
     Mod+Shift+W       { toggle-window-floating; }
-    Mod+W { switch-focus-between-floating-and-tiling; }
+    Mod+Alt+W { switch-focus-between-floating-and-tiling; }
 
-    Mod+Alt+W { toggle-column-tabbed-display; }
+    Mod+Shift+Alt+W { toggle-column-tabbed-display; }
 
     Mod+P { screenshot; }
     Mod+Ctrl+P { screenshot-screen; }
