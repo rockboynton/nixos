@@ -6,11 +6,12 @@
       ./hardware-configuration.nix
       ./logiops.nix
       inputs.noctalia.nixosModules.default
+      inputs.niri.nixosModules.niri
     ];
 
-  # nixpkgs.overlays = [
-  #   inputs.niri.overlays.default
-  # ];
+  nixpkgs.overlays = [
+    inputs.niri.overlays.niri
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -123,10 +124,7 @@
   ];
 
   programs.fish.enable = true;
-  programs.niri = {
-    package = inputs.niri.packages.${pkgs.system}.default;
-    enable = true;
-  };
+  programs.niri.enable = true;
 
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?
