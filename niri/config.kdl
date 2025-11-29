@@ -141,6 +141,7 @@ binds {
     Mod+M                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     XF86AudioPlay { spawn-sh "noctalia-shell ipc call media playPause"; }
     Mod+D { spawn-sh "noctalia-shell ipc call notifications dismissOldest"; }
+    Mod+Alt+D { spawn-sh "noctalia-shell ipc call notifications removeOldestHistory"; }
     Mod+Shift+D { spawn-sh "noctalia-shell ipc call notifications toggleHistory"; }
 
     // Misc

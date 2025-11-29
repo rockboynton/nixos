@@ -112,11 +112,31 @@
         "enableDdcSupport": false,
         "enforceMinimum": true
     },
+    "calendar": {
+        "cards": [
+            {
+                "enabled": true,
+                "id": "banner-card"
+            },
+            {
+                "enabled": true,
+                "id": "calendar-card"
+            },
+            {
+                "enabled": true,
+                "id": "timer-card"
+            },
+            {
+                "enabled": true,
+                "id": "weather-card"
+            }
+        ]
+    },
     "changelog": {
         "lastSeenVersion": ""
     },
     "colorSchemes": {
-        "darkMode": true,
+        "darkMode": false,
         "generateTemplatesForPredefined": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
@@ -261,6 +281,11 @@
         "autoHideMs": 2000,
         "backgroundOpacity": 1,
         "enabled": true,
+        "enabledTypes": [
+            0,
+            1,
+            2
+        ],
         "location": "top_right",
         "monitors": [
             "DP-1"
@@ -316,17 +341,21 @@
         ],
         "showHeader": true
     },
-    "settingsVersion": 23,
-    "setupCompleted": true,
+    "settingsVersion": 25,
     "systemMonitor": {
         "cpuCriticalThreshold": 90,
+        "cpuPollingInterval": 3000,
         "cpuWarningThreshold": 80,
         "criticalColor": "",
         "diskCriticalThreshold": 90,
+        "diskPollingInterval": 3000,
         "diskWarningThreshold": 80,
         "memCriticalThreshold": 90,
+        "memPollingInterval": 3000,
         "memWarningThreshold": 80,
+        "networkPollingInterval": 3000,
         "tempCriticalThreshold": 90,
+        "tempPollingInterval": 3000,
         "tempWarningThreshold": 80,
         "useCustomColors": false,
         "warningColor": ""
@@ -336,6 +365,7 @@
         "cava": false,
         "code": false,
         "discord": false,
+        "emacs": false,
         "enableUserTemplates": false,
         "foot": false,
         "fuzzel": false,
@@ -343,6 +373,7 @@
         "gtk": false,
         "kcolorscheme": false,
         "kitty": false,
+        "niri": false,
         "pywalfox": false,
         "qt": false,
         "spicetify": false,
@@ -362,14 +393,13 @@
         "tooltipsEnabled": true
     },
     "wallpaper": {
-        "defaultWallpaper": "/nix/store/5m4y8dz1x7qyk1n6mh5rhp8h808icfif-noctalia-shell-2025-11-24_e61a073/share/noctalia-shell/Assets/Wallpaper/noctalia.png",
         "directory": "/home/rockboynton/backgrounds",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "fillColor": "#000000",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
-        "monitors": [
+        "monitorDirectories": [
         ],
         "overviewEnabled": true,
         "panelPosition": "follow_bar",

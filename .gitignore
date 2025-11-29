@@ -3,3 +3,5 @@ result
 
 # auto-gen from GUI settings; directly mirrors noctalia/settings.json
 noctalia/gui-settings.json
+# let noctalia handle changing colors
+noctalia/colors.json
