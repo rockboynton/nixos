@@ -104,6 +104,7 @@ in
         jjui
         jq
         lazygit
+        libnotify
         localPackages.zoo-design-studio
         lsd
         nautilus

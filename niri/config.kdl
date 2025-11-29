@@ -140,7 +140,8 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteOutput"; }
     Mod+M                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
     XF86AudioPlay { spawn-sh "noctalia-shell ipc call media playPause"; }
-    Ctrl+Up { toggle-overview; }
+    Mod+D { spawn-sh "noctalia-shell ipc call notifications dismissOldest"; }
+    Mod+Shift+D { spawn-sh "noctalia-shell ipc call notifications toggleHistory"; }
 
     // Misc
     Mod+O repeat=false { toggle-overview; }
@@ -154,6 +155,7 @@ binds {
     // Workspace scrolling (left encoder)
     Ctrl+Right { focus-workspace-down; }
     Ctrl+Left { focus-workspace-up; }
+    Ctrl+Up { toggle-overview; }
 
     // Switch alt (works with mac) with ctrl (works on linux)
     Alt+Right { spawn-sh "wtype -M ctrl -k right -m ctrl"; }

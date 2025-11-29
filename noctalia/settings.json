@@ -197,7 +197,7 @@
     "general": {
         "allowPanelsOnScreenWithoutBar": true,
         "animationDisabled": false,
-        "animationSpeed": 1,
+        "animationSpeed": 1.2,
         "avatarImage": "/home/rockboynton/.face",
         "compactLockScreen": false,
         "dimmerOpacity": 0.6,
