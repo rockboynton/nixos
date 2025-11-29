@@ -20,7 +20,7 @@ in
       Service = {
         ExecStart = lib.concatStringsSep " " [
           "${lib.getExe pkgs.swayidle} -d"
-          "timeout 240 'notify-send \"System will lock soon due to inactivity.\"'"
+          "timeout 240 'notify-send --app-name \"Idle Warning\" \"System will lock soon due to inactivity.\"'"
           "timeout 300 'noctalia-shell ipc call lockScreen lock'"
           "timeout 600 'niri msg action power-off-monitors'"
           "resume 'niri msg action power-on-monitors'"
@@ -208,6 +208,10 @@ in
           starship module line_break
           starship module time
         end
+
+        if not set -q ZELLIJ
+          zellij attach dev -c
+        end
       '';
       shellAbbrs = {
         nrs = "sudo nixos-rebuild switch";
@@ -359,8 +363,6 @@ in
 
     zellij = {
       enable = true;
-      enableFishIntegration = true;
-      attachExistingSession = true;
     };
 
     zoxide = {

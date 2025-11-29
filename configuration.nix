@@ -50,10 +50,16 @@
 
   services.greetd = {
     enable = true;
+    useTextGreeter = true;
     settings = {
+      terminal.vt = lib.mkForce 3;
       default_session = {
-        command = "${lib.getExe pkgs.tuigreet} --time --cmd niri-session";
-        user = "rockboynton";
+        command = lib.concatStringsSep " " [
+          "${lib.getExe pkgs.tuigreet}"
+          "--debug --time --remember --asterisks"
+          "--cmd niri-session"
+          "--theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red"
+        ];
       };
     };
   };
