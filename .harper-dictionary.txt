@@ -2,8 +2,10 @@ Bootloader
 FHS
 KDL
 Klor
+Niri
 TODO
 awww
 lua
+nixpkgs
 pipewire
 taplo

@@ -42,7 +42,8 @@
     };
     niri = {
       url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Don't use this flake's nixpkgs since we want to use the Niri flake's cached Niri
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
