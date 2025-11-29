@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, inputs, config, ... }:
 
 {
   imports =
@@ -17,8 +17,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # this bricks my system?
+  # TODO figure out NVIDIA
+  # boot.kernelPackages = pkgs.linuxPackages;
   # services.xserver.videoDrivers = [ "nvidia" ];
+  # boot.initrd.kernelModules = [ "nvidia" ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -81,6 +84,7 @@
   hardware.graphics.enable = true;
   hardware.nvidia = {
     open = false;
+    # nvidiaSettings = true;
     modesetting.enable = true;
   };
   security = {

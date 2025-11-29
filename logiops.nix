@@ -20,6 +20,17 @@
     ];
   };
 
+  # This is needed since the mouse config isn't applied after resuming from suspend for some reason
+  systemd.services.logiops-resume = {
+    description = "Restart logiops after resume";
+    after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl restart logiops.service";
+    };
+  };
+
   # Configuration for logiops
   environment.etc."logid.cfg".text = /* json */ ''
     devices: ({
@@ -42,14 +53,14 @@
             mode: "OnRelease";
             action: {
               type: "Keypress";
-              keys: ["KEY_LEFTCTRL", "KEY_C"];
+              keys: ["KEY_LEFTMETA", "KEY_C"];
             };
           }, {
             direction: "Right";
             mode: "OnRelease";
             action: {
               type: "Keypress";
-              keys: ["KEY_LEFTCTRL", "KEY_V"];
+              keys: ["KEY_LEFTMETA", "KEY_V"];
             };
           }, {
             direction: "Down";

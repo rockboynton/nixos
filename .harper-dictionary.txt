@@ -5,7 +5,10 @@ Klor
 Niri
 TODO
 awww
+json
+logiops
 lua
 nixpkgs
 pipewire
+systemd
 taplo
