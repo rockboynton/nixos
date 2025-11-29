@@ -12,15 +12,26 @@ in
   systemd.user.services = {
     swayidle = {
       Unit = {
+        Description = "Idle manager for Niri";
         PartOf = [ "graphical-session.target" ];
         After = [ "graphical-session.target" ];
-        Requires = [ "graphical-session.target" ];
-        WantedBy = [ "graphical-session.target" ];
       };
 
       Service = {
-        ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 601 'niri msg action power-off-monitors' timeout 600 'swaylock -f' before-sleep 'swaylock -f'";
+        ExecStart = lib.concatStringsSep " " [
+          "${lib.getExe pkgs.swayidle} -d"
+          "timeout 240 'notify-send \"System will lock soon due to inactivity.\"'"
+          "timeout 300 'noctalia-shell ipc call lockScreen lock'"
+          "timeout 600 'niri msg action power-off-monitors'"
+          "resume 'niri msg action power-on-monitors'"
+          "timeout 900 'systemctl suspend'"
+          "before-sleep 'noctalia-shell ipc call lockScreen lock'"
+        ];
         Restart = "on-failure";
+      };
+
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
       };
     };
   };
@@ -119,6 +130,7 @@ in
         qmk-udev-rules
         ripgrep
         starship
+        swayidle
         tealdeer
         tokei
         tree

@@ -124,7 +124,10 @@
   ];
 
   programs.fish.enable = true;
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
 
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?
