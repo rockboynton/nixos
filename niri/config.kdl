@@ -33,7 +33,7 @@ cursor {
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 output "HDMI-A-1" {
-    mode "1920x1080@75.002"
+    mode "2560x1440@74.971"
     scale 1
     position x=0 y=0
 }
@@ -51,14 +51,14 @@ output "DP-2" {
     // mode "2560x1440@119.998"
     // scale 1
 
-    position x=1920 y=-150
+    position x=2560 y=0
 }
 
 output "HDMI-A-2" {
     mode "1920x1080@60.000"
     scale 1
     transform "270"
-    position x=4480 y=-300
+    position x=5120 y=-250
 
     layout {
         default-column-width { proportion 1.0; }
