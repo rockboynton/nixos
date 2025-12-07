@@ -1,0 +1,14 @@
+theme = Gruvbox Dark
+
+font-family = FiraCode Nerd Font
+font-size = 12
+
+background-blur = true
+background-image = /home/rockboynton/Downloads/honeycomb-modified (1).png
+background-image-fit = cover
+background-image-opacity = 0.7
+background-opacity = 0.9
+
+mouse-scroll-multiplier = 0.5
+
+minimum-contrast = 1.1

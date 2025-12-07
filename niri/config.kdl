@@ -3,7 +3,7 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 spawn-at-startup "google-chrome-stable"
-spawn-at-startup "wezterm"
+spawn-at-startup "ghostty"
 
 debug {
   // Allows notification actions and window activation from Noctalia.
@@ -132,7 +132,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Common apps
-    Mod+Grave hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+Grave hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 

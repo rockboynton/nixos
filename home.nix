@@ -5,14 +5,7 @@ let
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
   localPackages = import ./pkgs { inherit pkgs; };
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
-  # chrome =
-  #   (pkgs.writeShellScriptBin "chrome" ''
-  #     exec ${lib.getExe pkgs.google-chrome} \
-  #       --enable-features=ProactiveTabFreezeAndDiscard,TabFreeze,TabDiscarding,BackForwardCache,VaapiVideoDecodeLinuxGL \
-  #       --enable-aggressive-domstorage-flushing \
-  #       --ozone-platform=wayland \
-  #       "$@"
-  #   '');
+  system = pkgs.stdenv.hostPlatform.system;
 in
 {
   imports = [ inputs.walker.homeManagerModules.default ];
@@ -43,15 +36,6 @@ in
       };
     };
   };
-
-  # xdg.desktopEntries.google-chrome = {
-  #   name = "Google Chrome";
-  #   exec = "chrome %U";
-  #   icon = "google-chrome";
-  #   type = "Application";
-  #   categories = [ "Network" "WebBrowser" ];
-  #   mimeType = [ "text/html" "text/xml" "application/xhtml+xml" "x-scheme-handler/http" "x-scheme-handler/https" ];
-  # };
 
   home = {
     inherit username;
@@ -87,7 +71,7 @@ in
       recursive = true;
     };
 
-    file.".config/wezterm/wezterm.lua".source = mkOutOfStoreSymlink "${nixosConfigDir}/wezterm/wezterm.lua";
+    file.".config/ghostty/config".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/config";
 
     # `elephant` doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
     file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
@@ -129,9 +113,9 @@ in
         gh
         gitui
         google-chrome
-        inputs.noctalia.packages.${pkgs.system}.default
-        inputs.modeling-app.packages.${pkgs.system}.kcl-language-server
-        inputs.zoo-cli.packages.${pkgs.system}.zoo
+        inputs.noctalia.packages.${system}.default
+        inputs.modeling-app.packages.${system}.kcl-language-server
+        inputs.zoo-cli.packages.${system}.zoo
         jjui
         jq
         lazygit
@@ -180,7 +164,12 @@ in
   };
 
   programs = {
-    rio.enable = true;
+    ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+      installBatSyntax = true; 
+      systemd.enable = true;
+    };
     walker = {
       enable = true;
       runAsService = true;
@@ -190,12 +179,12 @@ in
     yazi = {
       enable = true;
       enableFishIntegration = true;
-      package = inputs.yazi.packages.${pkgs.system}.yazi;
+      package = inputs.yazi.packages.${system}.yazi;
     };
     home-manager.enable = true;
     helix = {
       enable = true;
-      package = inputs.helix.packages.${pkgs.system}.helix;
+      package = inputs.helix.packages.${system}.helix;
       defaultEditor = true;
     };
     starship = {
@@ -328,7 +317,7 @@ in
     };
 
     jujutsu = {
-      package = inputs.jj.outputs.packages.${pkgs.stdenv.hostPlatform.system}.jujutsu;
+      package = inputs.jj.outputs.packages.${system}.jujutsu;
       enable = true;
       settings = {
         user = {
