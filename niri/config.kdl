@@ -38,7 +38,7 @@ output "HDMI-A-1" {
     position x=0 y=0
 }
 
-output "DP-2" {
+output "DP-1" {
     focus-at-startup
     // TODO get a newer graphics card that supports this
     // mode "3840x2160@120.000"

@@ -5,6 +5,7 @@ local config = wezterm.config_builder()
 config.color_scheme = 'GruvboxDark'
 config.font = wezterm.font('FiraCode Nerd Font')
 config.font_size = 11.0
+config.front_end = "OpenGL"
 -- config.window_background_opacity = 0.8
 -- config.kde_window_background_blur = true
 config.background = {

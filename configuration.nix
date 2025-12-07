@@ -25,13 +25,10 @@
     KERNEL=="i2c-[0-9]*", MODE="0666"
   '';
 
-  # TODO figure out NVIDIA
-  # boot.kernelPackages = pkgs.linuxPackages;
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # boot.initrd.kernelModules = [ "nvidia" ];
-  # boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.kernelParams = [ "nvidia_drm.modeset=1" ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -89,11 +86,17 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   hardware.keyboard.qmk.enable = true;
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
   hardware.nvidia = {
     open = false;
-    # nvidiaSettings = true;
     modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   security = {
     polkit.enable = true;
@@ -114,7 +117,7 @@
   users.users.rockboynton = {
     isNormalUser = true;
     description = "Rock Boynton";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
     packages = [ ];
     shell = pkgs.fish;
   };
@@ -140,6 +143,13 @@
     "/share/fish"
     "/share/nix-direnv"
   ];
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1"; # Fixes cursor issues with NVIDIA + Wayland
+    LIBVA_DRIVER_NAME = "nvidia"; # For video acceleration
+    GBM_BACKEND = "nvidia-drm"; # For Wayland
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
 
   programs.fish.enable = true;
   programs.niri = {

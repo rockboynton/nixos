@@ -5,6 +5,14 @@ let
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
   localPackages = import ./pkgs { inherit pkgs; };
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
+  # chrome =
+  #   (pkgs.writeShellScriptBin "chrome" ''
+  #     exec ${lib.getExe pkgs.google-chrome} \
+  #       --enable-features=ProactiveTabFreezeAndDiscard,TabFreeze,TabDiscarding,BackForwardCache,VaapiVideoDecodeLinuxGL \
+  #       --enable-aggressive-domstorage-flushing \
+  #       --ozone-platform=wayland \
+  #       "$@"
+  #   '');
 in
 {
   imports = [ inputs.walker.homeManagerModules.default ];
@@ -35,6 +43,16 @@ in
       };
     };
   };
+
+  # xdg.desktopEntries.google-chrome = {
+  #   name = "Google Chrome";
+  #   exec = "chrome %U";
+  #   icon = "google-chrome";
+  #   type = "Application";
+  #   categories = [ "Network" "WebBrowser" ];
+  #   mimeType = [ "text/html" "text/xml" "application/xhtml+xml" "x-scheme-handler/http" "x-scheme-handler/https" ];
+  # };
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
@@ -94,10 +112,12 @@ in
     packages = with pkgs;
       [
         _1password-gui
+        alacritty
         bat
         bat-extras.batman
         bottom
         caprine
+        # chrome
         delta
         direnv
         discord
@@ -160,6 +180,7 @@ in
   };
 
   programs = {
+    rio.enable = true;
     walker = {
       enable = true;
       runAsService = true;
