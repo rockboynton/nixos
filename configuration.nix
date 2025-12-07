@@ -17,6 +17,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelModules = [
+    "i2c-dev"
+  ];
+
+  services.udev.extraRules = ''
+    KERNEL=="i2c-[0-9]*", MODE="0666"
+  '';
+
   # TODO figure out NVIDIA
   # boot.kernelPackages = pkgs.linuxPackages;
   # services.xserver.videoDrivers = [ "nvidia" ];

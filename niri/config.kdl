@@ -132,7 +132,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Common apps
-    Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+Grave hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 
@@ -183,6 +183,7 @@ binds {
     Mod+W { spawn-sh "wtype -M ctrl w -m ctrl"; }
     Mod+F { spawn-sh "wtype -M ctrl f -m ctrl"; }
     Mod+Z { spawn-sh "wtype -M ctrl z -m ctrl"; }
+    Mod+T { spawn-sh "wtype -M ctrl t -m ctrl"; }
 
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }
