@@ -1,0 +1,27 @@
+[user]
+name = "Rock Boynton"
+email = "rboynton@anduril.com"
+
+[ui]
+merge-editor = "mergiraf"
+diff-formatter = "delta-side-by-side"
+
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]
+diff-args=["--width=$width", "$left", "$right"]
+
+[merge-tools.delta-side-by-side]
+program = "delta"
+diff-expected-exit-codes = [0, 1]
+diff-args = ["--side-by-side", "$left", "$right", "--width=$width"]
+
+[merge-tools.difft]
+diff-args=["--color=always", "$left", "$right"]
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+
+[aliases]
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+push = ["git", "push"]
+fetch = ["git", "fetch"]

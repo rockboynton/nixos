@@ -73,6 +73,10 @@ in
 
     file.".config/ghostty/config".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/config";
 
+    file.".config/jj/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jj/config.toml";
+
+    file.".config/jjui/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jjui/config.toml";
+
     # `elephant` doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
     file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
 
@@ -319,25 +323,25 @@ in
     jujutsu = {
       package = inputs.jj.outputs.packages.${system}.jujutsu;
       enable = true;
-      settings = {
-        user = {
-          name = "Rock Boynton";
-          email = "rock.boynton@yahoo.com";
-        };
-        ui = {
-          merge-editor = ":builtin";
-          pager = "delta";
-          diff-formatter = ":git";
-        };
-        revset-aliases = {
-          "closest_bookmark(to)" = "heads(::to & bookmarks())";
-        };
-        aliases = {
-          tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
-          push = [ "git" "push" ];
-          fetch = [ "git" "fetch" ];
-        };
-      };
+      # settings = {
+      #   user = {
+      #     name = "Rock Boynton";
+      #     email = "rock.boynton@yahoo.com";
+      #   };
+      #   ui = {
+      #     merge-editor = ":builtin";
+      #     pager = "delta";
+      #     diff-formatter = ":git";
+      #   };
+      #   revset-aliases = {
+      #     "closest_bookmark(to)" = "heads(::to & bookmarks())";
+      #   };
+      #   aliases = {
+      #     tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
+      #     push = [ "git" "push" ];
+      #     fetch = [ "git" "fetch" ];
+      #   };
+      # };
     };
 
     delta = {
