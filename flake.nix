@@ -28,10 +28,6 @@
       url = "github:kittycad/cli";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

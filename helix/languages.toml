@@ -13,6 +13,11 @@ check.command = "clippy"
 workspace.symbol.search.kind = "all_symbols"
 files.watcher = "notify"
 
+[language-server.tinymist.config]
+exportPdf = "onType"
+outputPath = "$root/target/$dir/$name"
+formatterMode = "typstyle"
+
 [[language]]
 name = "haskell"
 indent = { tab-width = 4, unit = "    " }
@@ -42,5 +47,4 @@ formatter = { command = "taplo", args = ["fmt", "-"] }
 
 [[language]]
 name = "typst"
-auto-format = true
-formatter.command = "typstfmt"
+language-servers = ["tinymist", "harper-ls"]

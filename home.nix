@@ -8,8 +8,6 @@ let
   system = pkgs.stdenv.hostPlatform.system;
 in
 {
-  imports = [ inputs.walker.homeManagerModules.default ];
-
   systemd.user.services = {
     swayidle = {
       Unit = {
@@ -82,11 +80,6 @@ in
 
     file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
-    file.".config/walker/" = {
-      source = mkOutOfStoreSymlink "${nixosConfigDir}/walker";
-      recursive = true;
-    };
-
     file.".config/niri/" = {
       source = mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
       recursive = true;
@@ -110,6 +103,13 @@ in
         direnv
         discord
         dust
+        # eb-garamond
+        # gelasio
+        # garamond-libre
+        helvetica-neue-lt-std
+        aileron
+        fira
+        roboto
         element-desktop
         fd
         fish
@@ -171,14 +171,8 @@ in
     ghostty = {
       enable = true;
       enableFishIntegration = true;
-      installBatSyntax = true; 
+      installBatSyntax = true;
       systemd.enable = true;
-    };
-    walker = {
-      enable = true;
-      runAsService = true;
-      # Empty config to prevent the default one from being generated (use the config from this repo)
-      config = { };
     };
     yazi = {
       enable = true;
@@ -254,6 +248,12 @@ in
         cd = "z";
         da = "direnv allow";
         dr = "direnv reload";
+        start = "sudo systemctl start";
+        startu = "systemctl start --user";
+        stop = "sudo systemctl stop";
+        stopu = "systemctl stop --user";
+        restart = "sudo systemctl restart";
+        restartu = "systemctl restart --user";
       };
       shellAliases = {
         ls = "lsd --group-directories-first";
