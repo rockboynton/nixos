@@ -35,6 +35,14 @@ in
     };
   };
 
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+  };
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
@@ -42,6 +50,8 @@ in
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      QT_QPA_PLATFORMTHEME = "gtk3";
     };
 
     pointerCursor = {
@@ -75,9 +85,6 @@ in
 
     file.".config/jjui/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jjui/config.toml";
 
-    # `elephant` doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
-    file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
-
     file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
     file.".config/niri/" = {
@@ -93,6 +100,7 @@ in
     packages = with pkgs;
       [
         _1password-gui
+        adwaita-icon-theme
         alacritty
         bat
         bat-extras.batman
@@ -117,6 +125,7 @@ in
         gh
         gitui
         google-chrome
+        gtk3
         inputs.noctalia.packages.${system}.default
         inputs.modeling-app.packages.${system}.kcl-language-server
         inputs.zoo-cli.packages.${system}.zoo
@@ -133,6 +142,7 @@ in
         nix-direnv
         nix-output-monitor
         nixpkgs-fmt
+        nwg-look
         patchy
         qmk
         qmk-udev-rules
@@ -160,6 +170,7 @@ in
   };
 
   services = {
+    # TODO fix noctalia clipboard preview + icons
     clipcat = {
       enable = true;
       enableZshIntegration = true;
@@ -323,25 +334,6 @@ in
     jujutsu = {
       package = inputs.jj.outputs.packages.${system}.jujutsu;
       enable = true;
-      # settings = {
-      #   user = {
-      #     name = "Rock Boynton";
-      #     email = "rock.boynton@yahoo.com";
-      #   };
-      #   ui = {
-      #     merge-editor = ":builtin";
-      #     pager = "delta";
-      #     diff-formatter = ":git";
-      #   };
-      #   revset-aliases = {
-      #     "closest_bookmark(to)" = "heads(::to & bookmarks())";
-      #   };
-      #   aliases = {
-      #     tug = [ "bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-" ];
-      #     push = [ "git" "push" ];
-      #     fetch = [ "git" "fetch" ];
-      #   };
-      # };
     };
 
     delta = {

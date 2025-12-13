@@ -5,10 +5,13 @@ Klor
 Niri
 TODO
 awww
+dmenu
 json
+kdlfmt
 logiops
 lua
 nixpkgs
+noctalia
 pipewire
 systemd
 taplo

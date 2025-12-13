@@ -2,7 +2,7 @@
     "appLauncher": {
         "customLaunchPrefix": "",
         "customLaunchPrefixEnabled": false,
-        "enableClipPreview": true,
+        "enableClipPreview": false,
         "enableClipboardHistory": true,
         "pinnedExecs": [
         ],
@@ -139,7 +139,7 @@
         "lastSeenVersion": ""
     },
     "colorSchemes": {
-        "darkMode": true,
+        "darkMode": false,
         "generateTemplatesForPredefined": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
@@ -380,12 +380,12 @@
         "foot": false,
         "fuzzel": false,
         "ghostty": false,
-        "gtk": false,
-        "kcolorscheme": false,
+        "gtk": true,
+        "kcolorscheme": true,
         "kitty": false,
         "niri": false,
         "pywalfox": false,
-        "qt": false,
+        "qt": true,
         "spicetify": false,
         "telegram": false,
         "vicinae": false,

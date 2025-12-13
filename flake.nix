@@ -74,7 +74,7 @@
         programs = {
           nixpkgs-fmt.enable = true; # nix
           stylua = {
-            # lua
+            # Lua
             enable = true;
             settings = {
               indent_type = "Spaces";
@@ -83,7 +83,7 @@
           };
           # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
-          mdformat.enable = true; # markdown
+          mdformat.enable = true; # Markdown
         };
       };
 
