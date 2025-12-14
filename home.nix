@@ -8,6 +8,10 @@ let
   system = pkgs.stdenv.hostPlatform.system;
 in
 {
+  imports = [
+    inputs.walker.homeManagerModules.default
+  ];
+
   systemd.user.services = {
     swayidle = {
       Unit = {
@@ -82,6 +86,14 @@ in
     file.".config/ghostty/config".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/config";
 
     file.".config/jj/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jj/config.toml";
+
+    # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
+    file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
+
+    file.".config/walker/" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/walker";
+      recursive = true;
+    };
 
     file.".config/jjui/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jjui/config.toml";
 
@@ -179,6 +191,11 @@ in
   };
 
   programs = {
+    walker = {
+      enable = true;
+      runAsService = true;
+      config = { }; # Use config TOML from this repo
+    };
     ghostty = {
       enable = true;
       enableFishIntegration = true;
@@ -254,6 +271,7 @@ in
         jfa = "jj fetch --all-remotes";
         je = "jj edit";
         jn = "jj new";
+        jdst = "jj diff --stat";
         glast = "git rev-parse HEAD";
         man = "batman";
         cd = "z";

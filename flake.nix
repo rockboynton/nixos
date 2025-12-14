@@ -41,6 +41,13 @@
       # Don't use this flake's nixpkgs since we want to use the Niri flake's cached Niri
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    elephant = {
+      url = "github:abenz1267/elephant";
+    };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:

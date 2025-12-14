@@ -133,7 +133,7 @@ binds {
 
     // Common apps
     Mod+Grave hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+space hotkey-overlay-title="Run an Application: noctalia" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 
     // Noctalia IPC calls
@@ -154,9 +154,9 @@ binds {
     // Misc
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
-    Mod+Shift+V repeat=false { spawn-sh "noctalia-shell ipc call launcher clipboard"; }
-    Mod+Shift+C repeat=false { spawn-sh "noctalia-shell ipc call launcher calculator"; }
-    Mod+Shift+E repeat=false { spawn-sh "noctalia-shell ipc call launcher emoji"; }
+    Mod+Shift+V repeat=false { spawn-sh "walker --provider clipboard"; }
+    Mod+Shift+C repeat=false { spawn-sh "walker --provider calc"; }
+    Mod+Shift+E repeat=false { spawn-sh "walker --provider symbols"; }
 
     // Make custom keyboard rotary encoders work
     // Tab scrolling (right encoder)
