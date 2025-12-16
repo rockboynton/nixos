@@ -2,6 +2,7 @@ Bootloader
 FHS
 KDL
 Klor
+NVIDIA
 Niri
 TODO
 awww

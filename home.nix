@@ -156,6 +156,7 @@ in
         nixpkgs-fmt
         nwg-look
         patchy
+        pulseaudio
         qmk
         qmk-udev-rules
         ripgrep
