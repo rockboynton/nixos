@@ -208,23 +208,15 @@ keybinds clear-defaults=true {
     }
 }
 
-// Plugin aliases - can be used to change the implementation of Zellij
-// changing these requires a restart to take effect
 plugins {
-    compact-bar location="zellij:compact-bar"
-    configuration location="zellij:configuration"
-    filepicker location="zellij:strider" {
-        cwd "/"
-    }
-    plugin-manager location="zellij:plugin-manager"
-    session-manager location="zellij:session-manager"
-    status-bar location="zellij:status-bar"
-    strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
-    welcome-screen location="zellij:session-manager" {
-        welcome_screen true
-    }
+    status-bar location="zellij:status-bar"
+    session-manager location="zellij:session-manager"
+    plugin-manager location="zellij:plugin-manager"
 }
 
 theme "gruvbox-dark"
 pane_frames false
+show_startup_tips false
+advanced_mouse_actions false
+serialize_pane_viewport true
