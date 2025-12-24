@@ -157,6 +157,9 @@ binds {
     Mod+Shift+V repeat=false { spawn-sh "walker --provider clipboard"; }
     Mod+Shift+C repeat=false { spawn-sh "walker --provider calc"; }
     Mod+Shift+E repeat=false { spawn-sh "walker --provider symbols"; }
+    Mod+Shift+P repeat=false { spawn-sh "walker --provider windows"; }
+    // Helix anywhere
+    Mod+Shift+I repeat=false { spawn-sh "ghostty -e sh -c 'hx /tmp/hxedit' && wl-copy -n < /tmp/hxedit && wtype -M ctrl v -m ctrl && rm -f /tmp/hxedit"; }
 
     // Make custom keyboard rotary encoders work
     // Tab scrolling (right encoder)
@@ -168,6 +171,9 @@ binds {
     // Workspace scrolling (left encoder)
     Ctrl+Right { focus-column-or-monitor-right; }
     Ctrl+Left { focus-column-or-monitor-left; }
+    Mod+Ctrl+Right     { focus-window-or-workspace-down; }
+    Mod+Ctrl+Left     { focus-window-or-workspace-up; }
+    // Overview (left encoder button)
     Ctrl+Up { toggle-overview; }
 
     Ctrl+Alt+M { toggle-overview; }

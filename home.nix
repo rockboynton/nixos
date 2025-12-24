@@ -160,6 +160,7 @@ in
         qmk
         qmk-udev-rules
         ripgrep
+        spotify
         starship
         swayidle
         tealdeer
