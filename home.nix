@@ -133,8 +133,10 @@ in
         element-desktop
         fd
         fish
+        firefox
         fzf
         gh
+        gimp
         gitui
         google-chrome
         gtk3
