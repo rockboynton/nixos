@@ -41,6 +41,7 @@ in
 
   gtk = {
     enable = true;
+    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -131,6 +132,7 @@ in
         fira
         roboto
         element-desktop
+        fastfetch
         fd
         fish
         firefox
@@ -150,7 +152,6 @@ in
         localPackages.zoo-design-studio
         lsd
         nautilus
-        neofetch
         nerd-fonts.fira-code
         nixd
         nix-direnv
@@ -209,6 +210,7 @@ in
     yazi = {
       enable = true;
       enableFishIntegration = true;
+      shellWrapperName = "yy";
       package = inputs.yazi.packages.${system}.yazi;
     };
     home-manager.enable = true;
@@ -254,6 +256,7 @@ in
         end
       '';
       shellAbbrs = {
+        nfu = "nix flake update";
         nrs = "sudo nixos-rebuild switch";
         zj = "zellij";
         ns = "nix shell nixpkgs#";
@@ -370,6 +373,7 @@ in
 
     git = {
       enable = true;
+      signing.format = "openpgp";
       settings = {
         user.name = "Rock Boynton";
         user.email = "rock.boynton@yahoo.com";
