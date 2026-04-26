@@ -4,6 +4,7 @@
 
 spawn-at-startup "google-chrome-stable"
 spawn-at-startup "ghostty"
+spawn-at-startup "noctalia-shell"
 
 debug {
   // Allows notification actions and window activation from Noctalia.

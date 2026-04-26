@@ -142,17 +142,18 @@ in
         gitui
         google-chrome
         gtk3
-        inputs.noctalia.packages.${system}.default
         inputs.modeling-app.packages.${system}.kcl-language-server
         inputs.zoo-cli.packages.${system}.zoo
         jjui
         jq
+        jujutsu
         lazygit
         libnotify
         localPackages.zoo-design-studio
         lsd
         nautilus
         nerd-fonts.fira-code
+        noctalia-shell
         nixd
         nix-direnv
         nix-output-monitor
@@ -211,7 +212,6 @@ in
       enable = true;
       enableFishIntegration = true;
       shellWrapperName = "yy";
-      package = inputs.yazi.packages.${system}.yazi;
     };
     home-manager.enable = true;
     helix = {
@@ -357,7 +357,6 @@ in
     };
 
     jujutsu = {
-      package = inputs.jj.outputs.packages.${system}.jujutsu;
       enable = true;
     };
 

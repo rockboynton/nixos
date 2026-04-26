@@ -5,7 +5,6 @@
     [
       ./hardware-configuration.nix
       ./logiops.nix
-      inputs.noctalia.nixosModules.default
       inputs.niri.nixosModules.niri
     ];
 
@@ -19,7 +18,15 @@
 
   boot.kernelModules = [
     "i2c-dev"
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
   ];
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1
+  '';
 
   services.udev.extraRules = ''
     KERNEL=="i2c-[0-9]*", MODE="0666"
@@ -74,8 +81,6 @@
     };
   };
 
-  services.noctalia-shell.enable = true;
-
   xdg.portal = {
     enable = true;
     wlr.enable = true;
@@ -97,7 +102,8 @@
     powerManagement.enable = true;
     modesetting.enable = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    nvidiaPersistenced = true;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
   security = {
     polkit.enable = true;
@@ -161,7 +167,7 @@
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  nix.package = pkgs.nixVersions.stable;
+  # nix.package = pkgs.nixVersions.stable;
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [
