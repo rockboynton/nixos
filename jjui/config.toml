@@ -2,5 +2,13 @@
 enabled = true
 
 [preview]
-revision_command = ["show", "--color", "always", "-r", "$change_id", "--config", "ui.diff-formatter=delta"]
+revision_command = [
+  "show",
+  "--color",
+  "always",
+  "-r",
+  "$change_id",
+  "--config",
+  "ui.diff-formatter=delta",
+]
 show_at_start = true

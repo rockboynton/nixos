@@ -56,6 +56,8 @@
 
   services.blueman.enable = true;
 
+  services.upower.enable = true;
+
   services.greetd = {
     enable = true;
     useTextGreeter = true;
@@ -179,5 +181,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
     ];
+    extra-substituters = [ "https://walker.cachix.org" "https://walker-git.cachix.org" ];
+    extra-trusted-public-keys = [ "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM=" "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM=" ];
   };
 }
