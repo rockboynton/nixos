@@ -18,6 +18,10 @@ layer-rule {
 }
 
 input {
+    mouse {
+        accel-profile "adaptive"
+        accel-speed -0.5
+    }
     keyboard {
         repeat-delay 200
         repeat-rate 50
@@ -127,6 +131,9 @@ animations {
 window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
+    background-effect {
+        blur true
+    }
 }
 
 binds {
