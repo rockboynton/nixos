@@ -82,8 +82,13 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal
       xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
     ];
+    config.common.default = [ "gnome" "gtk" ];
+    configPackages = [ pkgs.niri ];
   };
+
+  services.dbus.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

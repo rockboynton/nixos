@@ -2,6 +2,7 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "google-chrome-stable"
 spawn-at-startup "ghostty"
 spawn-at-startup "noctalia-shell"

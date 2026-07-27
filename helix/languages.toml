@@ -1,8 +1,6 @@
 # [language-server.harper-ls.config.harper-ls]
 # diagnosticSeverity = "warn"
-
-# [language-server.harper-ls.config.harper-ls.linters]
-# ToDoHyphen = false
+# linters.ToDoHyphen = false
 
 [language-server.haskell-language-server]
 command = "haskell-language-server"
@@ -16,7 +14,10 @@ workspace.symbol.search.kind = "all_symbols"
 [language-server.tinymist.config]
 exportPdf = "onType"
 outputPath = "$root/target/$dir/$name"
+lint.enabled = true
+lint.when = "onType"
 formatterMode = "typstyle"
+formatterProseWrap = true
 
 [language-server.rumdl]
 command = "rumdl"
