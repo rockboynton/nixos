@@ -34,4 +34,7 @@
   ];
 
   programs.fish.enable = true;
+  # nix-darwin's programs.fish (unlike NixOS's) doesn't register fish in
+  # /etc/shells on its own; without this, `chsh -s ...` rejects it.
+  environment.shells = [ pkgs.fish ];
 }
