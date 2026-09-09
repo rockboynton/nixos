@@ -9,14 +9,18 @@ command = "haskell-language-server"
 args = ["--lsp"]
 
 [language-server.rust-analyzer.config]
+cargo.targetDir = true
 check.command = "clippy"
 workspace.symbol.search.kind = "all_symbols"
-files.watcher = "notify"
 
 [language-server.tinymist.config]
 exportPdf = "onType"
 outputPath = "$root/target/$dir/$name"
 formatterMode = "typstyle"
+
+[language-server.rumdl]
+command = "rumdl"
+args = ["server"]
 
 [[language]]
 name = "haskell"
@@ -29,13 +33,13 @@ file-types = ["ld", "x"]
 
 [[language]]
 name = "markdown"
-formatter = { command = "mdformat", args = ["-"] }
-language-servers = ["marksman", "harper-ls"]
+formatter = { command = "rumdl", args = ["fmt", "-"] }
+language-servers = ["rumdl"]
 
 [[language]]
 name = "nix"
+language-servers = ["nixd"]
 formatter = { command = "nixpkgs-fmt" }
-language-servers = ["nixd", "harper-ls"]
 
 [[language]]
 name = "rust"
@@ -47,4 +51,6 @@ formatter = { command = "taplo", args = ["fmt", "-"] }
 
 [[language]]
 name = "typst"
-language-servers = ["tinymist", "harper-ls"]
+auto-format = true
+language-servers = ["tinymist"]
+formatter = { command = "typstyle", args = ["--wrap-text", "--line-width=120"] }

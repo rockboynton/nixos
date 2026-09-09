@@ -1,6 +1,14 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
 [user]
 name = "Rock Boynton"
 email = "rboynton@anduril.com"
+
+# override user.email if the repository is located under ~/oss
+[[--scope]]
+--when.repositories = ["~/sources/oss"]
+[--scope.user]
+email = "rock.boynton@yahoo.com"
 
 [ui]
 merge-editor = "mergiraf"
@@ -25,3 +33,6 @@ diff-args = ["--color=always", "$left", "$right"]
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 push = ["git", "push"]
 fetch = ["git", "fetch"]
+
+[remotes.origin]
+auto-track-bookmarks = "glob:rboynton/*"

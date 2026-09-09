@@ -53,20 +53,27 @@ in
         fzf
         gh
         gitui
+        harper
+        jj-starship
         jq
         jjui
         jujutsu
         lazygit
         lsd
+        mergiraf
+        nix-prefetch-git
         nixd
         nix-direnv
         nix-output-monitor
         nixpkgs-fmt
         patchy
         ripgrep
+        rumdl
+        taplo
         tealdeer
         tokei
         tree
+        treefmt
         unzip
         which
         zip

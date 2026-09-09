@@ -1,5 +1,6 @@
 inherits = "gruvbox"
 
+# transparent background, have terminal handle that
 "ui.background" = {}
 "ui.picker.header.column" = { fg = "aqua0", modifiers = ["bold", "underlined"] }
 "ui.picker.header.column.active" = { fg = "orange1", modifiers = [
