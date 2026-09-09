@@ -4,7 +4,7 @@
 # this to be set explicitly once, at install time, by whoever brings up
 # that specific machine — see `darwin-rebuild changelog`) via their own
 # host file.
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   security.pam.services.sudo_local.touchIdAuth = true;

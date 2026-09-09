@@ -34,6 +34,8 @@ in
 
     file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
+    file.".config/rumdl.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/rumdl/rumdl.toml";
+
     packages = with pkgs;
       [
         bat-extras.batman
@@ -113,9 +115,9 @@ in
         set fish_cursor_replace underscore
         set fish_cursor_external line
 
-        function starship_transient_rprompt_func
-          starship module line_break
+        function starship_transient_prompt_func
           starship module time
+          starship module character
         end
 
         if not set -q ZELLIJ

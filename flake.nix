@@ -40,7 +40,18 @@
   outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      mkFormatter = system: treefmt-nix.lib.mkWrapper nixpkgs.legacyPackages.${system} {
+        programs = {
+          nixpkgs-fmt.enable = true; # nix
+          # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
+          taplo.enable = true; # taplo
+          mdformat.enable = true; # Markdown
+        };
+      };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -58,21 +69,19 @@
               useUserPackages = true;
               users.rockboynton.imports = [ ./home/linux.nix ];
               extraSpecialArgs = { inherit inputs; };
-              sharedModules = [{ }];
             };
           }
         ];
       };
 
-      # Reusable building blocks for bringing up any macOS host declaratively via nix-darwin. This flake defines no
-      # darwinConfigurations itself — consumers (this repo in the future, or a separate private flake (like for work)
-      # with host-specific config) supply their own hostname, primaryUser, and homebrew.taps/casks/brews and compose
-      # these modules with nix-darwin.lib.darwinSystem.
+      # This flake defines no `darwinConfigurations` itself — consumers (this repo later, or a separate private flake
+      # with host-specific config) compose these modules with `nix-darwin.lib.darwinSystem`, supplying their own
+      # hostname, `primaryUser`, and `homebrew.taps/casks/brews`.
       #
-      # These modules read `inputs` from specialArgs. If a consumer passes its own `inputs` here and happens to declare
-      # a same-named input (e.g. its own unrelated `helix`), that name will silently shadow this flake's pin. Pass
-      # `inputs // self.inputs` (with this flake's `self` on the right so it wins on overlap) rather than the consumer's
-      # raw `inputs`.
+      # These modules read `inputs` from `specialArgs`. If a consumer passes its own `inputs` here and happens to
+      # declare a same-named input (e.g. its own unrelated `helix`), that name will silently shadow this flake's pin.
+      # Pass `inputs // self.inputs` (with this flake's `self` on the right so it wins on overlap) rather than the
+      # consumer's raw `inputs`.
       darwinModules.default = ./hosts/darwin;
       homeManagerModules = {
         common = ./home/common.nix;
@@ -80,38 +89,24 @@
         darwin = ./home/darwin.nix;
       };
 
-      formatter.${system} = treefmt-nix.lib.mkWrapper pkgs {
-        programs = {
-          nixpkgs-fmt.enable = true; # nix
-          stylua = {
-            # Lua
-            enable = true;
-            settings = {
-              indent_type = "Spaces";
-              quote_style = "AutoPreferSingle";
-            };
-          };
-          # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
-          taplo.enable = true; # taplo
-          mdformat.enable = true; # Markdown
-        };
-      };
+      formatter = forAllSystems mkFormatter;
 
-      devShells.${system}.default =
+      devShells = forAllSystems (system:
         let
-          pkgsFromNix = with pkgs; [
-            stylua
-            taplo
-            harper
-            marksman
-            mdformat
-          ];
+          pkgs = nixpkgs.legacyPackages.${system};
         in
-        pkgs.mkShell {
-          packages = [
-            self.formatter.${system}
-          ] ++ pkgsFromNix;
-        };
+        {
+          default = pkgs.mkShell {
+            packages = [
+              self.formatter.${system}
+            ] ++ (with pkgs; [
+              taplo
+              harper
+              mdformat
+              rumdl
+            ]);
+          };
+        });
     };
 }
 

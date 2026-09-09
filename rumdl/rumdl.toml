@@ -1,0 +1,5 @@
+[global]
+
+[MD013]
+code-blocks = false
+line-length = 120
