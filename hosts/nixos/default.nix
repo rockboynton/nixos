@@ -5,12 +5,7 @@
     [
       ./hardware-configuration.nix
       ./logiops.nix
-      inputs.niri.nixosModules.niri
     ];
-
-  nixpkgs.overlays = [
-    inputs.niri.overlays.niri
-  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -159,10 +154,7 @@
   };
 
   programs.fish.enable = true;
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
-  };
+  programs.niri.enable = true;
 
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?

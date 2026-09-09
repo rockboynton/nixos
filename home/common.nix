@@ -1,71 +1,13 @@
 { pkgs, lib, config, inputs, ... }:
 
 let
-  username = "rockboynton";
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
-  localPackages = import ./pkgs { inherit pkgs; };
-  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
   system = pkgs.stdenv.hostPlatform.system;
+  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
-  imports = [
-    inputs.walker.homeManagerModules.default
-  ];
-
-  systemd.user.services = {
-    swayidle = {
-      Unit = {
-        Description = "Idle manager for Niri";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
-      };
-
-      Service = {
-        ExecStart = lib.concatStringsSep " " [
-          "${lib.getExe pkgs.swayidle} -d"
-          "timeout 240 'notify-send --app-name \"Idle Warning\" \"System will lock soon due to inactivity.\"'"
-          "timeout 300 'noctalia-shell ipc call lockScreen lock'"
-          "timeout 600 'niri msg action power-off-monitors'"
-          "resume 'niri msg action power-on-monitors'"
-          "timeout 900 'systemctl suspend'"
-          "before-sleep 'noctalia-shell ipc call lockScreen lock'"
-        ];
-        Restart = "on-failure";
-      };
-
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
-  };
-
-  gtk = {
-    enable = true;
-    gtk4.theme = config.gtk.theme;
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
-  };
-
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
     stateVersion = "24.11";
-
-    sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      QT_QPA_PLATFORM = "wayland;xcb";
-      QT_QPA_PLATFORMTHEME = "gtk3";
-    };
-
-    pointerCursor = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-      size = 24;
-      x11.enable = true;
-      gtk.enable = true;
-    };
 
     file."backgrounds" = {
       source = mkOutOfStoreSymlink "${nixosConfigDir}/backgrounds/";
@@ -88,137 +30,62 @@ in
 
     file.".config/jj/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jj/config.toml";
 
-    # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137 
-    file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
-
-    file.".config/walker/" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${nixosConfigDir}/walker";
-      recursive = true;
-    };
-
     file.".config/jjui/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jjui/config.toml";
 
     file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
-    file.".config/niri/" = {
-      source = mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
-      recursive = true;
-    };
-
-    file.".config/noctalia/" = {
-      source = mkOutOfStoreSymlink "${nixosConfigDir}/noctalia/";
-      recursive = true;
-    };
-
     packages = with pkgs;
       [
-        _1password-gui
-        adwaita-icon-theme
-        alacritty
-        bat
         bat-extras.batman
         bottom
-        caprine
-        # chrome
         delta
         direnv
-        discord
         dust
-        # eb-garamond
-        # gelasio
-        # garamond-libre
         helvetica-neue-lt-std
         aileron
         fira
         roboto
-        element-desktop
         fastfetch
         fd
         fish
-        firefox
         fzf
         gh
-        gimp
         gitui
-        google-chrome
-        gtk3
-        inputs.modeling-app.packages.${system}.kcl-language-server
-        inputs.zoo-cli.packages.${system}.zoo
-        jjui
         jq
+        jjui
         jujutsu
         lazygit
-        libnotify
-        localPackages.zoo-design-studio
         lsd
-        nautilus
-        nerd-fonts.fira-code
-        noctalia-shell
         nixd
         nix-direnv
         nix-output-monitor
         nixpkgs-fmt
-        nwg-look
-        patchy
-        pulseaudio
-        qmk
-        qmk-udev-rules
         ripgrep
-        spotify
-        starship
-        swayidle
         tealdeer
         tokei
         tree
         unzip
-        usbutils
-        wezterm
         which
-        wl-clipboard
-        wtype
-        xwayland-satellite
         zip
         zoxide
       ];
   };
 
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts.monospace = [ "FiraCode Nerd Font" ];
-  };
-
-  services = {
-    # TODO fix noctalia clipboard preview + icons
-    clipcat = {
-      enable = true;
-      enableZshIntegration = true;
-      enableSystemdUnit = true;
-    };
-  };
-
   programs = {
-    walker = {
-      enable = true;
-      runAsService = true;
-      config = { }; # Use config TOML from this repo
-    };
-    ghostty = {
-      enable = true;
-      enableFishIntegration = true;
-      installBatSyntax = true;
-      systemd.enable = true;
-    };
+    home-manager.enable = true;
+
     yazi = {
       enable = true;
       enableFishIntegration = true;
       shellWrapperName = "yy";
     };
-    home-manager.enable = true;
+
     helix = {
       enable = true;
       package = inputs.helix.packages.${system}.helix;
       defaultEditor = true;
     };
+
     starship = {
       enable = true;
       enableFishIntegration = true;
@@ -229,11 +96,11 @@ in
       enable = true;
       interactiveShellInit = /* fish */ ''
         # use empty greeting
-        set fish_greeting 
+        set fish_greeting
 
         # custom gruvbox theme
         set_gruvbox_theme
-        
+
         # use vi keybindings, but inherit emacs keybindings too
         fish_hybrid_key_bindings
 
@@ -257,7 +124,6 @@ in
       '';
       shellAbbrs = {
         nfu = "nix flake update";
-        nrs = "sudo nixos-rebuild switch";
         zj = "zellij";
         ns = "nix shell nixpkgs#";
         yz = "yazi";
@@ -284,12 +150,6 @@ in
         cd = "z";
         da = "direnv allow";
         dr = "direnv reload";
-        start = "sudo systemctl start";
-        startu = "systemctl start --user";
-        stop = "sudo systemctl stop";
-        stopu = "systemctl stop --user";
-        restart = "sudo systemctl restart";
-        restartu = "systemctl restart --user";
       };
       shellAliases = {
         ls = "lsd --group-directories-first";
@@ -349,16 +209,11 @@ in
           '';
         };
       };
-
     };
 
-    bat = {
-      enable = true;
-    };
+    bat.enable = true;
 
-    jujutsu = {
-      enable = true;
-    };
+    jujutsu.enable = true;
 
     delta = {
       enable = true;
@@ -392,9 +247,7 @@ in
       enableFishIntegration = true;
     };
 
-    zellij = {
-      enable = true;
-    };
+    zellij.enable = true;
 
     zoxide = {
       enable = true;
@@ -402,4 +255,3 @@ in
     };
   };
 }
-
