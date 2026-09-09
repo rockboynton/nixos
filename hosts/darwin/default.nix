@@ -37,4 +37,10 @@
   # nix-darwin's programs.fish (unlike NixOS's) doesn't register fish in
   # /etc/shells on its own; without this, `chsh -s ...` rejects it.
   environment.shells = [ pkgs.fish ];
+
+  # sudo's secure_path doesn't include this by default, so `sudo darwin-rebuild`
+  # (and other system tools) can't be found by bare name under sudo otherwise.
+  security.sudo.extraConfig = ''
+    Defaults secure_path+="/run/current-system/sw/bin"
+  '';
 }
