@@ -100,7 +100,6 @@ in
         nerd-fonts.fira-code
         noctalia-shell
         nwg-look
-        patchy
         pulseaudio
         qmk
         qmk-udev-rules

@@ -62,6 +62,7 @@ in
         nix-direnv
         nix-output-monitor
         nixpkgs-fmt
+        patchy
         ripgrep
         tealdeer
         tokei
