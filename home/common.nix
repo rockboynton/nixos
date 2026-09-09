@@ -108,6 +108,9 @@ in
         # use empty greeting
         set fish_greeting
 
+        set -gx COLORTERM truecolor
+        set -gx STARSHIP_LOG error
+
         # custom gruvbox theme
         set_gruvbox_theme
 
@@ -128,6 +131,12 @@ in
           starship module character
         end
 
+        set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
+        set FZF_CTRL_T_OPTS " \
+          --walker-skip .git,node_modules,target \
+          --preview 'bat -n --color=always --theme=gruvbox-dark {}' \
+          --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
         if not set -q ZELLIJ
           zellij attach dev -c
         end
@@ -143,17 +152,26 @@ in
         la = "ls -a";
         lla = "ls -la";
         lt = "ls --tree";
-        jd = "jj diff";
-        jds = "DELTA_FEATURES=+side-by-side jj diff";
+        jd = "jj diff --tool delta";
+        jds = "jj diff";
         ju = "jj tug && jj push";
         jl = "jj log";
         jsq = "jj squash";
+        js = "jj status";
         jst = "jj status";
         jp = "jj push";
         jf = "jj fetch";
         jfa = "jj fetch --all-remotes";
         je = "jj edit";
         jn = "jj new";
+        ja = "jj abandon";
+        jr = "jj restore";
+        jt = "jj tug";
+        jc = "jj commit";
+        jo = "jj op";
+        jrb = "jj rebase";
+        jsh = "jj show";
+        jsp = "jj squash && jj push";
         jdst = "jj diff --stat";
         glast = "git rev-parse HEAD";
         man = "batman";
@@ -218,6 +236,115 @@ in
             set -g fish_pager_color_selected_background -r
           '';
         };
+        jjw = {
+          description = "Describe a jj change and create a bookmark, optionally in a new workspace";
+          body = /* fish */ ''
+            argparse -x 'w,d' 'w/workspace' 'd/done' -- $argv
+            or return 1
+
+            if set -q _flag_done
+                set -l ws_path (jj workspace root)
+                or return 1
+
+                set -l ws_name (jj workspace list -T 'name ++ " " ++ self.root() ++ "\n"' | \
+                                awk -v p="$ws_path" '$2 == p { print $1 }')
+
+                if test -z "$ws_name"; or test "$ws_name" = default
+                    echo "jjw -d: not inside a named workspace (current: '$ws_name'). Refusing."
+                    return 1
+                end
+
+                set -l ws_parent (dirname "$ws_path")
+                set -l ws_base (basename "$ws_path")
+                set -l main_base (string replace -r -- "-$ws_name\$" "" "$ws_base")
+                if test "$main_base" = "$ws_base"
+                    echo "jjw -d: current path basename '$ws_base' does not end with '-$ws_name'; can't locate main repo."
+                    return 1
+                end
+                set -l main_path "$ws_parent/$main_base"
+                if not test -d "$main_path/.jj"
+                    echo "jjw -d: expected main repo at $main_path but .jj is missing."
+                    return 1
+                end
+
+                read -P "Delete workspace '$ws_name' at $ws_path? [y/N] " -l confirm
+                if not string match -qr '^[yY]' -- $confirm
+                    echo "Aborted."
+                    return 1
+                end
+
+                cd "$main_path"
+                or return 1
+                jj workspace forget $ws_name
+                or return 1
+                rm -rf "$ws_path"
+                or return 1
+                if test -n "$ZELLIJ"
+                    zellij action rename-tab "$main_base"
+                end
+                return 0
+            end
+
+            if test (count $argv) -lt 1
+                echo "jjw — describe a jj change and bookmark it."
+                echo
+                echo "Usage:"
+                echo "  jjw \"Description\"        Bookmark @ and start an empty follow-up change."
+                echo "  jjw -w \"Description\"     Also spin up a sibling workspace from trunk() and cd in."
+                echo "  jjw -d                   Forget the current workspace and return to the main repo."
+                return 1
+            end
+
+            set -l description $argv[1]
+            set -l bookmark_id (string lower -- $description | \
+                                string replace -ra '[^a-z0-9]+' '-' | \
+                                string trim --chars=-)
+
+            if set -q _flag_workspace
+                set -l repo_root (jj root)
+                or return 1
+                set -l parent (dirname "$repo_root")
+                set -l repo_base (basename "$repo_root")
+                set -l ws_path "$parent/$repo_base-$bookmark_id"
+
+                jj workspace add --sparse-patterns "full" --name $bookmark_id -r 'trunk()' "$ws_path" --quiet
+                or return 1
+
+                begin
+                    git -C "$repo_root" ls-files -z --others --exclude-standard -- ':!.jj'
+                    git -C "$repo_root" ls-files -z --others --ignored --exclude-standard -- ':!.jj'
+                end | grep -zEv '(^|/)target/|(^|/)\.direnv/|^\.rumdl_cache/' \
+                   | while read -z f
+                        set -l full "$repo_root/$f"
+                        if test -L "$full"; and string match -q '/nix/store/*' (readlink "$full")
+                            continue
+                        end
+                        printf '%s\0' "$f"
+                    end \
+                   | rsync -a --from0 --files-from=- --info=progress2 \
+                           "$repo_root/" "$ws_path/"
+                or return 1
+
+                for gi in (find "$repo_root" -maxdepth 2 -name .gitignore -not -path '*/.jj/*')
+                    set -l rel (string replace "$repo_root/" "" "$gi")
+                    set -l dest "$ws_path/"(string replace '.gitignore' '.ignore' "$rel")
+                    cp "$gi" "$dest" 2>/dev/null
+                end
+
+                cd "$ws_path"
+                or return 1
+            end
+
+            if test -n "$ZELLIJ"
+                zellij action rename-tab $bookmark_id
+            end
+
+            jj bookmark create -r @ "$USER/$bookmark_id" --quiet
+            jj describe -m $description --quiet
+
+            jj new
+          '';
+        };
       };
     };
 
@@ -250,6 +377,7 @@ in
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+      config.global.hide_env_diff = true;
     };
 
     fzf = {
