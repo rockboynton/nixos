@@ -5,8 +5,12 @@
 # home-manager is used as a nix-darwin module (not standalone), it derives
 # both from `users.users.<name>`, so the consuming host file must declare
 # `users.users.<name>.home = "/Users/<name>";` for the matching user.
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
+let
+  nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
+  mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
+in
 {
   imports = [
     ./common.nix
@@ -21,4 +25,6 @@
     }}/share/fonts";
     recursive = true;
   };
+
+  home.file.".hammerspoon/init.lua".source = mkOutOfStoreSymlink "${nixosConfigDir}/hammerspoon/init.lua";
 }

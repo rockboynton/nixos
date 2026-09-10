@@ -50,6 +50,7 @@
           # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
           mdformat.enable = true; # Markdown
+          stylua.enable = true; # Lua
         };
       };
     in
