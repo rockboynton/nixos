@@ -28,6 +28,8 @@ in
 
     file.".config/ghostty/config".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/config";
 
+    file.".config/hunk/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/hunk/config.toml";
+
     file.".config/jj/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jj/config.toml";
 
     file.".config/jjui/config.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/jjui/config.toml";
@@ -54,6 +56,7 @@ in
         gh
         gitui
         harper
+        hunk
         jj-starship
         jq
         jjui

@@ -96,6 +96,7 @@ l = ":lsp-restart"
 q = ":quit-all"
 i = ":toggle lsp.display-inlay-hints"
 t = ":toggle soft-wrap.enable"
+E = "file_explorer_in_current_buffer_directory"
 
 [keys.normal."'"]
 y = [
