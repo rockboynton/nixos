@@ -1,8 +1,8 @@
-[language-server.harper-ls.config.harper-ls]
-diagnosticSeverity = "warn"
+# [language-server.harper-ls.config.harper-ls]
+# diagnosticSeverity = "warn"
 
-[language-server.harper-ls.config.harper-ls.linters]
-ToDoHyphen = false
+# [language-server.harper-ls.config.harper-ls.linters]
+# ToDoHyphen = false
 
 [language-server.haskell-language-server]
 command = "haskell-language-server"
@@ -43,7 +43,8 @@ formatter = { command = "nixpkgs-fmt" }
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "harper-ls"]
+language-servers = ["rust-analyzer"]
+# language-servers = ["rust-analyzer", "harper-ls"]
 
 [[language]]
 name = "toml"

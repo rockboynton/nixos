@@ -79,6 +79,7 @@ in
         treefmt
         unzip
         which
+        zathura
         zip
         zoxide
       ];
