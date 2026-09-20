@@ -7,7 +7,7 @@ let
     url = "https://github.com/KittyCAD/modeling-app/releases/download/v${version}/Zoo.Design.Studio-${version}-x86_64-linux.AppImage";
     hash = "sha256-zQcQK29LRjve8nXX9RFFD1oBh4f2rB7YopBpeoA0pYo=";
   };
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extract { inherit pname version src; };
 in
 appimageTools.wrapType2 {
   inherit pname version src;

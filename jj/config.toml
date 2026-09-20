@@ -2,13 +2,13 @@
 
 [user]
 name = "Rock Boynton"
-email = "rboynton@anduril.com"
-
-# override user.email if the repository is located under ~/oss
-[[--scope]]
---when.repositories = ["~/sources/oss"]
-[--scope.user]
 email = "rock.boynton@yahoo.com"
+
+# # override user.email if the repository is located under ~/oss
+# [[--scope]]
+# --when.repositories = ["~/sources/oss"]
+# [--scope.user]
+# email = "rock.boynton@yahoo.com"
 
 [ui]
 merge-editor = "mergiraf"

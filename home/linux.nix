@@ -85,7 +85,6 @@ in
       [
         _1password-gui
         adwaita-icon-theme
-        alacritty
         caprine
         discord
         element-desktop
