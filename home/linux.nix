@@ -125,6 +125,8 @@ in
       enableZshIntegration = true;
       enableSystemdUnit = true;
     };
+
+    udiskie.enable = true;
   };
 
   programs = {

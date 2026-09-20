@@ -184,6 +184,7 @@ in
         cd = "z";
         da = "direnv allow";
         dr = "direnv reload";
+        nrs = "sudo nixos-rebuild switch";
       };
       shellAliases = {
         ls = "lsd --group-directories-first";
