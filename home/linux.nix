@@ -24,11 +24,11 @@ in
         ExecStart = lib.concatStringsSep " " [
           "${lib.getExe pkgs.swayidle} -d"
           "timeout 240 'notify-send --app-name \"Idle Warning\" \"System will lock soon due to inactivity.\"'"
-          "timeout 300 'noctalia-shell ipc call lockScreen lock'"
+          "timeout 300 'noctalia msg session lock'"
           "timeout 600 'niri msg action power-off-monitors'"
           "resume 'niri msg action power-on-monitors'"
           "timeout 900 'systemctl suspend'"
-          "before-sleep 'noctalia-shell ipc call lockScreen lock'"
+          "before-sleep 'noctalia msg session lock'"
         ];
         Restart = "on-failure";
       };
@@ -97,7 +97,7 @@ in
         localPackages.zoo-design-studio
         nautilus
         nerd-fonts.fira-code
-        noctalia-shell
+        noctalia
         nwg-look
         pulseaudio
         qmk

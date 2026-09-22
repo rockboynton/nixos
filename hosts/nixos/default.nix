@@ -57,11 +57,13 @@
   services.printing.enable = true;
 
   services.blueman.enable = true;
+  hardware.bluetooth.enable = true;
 
   services.upower.enable = true;
 
   services.displayManager.noctalia-greeter = {
     enable = true;
+    passwordlessSyncUsers = [ "rockboynton" ];
     settings = {
       session.default = "niri";
       user.default = "rockboynton";

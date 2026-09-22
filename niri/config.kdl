@@ -5,7 +5,7 @@
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP=niri"
 spawn-at-startup "google-chrome-stable"
 spawn-at-startup "ghostty"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 
 debug {
   // Allows notification actions and window activation from Noctalia.
@@ -14,7 +14,7 @@ debug {
 
 // Set the overview wallpaper on the backdrop.
 layer-rule {
-  match namespace="^noctalia-overview*"
+  match namespace="^noctalia-backdrop"
   place-within-backdrop true
 }
 
@@ -146,19 +146,19 @@ binds {
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 
     // Noctalia IPC calls
-    Mod+Alt+L { spawn-sh "noctalia-shell ipc call lockScreen lock"; }
-    Mod+Shift+L { spawn-sh "noctalia-shell ipc call sessionMenu toggle"; }
-    Mod+S { spawn-sh "noctalia-shell ipc call controlCenter toggle"; }
-    Mod+Semicolon { spawn-sh "noctalia-shell ipc call settings toggle"; }
-    Mod+Shift+B { spawn-sh "noctalia-shell ipc call bar toggle"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume increase"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume decrease"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteOutput"; }
-    Mod+M                allow-when-locked=true { spawn-sh "noctalia-shell ipc call volume muteInput"; }
-    XF86AudioPlay { spawn-sh "noctalia-shell ipc call media playPause"; }
-    Mod+D { spawn-sh "noctalia-shell ipc call notifications dismissOldest"; }
-    Mod+Alt+D { spawn-sh "noctalia-shell ipc call notifications removeOldestHistory"; }
-    Mod+Shift+D { spawn-sh "noctalia-shell ipc call notifications toggleHistory"; }
+    Mod+Alt+L { spawn-sh "noctalia msg session lock"; }
+    Mod+Shift+L { spawn-sh "noctalia msg panel-toggle session"; }
+    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Mod+Semicolon { spawn-sh "noctalia msg settings-toggle"; }
+    Mod+Shift+B { spawn-sh "noctalia msg bar-toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
+    Mod+M                allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
+    XF86AudioPlay { spawn-sh "noctalia msg media toggle"; }
+    Mod+D { spawn-sh "noctalia msg notification-clear-active"; }
+    Mod+Alt+D { spawn-sh "noctalia msg notification-clear-history"; }
+    Mod+Shift+D { spawn-sh "noctalia msg panel-toggle control-center notifications"; }
 
     // Misc
     Mod+O repeat=false { toggle-overview; }

@@ -1,0 +1,96 @@
+[shell]
+avatar_path = "/home/rockboynton/.face"
+telemetry_enabled = false
+
+[shell.animation]
+enabled = true
+speed = 1.2
+
+[shell.greeter_sync]
+auto_sync = true
+
+[bar.main]
+position = "top"
+background_opacity = 0.5
+radius = 12
+margin_ends = 5
+margin_edge = 5
+widget_spacing = 6
+shadow = true
+auto_hide = false
+reserve_space = true
+capsule = true
+capsule_opacity = 1.0
+start = ["control-center", "sysmon", "media"]
+center = ["workspaces"]
+end = ["notifications", "volume", "clock", "session"]
+
+[theme]
+mode = "dark"
+source = "builtin"
+builtin = "Gruvbox"
+
+[wallpaper]
+enabled = true
+directory = "/home/rockboynton/backgrounds"
+fill_mode = "crop"
+fill_color = "#000000"
+transition = ["fade", "disc", "stripes", "wipe", "honeycomb"]
+transition_duration = 1500
+transition_on_startup = false
+
+[wallpaper.default]
+path = "/home/rockboynton/backgrounds/gruvbox.png"
+
+[wallpaper.automation]
+enabled = false
+interval_seconds = 300
+order = "random"
+recursive = true
+
+[backdrop]
+enabled = true
+blur_intensity = 0.4
+tint_intensity = 0.6
+
+[notification]
+enable_daemon = true
+keep_dismissed_in_history = false
+layer = "overlay"
+background_opacity = 0.5
+
+[osd]
+position = "top_right"
+background_opacity = 1.0
+monitors = ["DP-1"]
+
+[lockscreen]
+enabled = true
+blurred_desktop = false
+blur_intensity = 0.0
+tint_intensity = 0.0
+
+[system.monitor]
+enabled = true
+
+[weather]
+enabled = true
+unit = "imperial"
+effects = true
+
+[location]
+auto_locate = false
+address = "Buena Park, CA"
+
+[audio]
+enable_overdrive = false
+enable_sounds = false
+
+[nightlight]
+enabled = false
+force = false
+temperature_day = 6500
+temperature_night = 4000
+
+[dock]
+enabled = false
