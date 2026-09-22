@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, ... }:
 
 {
   imports =
@@ -60,19 +60,12 @@
 
   services.upower.enable = true;
 
-  services.greetd = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
-    useTextGreeter = true;
     settings = {
-      terminal.vt = lib.mkForce 3;
-      default_session = {
-        command = lib.concatStringsSep " " [
-          "${lib.getExe pkgs.tuigreet}"
-          "--debug --time --remember --asterisks"
-          "--cmd niri-session"
-          "--theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red"
-        ];
-      };
+      session.default = "niri";
+      user.default = "rockboynton";
+      keyboard.layout = "us";
     };
   };
 
@@ -131,12 +124,6 @@
     shell = pkgs.fish;
   };
 
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin.user = "rockboynton";
-
-  # Workaround for GNOME auto login: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
   systemd.packages = [ pkgs.kdePackages.polkit-kde-agent-1 ];
 
   # Allow unfree packages

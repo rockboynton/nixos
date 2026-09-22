@@ -118,7 +118,6 @@ in
   };
 
   services = {
-    # TODO fix noctalia clipboard preview + icons
     clipcat = {
       enable = true;
       enableZshIntegration = true;
