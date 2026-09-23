@@ -201,6 +201,7 @@ binds {
     Mod+F { spawn-sh "wtype -M ctrl f -m ctrl"; }
     Mod+Z { spawn-sh "wtype -M ctrl z -m ctrl"; }
     Mod+T { spawn-sh "wtype -M ctrl t -m ctrl"; }
+    Mod+Shift+T { spawn-sh "wtype -M ctrl -M shift t -m shift -m ctrl"; }
 
     // Focusing
     Mod+H     { focus-column-or-monitor-left; }
