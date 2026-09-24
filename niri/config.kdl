@@ -157,8 +157,9 @@ binds {
     Mod+M                allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
     XF86AudioPlay { spawn-sh "noctalia msg media toggle"; }
     Mod+D { spawn-sh "noctalia msg notification-clear-active"; }
-    Mod+Alt+D { spawn-sh "noctalia msg notification-clear-history"; }
+    Mod+Alt+D { spawn-sh "noctalia msg notification-invoke-latest"; }
     Mod+Shift+D { spawn-sh "noctalia msg panel-toggle control-center notifications"; }
+    Mod+Shift+Alt+D { spawn-sh "noctalia msg notification-clear-history"; }
 
     // Misc
     Mod+O repeat=false { toggle-overview; }
