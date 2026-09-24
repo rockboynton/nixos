@@ -67,7 +67,7 @@
             mode: "OnRelease";
             action: {
               type: "Keypress";
-              keys: ["KEY_F17"];
+              keys: ["KEY_LEFTMETA", "KEY_W"];
             };
           }, {
             direction: "Up";
