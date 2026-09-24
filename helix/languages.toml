@@ -18,6 +18,11 @@ lint.enabled = true
 lint.when = "onType"
 formatterMode = "typstyle"
 formatterProseWrap = true
+# Resolve the document to compile from a `tinymist.lock` at the project root instead of from whichever
+# file happens to be focused. Without this, opening an imported module makes that module the compile
+# entry, and the real document's PDF stops updating. Generate the lock with:
+#   tinymist compile --save-lock --when onType path/to/main.typ
+projectResolution = "lockDatabase"
 
 [language-server.rumdl]
 command = "rumdl"
