@@ -66,6 +66,8 @@ in
     # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137
     file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
 
+    file.".config/ghostty/platform".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/linux";
+
     file.".config/walker/" = {
       source = mkOutOfStoreSymlink "${nixosConfigDir}/walker";
       recursive = true;

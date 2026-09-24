@@ -27,4 +27,5 @@ in
   };
 
   home.file.".hammerspoon/init.lua".source = mkOutOfStoreSymlink "${nixosConfigDir}/hammerspoon/init.lua";
+  home.file.".config/ghostty/platform".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/macos";
 }

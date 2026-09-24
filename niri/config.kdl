@@ -137,6 +137,12 @@ window-rule {
     }
 }
 
+window-rule {
+    match app-id=r#"^com\.mitchellh\.ghostty$"#
+    open-fullscreen false
+    open-maximized true
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 

@@ -1,7 +1,6 @@
 theme = Gruvbox Dark
 
 font-family = FiraCode Nerd Font
-font-size = 16
 
 background-blur = true
 background-opacity = 0.9
@@ -10,4 +9,4 @@ mouse-scroll-multiplier = 0.5
 
 macos-icon = microchip
 
-fullscreen = true
+config-file = platform
