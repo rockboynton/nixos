@@ -23,7 +23,7 @@ capsule = true
 capsule_opacity = 1.0
 start = ["control-center", "sysmon", "media"]
 center = ["workspaces"]
-end = ["notifications", "volume", "clock", "session"]
+end = ["tray", "notifications", "volume", "clock", "session"]
 
 [theme]
 mode = "dark"

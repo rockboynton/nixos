@@ -111,6 +111,7 @@ in
         wl-clipboard
         wtype
         xwayland-satellite
+        zoom-us
       ];
   };
 
