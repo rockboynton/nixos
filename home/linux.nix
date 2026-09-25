@@ -76,12 +76,10 @@ in
 
     packages = with pkgs;
       [
-        _1password-gui
         adwaita-icon-theme
         caprine
         discord
         element-desktop
-        firefox
         gimp
         google-chrome
         gtk3

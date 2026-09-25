@@ -150,6 +150,7 @@ binds {
     Mod+Grave hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+space hotkey-overlay-title="Run an Application: Noctalia" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
+    Mod+Backslash hotkey-overlay-title="Open 1Password Quick Access" { spawn "1password" "--quick-access"; }
 
     // Noctalia IPC calls
     Mod+Alt+L { spawn-sh "noctalia msg session lock"; }

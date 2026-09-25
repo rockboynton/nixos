@@ -154,8 +154,15 @@
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
-  programs.fish.enable = true;
-  programs.niri.enable = true;
+  programs = {
+    fish.enable = true;
+    niri.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      polkitPolicyOwners = [ "rockboynton" ];
+    };
+  };
 
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?
