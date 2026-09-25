@@ -148,7 +148,7 @@ binds {
 
     // Common apps
     Mod+Grave hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
+    Mod+space hotkey-overlay-title="Run an Application: Noctalia" { spawn-sh "noctalia msg panel-toggle launcher"; }
     Mod+B hotkey-overlay-title="Open Browser: chrome" { spawn "google-chrome-stable"; }
 
     // Noctalia IPC calls
@@ -170,10 +170,10 @@ binds {
     // Misc
     Mod+O repeat=false { toggle-overview; }
     Mod+Q repeat=false { close-window; }
-    Mod+Shift+V repeat=false { spawn-sh "walker --provider clipboard"; }
-    Mod+Shift+C repeat=false { spawn-sh "walker --provider calc"; }
-    Mod+Shift+E repeat=false { spawn-sh "walker --provider symbols"; }
-    Mod+Shift+P repeat=false { spawn-sh "walker --provider windows"; }
+    Mod+Shift+V repeat=false { spawn-sh "noctalia msg panel-toggle clipboard"; }
+    Mod+Shift+C repeat=false { spawn-sh "noctalia msg panel-toggle launcher /calc"; }
+    Mod+Shift+E repeat=false { spawn-sh "noctalia msg panel-toggle launcher /emo"; }
+    Mod+Shift+P repeat=false { spawn-sh "noctalia msg panel-toggle launcher /win"; }
     // Helix anywhere
     Mod+Shift+I repeat=false { spawn-sh "ghostty -e sh -c 'hx /tmp/hxedit' && wl-copy -n < /tmp/hxedit && wtype -M ctrl v -m ctrl && rm -f /tmp/hxedit"; }
 

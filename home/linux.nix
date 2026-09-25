@@ -9,7 +9,6 @@ in
 {
   imports = [
     ./common.nix
-    inputs.walker.homeManagerModules.default
   ];
 
   systemd.user.services = {
@@ -63,15 +62,7 @@ in
       gtk.enable = true;
     };
 
-    # elephant doesn't currently abide by FHS: https://github.com/abenz1267/elephant/issues/137
-    file.".config/elephant/clipboard.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/elephant/clipboard.toml";
-
     file.".config/ghostty/platform".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/linux";
-
-    file.".config/walker/" = {
-      source = mkOutOfStoreSymlink "${nixosConfigDir}/walker";
-      recursive = true;
-    };
 
     file.".config/niri/" = {
       source = mkOutOfStoreSymlink "${nixosConfigDir}/niri/";
@@ -120,23 +111,9 @@ in
     defaultFonts.monospace = [ "FiraCode Nerd Font" ];
   };
 
-  services = {
-    clipcat = {
-      enable = true;
-      enableZshIntegration = true;
-      enableSystemdUnit = true;
-    };
-
-    udiskie.enable = true;
-  };
+  services.udiskie.enable = true;
 
   programs = {
-    walker = {
-      enable = true;
-      runAsService = true;
-      config = { }; # Use config TOML from this repo
-    };
-
     # ghostty's nixpkgs package is Linux-only, so this whole module lives
     # here rather than in common.nix (macOS gets Ghostty via Homebrew cask).
     ghostty = {
