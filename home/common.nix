@@ -9,8 +9,6 @@ in
   home = {
     stateVersion = "24.11";
 
-    pointerCursor.enable = true;
-
     file."backgrounds" = {
       source = mkOutOfStoreSymlink "${nixosConfigDir}/backgrounds/";
       recursive = true;
