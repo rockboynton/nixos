@@ -181,6 +181,7 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "treefmt-nix": "treefmt-nix",
+        "zellij-src": "zellij-src",
         "zoo-cli": "zoo-cli"
       }
     },
@@ -294,6 +295,23 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "zellij-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788981759,
+        "narHash": "sha256-7EAnvcm5DewcL5OFy2SPex6beqJ6rN+xKrYlmU9N1QI=",
+        "owner": "rockboynton",
+        "repo": "zellij",
+        "rev": "15e5e06c409337bd4ef12e4e79fb5f6b731c6c26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rockboynton",
+        "ref": "fix/remember-pane-focus-on-tab-switch",
+        "repo": "zellij",
         "type": "github"
       }
     },

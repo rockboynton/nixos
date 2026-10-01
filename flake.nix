@@ -34,6 +34,12 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # No flake.nix upstream; this is a source-only input for overriding
+    # zellij-unwrapped's src below.
+    zellij-src = {
+      url = "github:rockboynton/zellij/fix/remember-pane-focus-on-tab-switch";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:

@@ -396,7 +396,21 @@ in
       enableFishIntegration = true;
     };
 
-    zellij.enable = true;
+    zellij = {
+      enable = true;
+      # Carries a fix for pane focus not surviving a tab switch, not yet
+      # upstreamed.
+      package = pkgs.zellij.override {
+        zellij-unwrapped = pkgs.zellij-unwrapped.overrideAttrs (_: {
+          version = "0.46.0";
+          src = inputs.zellij-src;
+          cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+            src = inputs.zellij-src;
+            hash = "sha256-lOwmzZZPjit1Hh7/TFZEuUcqBKdZGtvoKT6u6nNxm+Y=";
+          };
+        });
+      };
+    };
 
     zoxide = {
       enable = true;
