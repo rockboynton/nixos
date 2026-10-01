@@ -28,4 +28,8 @@ in
 
   home.file.".hammerspoon/init.lua".source = mkOutOfStoreSymlink "${nixosConfigDir}/hammerspoon/init.lua";
   home.file.".config/ghostty/platform".source = mkOutOfStoreSymlink "${nixosConfigDir}/ghostty/macos";
+
+  # The Ghostty cask ships its CLI binary inside the app bundle; Homebrew
+  # does not symlink it onto PATH, so add it directly.
+  home.sessionPath = [ "/Applications/Ghostty.app/Contents/MacOS" ];
 }
