@@ -11,6 +11,12 @@
       url = "github:rockboynton/helix?ref=patchy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nixpkgs' jj release doesn't have colocated git worktrees with jj
+    # workspaces yet; track jj-vcs/jj main for that.
+    jujutsu = {
+      url = "github:jj-vcs/jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

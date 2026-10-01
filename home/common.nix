@@ -64,7 +64,6 @@ in
         jj-starship
         jq
         jjui
-        jujutsu
         lazygit
         lsd
         mergiraf
@@ -359,7 +358,10 @@ in
 
     bat.enable = true;
 
-    jujutsu.enable = true;
+    jujutsu = {
+      enable = true;
+      package = inputs.jujutsu.packages.${system}.default;
+    };
 
     delta = {
       enable = true;
