@@ -44,6 +44,7 @@ in
       [
         bat-extras.batman
         bottom
+        cachix
         delta
         direnv
         dust

@@ -16,6 +16,15 @@
       upgrade = true;
       cleanup = "zap";
     };
+    casks = [
+      "discord"
+      "ghostty"
+      "hammerspoon"
+      "jitouch"
+      "karabiner-elements"
+      "maccy"
+      "spotify"
+    ];
   };
 
   # Nix itself is expected to be installed and managed externally (e.g. the
