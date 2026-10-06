@@ -21,7 +21,6 @@
       "ghostty"
       "hammerspoon"
       "jitouch"
-      "karabiner-elements"
       "maccy"
       "spotify"
     ];

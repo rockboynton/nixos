@@ -13,10 +13,10 @@ myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConf
 hs.alert.show("Config loaded")
 
 hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "l", function()
-	hs.window.focusedWindow():focusWindowEast(nil, true)
+	hs.window.filter.default:focusWindowEast(nil, true)
 end)
 hs.hotkey.bind({ "ctrl", "alt", "cmd" }, "h", function()
-	hs.window.focusedWindow():focusWindowWest(nil, true)
+	hs.window.filter.default:focusWindowWest(nil, true)
 end)
 
 local apps = {
