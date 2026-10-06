@@ -4,11 +4,18 @@
 name = "Rock Boynton"
 email = "rock.boynton@yahoo.com"
 
-# # override user.email if the repository is located under ~/oss
-# [[--scope]]
-# --when.repositories = ["~/sources/oss"]
-# [--scope.user]
-# email = "rock.boynton@yahoo.com"
+# work machine
+[[--scope]]
+--when.hostnames = ["MAC-DF7961R9X9"]
+[--scope.user]
+email = "rboynton@anduril.com"
+
+# Open-source work and this personal config repo stay on the personal email everywhere
+# On non-work hosts this just reaffirms the default
+[[--scope]]
+--when.repositories = ["~/sources/oss", "~/sources/nixos"]
+[--scope.user]
+email = "rock.boynton@yahoo.com"
 
 [ui]
 merge-editor = "mergiraf"
