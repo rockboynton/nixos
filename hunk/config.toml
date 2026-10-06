@@ -1,4 +1,6 @@
 theme = "gruvbox-dark-medium"
 mode = "unified"
 line_numbers = true
-vcs = "jj"
+
+[vcs]
+watch = true
