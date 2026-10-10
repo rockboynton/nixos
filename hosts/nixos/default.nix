@@ -1,6 +1,29 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
+let
+  niriPackage = pkgs.niri.overrideAttrs (old: {
+    src = inputs.niri-src;
+    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+      src = inputs.niri-src;
+      hash = "sha256-gfnalA3qI3a9h3PvsxgQLCrzapfjLLkxhTMJpwRh+ro=";
+    };
+    env = old.env // {
+      NIRI_BUILD_COMMIT = "5e0c6c979d496c0d2071ed91bc4cbe44fe30b8c5";
+    };
+  });
+in
 {
+  assertions = [
+    {
+      assertion = !lib.versionOlder "26.04" pkgs.niri.version;
+      message = ''
+        nixpkgs Niri advanced from the last reviewed version (26.04) to ${pkgs.niri.version}.
+        Recheck niri-wm/niri PR #3966. Remove the `niri-src` override if horizontal mouse scrolling is fixed
+        upstream; otherwise update the reviewed version in this assertion.
+      '';
+    }
+  ];
+
   imports =
     [
       ./hardware-configuration.nix
@@ -87,7 +110,7 @@
       xdg-desktop-portal-gtk
     ];
     config.common.default = [ "gnome" "gtk" ];
-    configPackages = [ pkgs.niri ];
+    configPackages = [ niriPackage ];
   };
 
   services.dbus.enable = true;
@@ -156,7 +179,10 @@
 
   programs = {
     fish.enable = true;
-    niri.enable = true;
+    niri = {
+      enable = true;
+      package = niriPackage;
+    };
     _1password.enable = true;
     _1password-gui = {
       enable = true;

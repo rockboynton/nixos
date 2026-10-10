@@ -11,12 +11,6 @@
       url = "github:rockboynton/helix?ref=patchy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixpkgs' jj release doesn't have colocated git worktrees with jj
-    # workspaces yet; track jj-vcs/jj main for that.
-    jujutsu = {
-      url = "github:jj-vcs/jj";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +34,11 @@
       url = "github:rockboynton/zellij/fix/remember-pane-focus-on-tab-switch";
       flake = false;
     };
+    # PR #3966 adds independent horizontal mouse-wheel bindings.
+    niri-src = {
+      url = "github:pcc/niri/hv-scroll-bind";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:
@@ -55,7 +54,13 @@
           # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
           mdformat.enable = true; # Markdown
-          stylua.enable = true; # Lua
+          stylua = {
+            enable = true; # Lua
+            settings = {
+              indent_type = "Spaces";
+              indent_width = 4;
+            };
+          };
         };
       };
     in

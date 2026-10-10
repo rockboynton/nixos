@@ -183,8 +183,8 @@ binds {
     Mod+Shift+BracketLeft { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
     Mod+Shift+BracketRight { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
     // Tab scrolling (mouse thumb wheel) - https://github.com/YaLTeR/niri/issues/1584
-    Shift+WheelScrollLeft cooldown-ms=100 { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
-    Shift+WheelScrollRight cooldown-ms=100 { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
+    WheelScrollLeft cooldown-ms=100 { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
+    WheelScrollRight cooldown-ms=100 { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
     // Workspace scrolling (left encoder)
     Ctrl+Right { focus-column-or-monitor-right; }
     Ctrl+Left { focus-column-or-monitor-left; }
