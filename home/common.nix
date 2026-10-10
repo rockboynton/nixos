@@ -6,6 +6,32 @@ let
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
+  assertions = [
+    {
+      assertion = !lib.versionOlder "0.45.1" pkgs.jujutsu.version;
+      message = ''
+        nixpkgs now provides Jujutsu ${pkgs.jujutsu.version}, which supports colocated workspaces using Git worktrees.
+        Remove the `jujutsu` flake input and use pkgs.jujutsu instead.
+      '';
+    }
+    {
+      assertion = !lib.versionOlder "25.07.1" pkgs.helix.version;
+      message = ''
+        nixpkgs Helix advanced from the last reviewed version (25.07.1) to ${pkgs.helix.version}.
+        Recheck helix-editor/helix PRs #11441, #12026, and #12806. Remove the `helix` flake input if its patches
+        are upstream; otherwise update the reviewed version in this assertion.
+      '';
+    }
+    {
+      assertion = !lib.versionOlder "0.45.1" pkgs.zellij.version;
+      message = ''
+        nixpkgs Zellij advanced from the last reviewed version (0.45.1) to ${pkgs.zellij.version}.
+        Recheck zellij-org/zellij issue #1676. Remove the `zellij-src` override if it is fixed upstream; otherwise
+        update the reviewed version in this assertion.
+      '';
+    }
+  ];
+
   home = {
     stateVersion = "24.11";
 
