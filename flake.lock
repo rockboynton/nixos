@@ -42,27 +42,6 @@
         "type": "github"
       }
     },
-    "modeling-app": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1790305402,
-        "narHash": "sha256-E9jg4W3dyLPeQANSv4FHcgrq8BaWI8tv9sbi5My0PCM=",
-        "owner": "KittyCAD",
-        "repo": "modeling-app",
-        "rev": "59aed7c1e4ce0aa96a73378b439f4024da20f7b2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "KittyCAD",
-        "repo": "modeling-app",
-        "type": "github"
-      }
-    },
     "niri-src": {
       "flake": false,
       "locked": {
@@ -103,22 +82,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1744536153,
-        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1791594108,
         "narHash": "sha256-XK4KceonkwD8LuMAt/vNrz982mXJM5jeHAxMwsUXXAQ=",
         "owner": "nixos",
@@ -133,33 +96,15 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1744536153,
-        "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "18dd725c29603f582cf1900e0d25f9f1063dbf11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "helix": "helix",
         "home-manager": "home-manager",
-        "modeling-app": "modeling-app",
         "niri-src": "niri-src",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "treefmt-nix": "treefmt-nix",
-        "zellij-src": "zellij-src",
-        "zoo-cli": "zoo-cli"
+        "zellij-src": "zellij-src"
       }
     },
     "rust-overlay": {
@@ -175,42 +120,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "20fd44bc663daa53a2575e01293e24e681d62244",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1784091390,
-        "narHash": "sha256-aILAwrBQPhKldL98N8lmsbfst3OPtbMM4vT2VXn40/Y=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "a7887636a3959168bd1ba7ef24a8a70b168dcb56",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_3": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1788591095,
-        "narHash": "sha256-Vh+BeLWfbTT9AecazIsQ/Tkg/RzJeX3lEduANf256WA=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "c361047d3a538f547f1617bb6b410411929ac9cc",
         "type": "github"
       },
       "original": {
@@ -253,27 +162,6 @@
         "owner": "rockboynton",
         "ref": "fix/remember-pane-focus-on-tab-switch",
         "repo": "zellij",
-        "type": "github"
-      }
-    },
-    "zoo-cli": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_3"
-      },
-      "locked": {
-        "lastModified": 1790181434,
-        "narHash": "sha256-rH/scKmQxdMPF0B3GL5RbA++ZcAeSAWRyOWbmIbWGG0=",
-        "owner": "kittycad",
-        "repo": "cli",
-        "rev": "fb505f0e127c1bf74d68e2f4f4f32c01a518ddad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kittycad",
-        "repo": "cli",
         "type": "github"
       }
     }

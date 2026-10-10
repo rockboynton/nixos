@@ -15,15 +15,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Zoo Design Studio
-    modeling-app = {
-      url = "github:KittyCAD/modeling-app";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zoo-cli = {
-      url = "github:kittycad/cli";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

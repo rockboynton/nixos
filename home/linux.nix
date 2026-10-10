@@ -1,10 +1,9 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
   localPackages = import ../pkgs { inherit pkgs; };
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
-  system = pkgs.stdenv.hostPlatform.system;
 in
 {
   imports = [
@@ -84,8 +83,8 @@ in
         gimp
         google-chrome
         gtk3
-        inputs.modeling-app.packages.${system}.kcl-language-server
-        inputs.zoo-cli.packages.${system}.zoo
+        localPackages.kcl-language-server
+        localPackages.zoo-cli
         localPackages.zoo-design-studio
         nautilus
         nerd-fonts.fira-code
