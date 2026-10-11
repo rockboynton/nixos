@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 let
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
@@ -8,7 +8,10 @@ in
 {
   imports = [
     ./common.nix
+    inputs.codex-desktop-linux.homeManagerModules.default
   ];
+
+  programs.codexDesktopLinux.enable = true;
 
   systemd.user.services = {
     swayidle = {

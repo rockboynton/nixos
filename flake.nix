@@ -30,6 +30,12 @@
       url = "github:niri-wm/niri";
       flake = false;
     };
+    # Unofficial NixOS packaging of OpenAI's Linux ChatGPT desktop app,
+    # which includes ChatGPT, Work, and Codex.
+    codex-desktop-linux = {
+      url = "github:ilysenko/codex-desktop-linux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, treefmt-nix, ... }:
