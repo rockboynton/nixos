@@ -5,10 +5,10 @@ let
     src = inputs.niri-src;
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       src = inputs.niri-src;
-      hash = "sha256-gfnalA3qI3a9h3PvsxgQLCrzapfjLLkxhTMJpwRh+ro=";
+      hash = "sha256-JJfJ8o5yuI8mfXDkEfdCVcqQpxIXICV3dji7HoLgKBI=";
     };
     env = old.env // {
-      NIRI_BUILD_COMMIT = "5e0c6c979d496c0d2071ed91bc4cbe44fe30b8c5";
+      NIRI_BUILD_COMMIT = "f8b7b7fcae6b1548ce799f8968210d045b50500b";
     };
   });
 in
@@ -18,8 +18,9 @@ in
       assertion = !lib.versionOlder "26.04" pkgs.niri.version;
       message = ''
         nixpkgs Niri advanced from the last reviewed version (26.04) to ${pkgs.niri.version}.
-        Recheck niri-wm/niri PR #3966. Remove the `niri-src` override if horizontal mouse scrolling is fixed
-        upstream; otherwise update the reviewed version in this assertion.
+        Check whether nixpkgs now includes the upstream horizontal-scroll fix from PR #3966.
+        Remove the `niri-src` override and NIRI_BUILD_COMMIT if it does; otherwise update the
+        reviewed version in this assertion.
       '';
     }
   ];

@@ -25,9 +25,9 @@
       url = "github:rockboynton/zellij/fix/remember-pane-focus-on-tab-switch";
       flake = false;
     };
-    # PR #3966 adds independent horizontal mouse-wheel bindings.
+    # Keep Niri's upstream master until nixpkgs includes PR #3966.
     niri-src = {
-      url = "github:pcc/niri/hv-scroll-bind";
+      url = "github:niri-wm/niri";
       flake = false;
     };
   };

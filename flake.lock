@@ -45,16 +45,15 @@
     "niri-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1777772664,
-        "narHash": "sha256-WFIzeNui4uyBxyVJQTXS5qmtLJyQcG+cRComKqg6eyM=",
-        "owner": "pcc",
+        "lastModified": 1791701521,
+        "narHash": "sha256-e9kVAKegLLcfzWXw0DNPu6WK72liM+wyY1+Da36/5gg=",
+        "owner": "niri-wm",
         "repo": "niri",
-        "rev": "5e0c6c979d496c0d2071ed91bc4cbe44fe30b8c5",
+        "rev": "f8b7b7fcae6b1548ce799f8968210d045b50500b",
         "type": "github"
       },
       "original": {
-        "owner": "pcc",
-        "ref": "hv-scroll-bind",
+        "owner": "niri-wm",
         "repo": "niri",
         "type": "github"
       }
