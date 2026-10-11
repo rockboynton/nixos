@@ -78,6 +78,7 @@ in
       [
         adwaita-icon-theme
         caprine
+        codex
         discord
         element-desktop
         gimp
