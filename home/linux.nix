@@ -96,6 +96,7 @@ in
         qmk-udev-rules
         spotify
         swayidle
+        thunderbird
         usbutils
         wezterm
         wl-clipboard

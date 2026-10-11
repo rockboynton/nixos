@@ -26,6 +26,7 @@
       "jitouch"
       "maccy"
       "spotify"
+      "thunderbird"
     ];
   };
 
