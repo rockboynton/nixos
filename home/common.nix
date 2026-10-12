@@ -112,6 +112,7 @@ in
         patchy
         ripgrep
         rumdl
+        steel
         taplo
         tealdeer
         tokei
