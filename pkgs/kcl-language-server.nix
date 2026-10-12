@@ -2,11 +2,11 @@
 
 stdenvNoCC.mkDerivation {
   pname = "kcl-language-server";
-  version = "0.2.188";
+  version = "0.2.190";
 
   src = fetchurl {
-    url = "https://github.com/KittyCAD/modeling-app/releases/download/kcl-188/kcl-language-server-x86_64-unknown-linux-gnu.gz";
-    hash = "sha256-yWVQuFqR+/sMc3QsYPR07P9yxsSk/jznlrrjWZTwHAQ=";
+    url = "https://github.com/KittyCAD/modeling-app/releases/download/kcl-190/kcl-language-server-x86_64-unknown-linux-gnu.gz";
+    hash = "sha256-vxAUDhfi6qtuCxnQzM+qip5sKC5SlhqrdQjBXDTM7fc=";
   };
 
   dontUnpack = true;

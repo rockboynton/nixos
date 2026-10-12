@@ -1,11 +1,11 @@
 { appimageTools, fetchurl, lib, imagemagick, ... }:
 let
   pname = "zoo-design-studio";
-  version = "1.4.11";
+  version = "1.5.0";
 
   src = fetchurl {
     url = "https://github.com/KittyCAD/modeling-app/releases/download/v${version}/Zoo.Design.Studio-${version}-x86_64-linux.AppImage";
-    hash = "sha256-rAk+zUtw53Z00m9Tw5qh7TXkE4WUrI+enUuSG5qypQI=";
+    hash = "sha256-GvFvI/ebIzR5RCZMuh/0m1FDexZL3kGSnzZYrM+e6tE=";
   };
   appimageContents = appimageTools.extract { inherit pname version src; };
 in
