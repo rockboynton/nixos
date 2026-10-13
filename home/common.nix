@@ -76,7 +76,7 @@ in
 
     file.".face".source = mkOutOfStoreSymlink "${nixosConfigDir}/.face";
 
-    file.".config/rumdl.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/rumdl/rumdl.toml";
+    file.".config/rumdl/rumdl.toml".source = mkOutOfStoreSymlink "${nixosConfigDir}/rumdl/rumdl.toml";
 
     packages = with pkgs;
       [
