@@ -1,0 +1,23 @@
+;; Editing, language-server display, file handling, and VCS preferences.
+(require "helix/configuration.scm")
+
+(provide configure-editing!)
+
+(define (configure-editing!)
+  (set-option! "mouse" #f)
+  (set-option! "text-width" 120)
+  (set-option! "shell" (list "fish" "-c"))
+  (set-option! "jump-label-alphabet" "asdf;lkjghqweruioptyzxc/.,mbn")
+  (set-option! "completion-trigger-len" 1)
+  (set-option! "completion-timeout" 100)
+  (set-option! "end-of-line-diagnostics" "hint")
+  (set-option! "file-picker.hidden" #f)
+  (set-option! "auto-reload" #t)
+  (set-option! "enable-steel" #t)
+  (set-option! "inline-blame.show" "never")
+  (set-option! "inline-blame.auto-fetch" #t)
+  (set-option! "auto-save.focus-lost" #t)
+  (set-option! "auto-save.after-delay.enable" #t)
+  (set-option! "auto-save.after-delay.timeout" 300)
+  (set-option! "lsp.display-messages" #t)
+  (set-option! "lsp.display-inlay-hints" #t))

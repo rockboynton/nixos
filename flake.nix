@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix = {
-      url = "github:rockboynton/helix?ref=patchy";
+      url = "github:rockboynton/helix?ref=neohelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
