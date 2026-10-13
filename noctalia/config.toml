@@ -1,5 +1,5 @@
 [shell]
-avatar_path = "/home/rockboynton/.face"
+avatar_path = "~/.face"
 telemetry_enabled = false
 
 [shell.animation]
@@ -32,7 +32,7 @@ builtin = "Gruvbox"
 
 [wallpaper]
 enabled = true
-directory = "/home/rockboynton/backgrounds"
+directory = "~/backgrounds"
 fill_mode = "crop"
 fill_color = "#000000"
 transition = ["fade", "disc", "stripes", "wipe", "honeycomb"]
@@ -40,7 +40,7 @@ transition_duration = 1500
 transition_on_startup = false
 
 [wallpaper.default]
-path = "/home/rockboynton/backgrounds/gruvbox.png"
+path = "~/backgrounds/gruvbox.png"
 
 [wallpaper.automation]
 enabled = false
@@ -79,8 +79,7 @@ unit = "imperial"
 effects = true
 
 [location]
-auto_locate = false
-address = "Buena Park, CA"
+auto_locate = true
 
 [audio]
 enable_overdrive = false
