@@ -7,8 +7,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "rockboynton";
     repo = "modeling-app";
-    rev = "966542dc32be77dfc40ae57b573720d2fb5f1abf";
-    hash = "sha256-nYRSbM/sFdWqO6AwSIq/Xkxg+Gn0ymwken+KARVTqu4=";
+    rev = "f65370868619042e598afc22028c837ed75a799d";
+    hash = "sha256-i25mgyKjO5rXhN0C4zKos1gyL+indgJQTMN0jaYOjjM=";
   };
   sourceRoot = "source/rust";
 
