@@ -27,6 +27,7 @@
       "maccy"
       "spotify"
       "thunderbird"
+      "saleae-logic"
     ];
   };
 
