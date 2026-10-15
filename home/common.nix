@@ -437,8 +437,8 @@ in
 
     zellij = {
       enable = true;
-      # Carries a fix for pane focus not surviving a tab switch, not yet
-      # upstreamed.
+      # Retains pane focus across tabs and interprets Kitty Unicode placeholders
+      # for Neohelix image previews (upstream PR #5531).
       package = pkgs.zellij.override {
         zellij-unwrapped = pkgs.zellij-unwrapped.overrideAttrs (_: {
           version = "0.46.0";

@@ -65,11 +65,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1792049810,
-        "narHash": "sha256-AyzvMiWQULuWsYjifoIrUYJfDWadDopnzg3LBGIT7as=",
+        "lastModified": 1792082130,
+        "narHash": "sha256-I4AL3JHbKI58r+JChb2Jk5Rm6G2wyFH4S621UHUzi+A=",
         "owner": "rockboynton",
         "repo": "helix",
-        "rev": "54f7755d72df3381df672ed1c733de8736bd801b",
+        "rev": "469aaa72e0acd2cc70557a52ded75d0ed7a25b2e",
         "type": "github"
       },
       "original": {
@@ -403,16 +403,16 @@
     "zellij-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1788981759,
-        "narHash": "sha256-7EAnvcm5DewcL5OFy2SPex6beqJ6rN+xKrYlmU9N1QI=",
+        "lastModified": 1792076670,
+        "narHash": "sha256-NJF2mKwWkJXAcbmZo83YAdFxLINEp3lzkgg1H3afjpo=",
         "owner": "rockboynton",
         "repo": "zellij",
-        "rev": "15e5e06c409337bd4ef12e4e79fb5f6b731c6c26",
+        "rev": "d1e634ee62f29b78c6175db45a9df72b4d4e2a9f",
         "type": "github"
       },
       "original": {
         "owner": "rockboynton",
-        "ref": "fix/remember-pane-focus-on-tab-switch",
+        "ref": "kitty-unicode-placeholders",
         "repo": "zellij",
         "type": "github"
       }

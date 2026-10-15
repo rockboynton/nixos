@@ -28,7 +28,7 @@
     # No flake.nix upstream; this is a source-only input for overriding
     # zellij-unwrapped's src below.
     zellij-src = {
-      url = "github:rockboynton/zellij/fix/remember-pane-focus-on-tab-switch";
+      url = "github:rockboynton/zellij/kitty-unicode-placeholders";
       flake = false;
     };
     # Keep Niri's upstream master until nixpkgs includes PR #3966.
