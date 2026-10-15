@@ -87,8 +87,8 @@ in
         gimp
         google-chrome
         gtk3
-        localPackages.kcl-language-server
-        localPackages.zoo-cli
+        inputs.modeling-app.packages.${pkgs.stdenv.hostPlatform.system}.kcl-language-server
+        inputs.zoo-cli.packages.${pkgs.stdenv.hostPlatform.system}.zoo
         localPackages.zoo-design-studio
         nautilus
         nerd-fonts.fira-code

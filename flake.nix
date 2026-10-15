@@ -11,6 +11,8 @@
       url = "github:rockboynton/helix?ref=neohelix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    modeling-app.url = "github:rockboynton/modeling-app";
+    zoo-cli.url = "github:rockboynton/cli";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
