@@ -398,6 +398,7 @@ in
 
     jujutsu = {
       enable = true;
+      package = inputs.jujutsu.packages.${system}.default;
     };
 
     delta = {
