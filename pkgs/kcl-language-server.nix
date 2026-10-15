@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kcl-language-server";
-  version = "0.2.191";
+  version = "0.2.192";
 
   src = fetchFromGitHub {
     owner = "rockboynton";
     repo = "modeling-app";
-    rev = "73eab4f3229a811ec007aca015c083583813f9d4";
-    hash = "sha256-i25mgyKjO5rXhN0C4zKos1gyL+indgJQTMN0jaYOjjM=";
+    rev = "eb9ca6006d36ecd5ab9a4d15c2be722010746047";
+    hash = "sha256-1UQf3bI+9caK/fciR6t4OUqfW8ep86jgR4iGJVkmxHI=";
   };
   sourceRoot = "source/rust";
 
