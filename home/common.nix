@@ -110,6 +110,7 @@ in
         nix-output-monitor
         nixpkgs-fmt
         patchy
+        poppler-utils # pdftoppm for Neohelix/Yazi PDF previews (no library linking)
         ripgrep
         rumdl
         steel
