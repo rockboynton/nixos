@@ -9,6 +9,9 @@ revision_command = [
   "-r",
   "$change_id",
   "--config",
-  "ui.diff-formatter=delta",
+  "ui.diff-formatter=neohelix",
 ]
 show_at_start = true
+
+# Shift-E uses jjui's built-in interactive diff-edit action. JJ's ui.diff-editor
+# selects Neohelix; exiting Helix returns to jjui and refreshes the revision.

@@ -33,7 +33,7 @@
 
 (define diff-bindings
   (hash
-    "i" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Inline)' -- jj diff --tool delta"
+    "i" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Inline)' -- jj diff --tool neohelix-inline"
     "s" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Split)' -- jj diff"))
 
 (define vcs-bindings
@@ -41,7 +41,7 @@
     "t" (list
           ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% --close-on-exit -- jjui"
           ":reload-all")
-    "b" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Annotate' -- jj file annotate '%{buffer_name}'"
+    "b" ":blame-toggle"
     "u" ":sh gh browse -n '%{buffer_name}:%{selection_line_start}-%{selection_line_end}' | pbcopy"
     "o" ":sh gh browse '%{buffer_name}:%{selection_line_start}-%{selection_line_end}'"
     "d" diff-bindings

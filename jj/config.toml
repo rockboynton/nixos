@@ -19,7 +19,22 @@ email = "rock.boynton@yahoo.com"
 
 [ui]
 merge-editor = "mergiraf"
-diff-formatter = "delta-side-by-side"
+diff-formatter = "neohelix"
+diff-editor = "neohelix"
+# Neohelix has its own review UI; omit JJ's synthetic instruction file.
+diff-instructions = false
+
+[merge-tools.neohelix]
+program = "hx"
+diff-args = ["--render-diff", "--color", "always", "--width", "$width", "$left", "$right"]
+diff-invocation-mode = "dir"
+edit-args = ["--review", "--diff-layout", "inline", "$left", "$right"]
+edit-invocation-mode = "dir"
+
+[merge-tools.neohelix-inline]
+program = "hx"
+diff-args = ["--render-diff", "--diff-layout", "inline", "--color", "always", "--width", "$width", "$left", "$right"]
+diff-invocation-mode = "dir"
 
 [merge-tools.delta]
 diff-expected-exit-codes = [0, 1]
