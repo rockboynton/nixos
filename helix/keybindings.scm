@@ -3,6 +3,52 @@
 
 (provide configure-keybindings!)
 
+;; Keep external-tool commands literal: Helix expands their % expressions.
+(define yazi-commands
+  (list
+    ":sh rm -f /tmp/unique-ca1ea106"
+    ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/unique-ca1ea106"
+    ":sh printf \"\\x1b[?1049h\\x1b[?2004h\" > /dev/tty"
+    ":open %sh{cat /tmp/unique-ca1ea106}"
+    ":redraw"
+    ":set mouse false"
+    ":set mouse true"))
+
+(define vcs-bindings
+  (hash
+    "g" "changed_file_picker"
+    "r" "diff_review"
+    "[" ":diff-file-prev"
+    "]" ":diff-file-next"
+    "l" ":diff-layout"
+    "G" ":diff-get"
+    "p" ":diff-put"
+    "q" ":diff-off"
+    "R" ":reset-diff-change"
+    "i" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Inline)' -- jj diff --tool neohelix-inline"
+    "s" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Split)' -- jj diff"
+    "t" (list
+          ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% --close-on-exit -- jjui"
+          ":reload-all")
+    "b" ":blame-toggle"
+    "u" ":sh gh browse -n '%{buffer_name}:%{selection_line_start}-%{selection_line_end}' | pbcopy"
+    "o" ":sh gh browse '%{buffer_name}:%{selection_line_start}-%{selection_line_end}'"
+    "c" ":sh zellij action write-chars '/<<<<<<<' && zellij action write 13"))
+
+(define tool-bindings
+  (hash
+    "y" yazi-commands
+    "'" ":sh zellij action new-pane --floating -x 5% -y 6% --height 88% --width 91%"))
+
+(define fold-bindings
+  (hash
+    "t" ":fold-toggle"
+    "T" ":fold-toggle-all"
+    "c" ":fold-close"
+    "o" ":fold-open"
+    "s" ":fold-selection"
+    "d" ":diff-fold"))
+
 (define space-bindings
   (hash
     "x" ":buffer-close"
@@ -15,44 +61,17 @@
     "q" ":quit-all"
     "i" ":toggle lsp.display-inlay-hints"
     "t" ":toggle soft-wrap.enable"
-    "E" "file_explorer_in_current_buffer_directory"
+    "E" ":file-tree-toggle"
+    ;; Zellij reserves Alt-w globally, so trim uses a plain shifted key.
+    "W" ":trim"
+    ;; Keep Space R's built-in clipboard replacement. These Alt keys are
+    ;; unbound in both our Zellij config and its inherited defaults.
+    "A-r" "global_refactor"
+    "A-R" ":refactor-apply"
+    "g" vcs-bindings
     "K" "goto_hover"
     "B" ":gitlens-blame"
     "H" "select_register_history"))
-
-;; Keep external-tool commands literal: Helix expands their % expressions.
-(define yazi-commands
-  (list
-    ":sh rm -f /tmp/unique-ca1ea106"
-    ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/unique-ca1ea106"
-    ":sh printf \"\\x1b[?1049h\\x1b[?2004h\" > /dev/tty"
-    ":open %sh{cat /tmp/unique-ca1ea106}"
-    ":redraw"
-    ":set mouse false"
-    ":set mouse true"))
-
-(define diff-bindings
-  (hash
-    "i" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Inline)' -- jj diff --tool neohelix-inline"
-    "s" ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% -n 'Diff (Split)' -- jj diff"))
-
-(define vcs-bindings
-  (hash
-    "t" (list
-          ":sh zellij run --floating -x 5%% -y 6%% --height 88%% --width 91%% --close-on-exit -- jjui"
-          ":reload-all")
-    "b" ":blame-toggle"
-    "u" ":sh gh browse -n '%{buffer_name}:%{selection_line_start}-%{selection_line_end}' | pbcopy"
-    "o" ":sh gh browse '%{buffer_name}:%{selection_line_start}-%{selection_line_end}'"
-    "d" diff-bindings
-    "c" ":sh zellij action write-chars '/<<<<<<<' && zellij action write 13"))
-
-(define tool-bindings
-  (hash
-    "y" yazi-commands
-    "r" ":reset-diff-change"
-    "g" vcs-bindings
-    "'" ":sh zellij action new-pane --floating -x 5% -y 6% --height 88% --width 91%"))
 
 (define normal-bindings
   (hash
@@ -80,6 +99,7 @@
     "A-E" "move_next_sub_word_end"
     "ret" "goto_word"
     "C-S" "save_selection"
+    "z" (hash "f" fold-bindings)
     "space" space-bindings
     "'" tool-bindings))
 
