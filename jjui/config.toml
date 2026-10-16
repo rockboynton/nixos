@@ -9,7 +9,7 @@ revision_command = [
   "-r",
   "$change_id",
   "--config",
-  "ui.diff-formatter=neohelix",
+  "ui.diff-formatter=neohelix-inline",
 ]
 show_at_start = true
 
