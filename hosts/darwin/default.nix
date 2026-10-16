@@ -28,6 +28,7 @@
       "spotify"
       "thunderbird"
       "saleae-logic"
+      "element"
     ];
   };
 
