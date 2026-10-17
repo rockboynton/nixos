@@ -65,11 +65,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1792219616,
-        "narHash": "sha256-4KR633JvRMR1PvNj4nne/zwnny+kEARugd+Na5fRtfM=",
+        "lastModified": 1792268579,
+        "narHash": "sha256-8EtXYyZR/WoUypnQHEMvqLHabewal9sxjkD3XQkPIbM=",
         "owner": "rockboynton",
         "repo": "helix",
-        "rev": "29d2bcc899cd318cd13a7dc327f034ef05b2fbf2",
+        "rev": "7ceac1b8a348069b0b23f8b7b16d900ddcf493ce",
         "type": "github"
       },
       "original": {
