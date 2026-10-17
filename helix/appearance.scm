@@ -5,27 +5,30 @@
 (provide configure-appearance!)
 
 (define (configure-appearance!)
-  (set-option! "true-color" #t)
-  (set-option! "line-number" "relative")
-  (set-option! "rulers" (list 120))
-  (set-option! "color-modes" #t)
-  (set-option! "cursorline" #t)
-  (set-option! "bufferline" "multiple")
-  (set-option! "undercurl" #t)
-  (set-option! "rainbow-brackets" #t)
+  (true-color #t)
+  (line-number 'relative)
+  (rulers '(120))
+  (color-modes #t)
+  (cursorline #t)
+  (bufferline 'multiple)
+  (undercurl #t)
+  (rainbow-brackets #t)
+  (cursor-shape #:normal 'block #:insert 'bar #:select 'underline)
+
+  (statusline
+    #:left '(mode spinner file-type-icon file-name read-only-indicator
+             file-modification-indicator version-control)
+    #:center '(diagnostics spacer workspace-diagnostics)
+    #:right '(selections register search-position position position-percentage file-encoding)
+    #:mode-normal "NORMAL"
+    #:mode-insert "INSERT"
+    #:mode-select "SELECT"
+    ;; Preserve Helix's existing separator instead of the helper's ASCII default.
+    #:separator "│")
+
+  (indent-guides (ig-render #t) (ig-skip-levels 1) (ig-character #\┊))
+  ;; ws-render fills every omitted character with "none"; keep partial overrides.
+  (set-option! "whitespace.render" (hash 'space "all" 'tab "all"))
   (set-option! "inline-diagnostics.cursor-line" "warning")
-  (set-option! "cursor-shape.insert" "bar")
-  (set-option! "cursor-shape.normal" "block")
-  (set-option! "cursor-shape.select" "underline")
-  (set-option! "statusline.left" (list "mode" "spinner" "file-type-icon" "file-name" "read-only-indicator" "file-modification-indicator" "version-control"))
-  (set-option! "statusline.center" (list "diagnostics" "spacer" "workspace-diagnostics"))
-  (set-option! "statusline.right" (list "selections" "register" "search-position" "position" "position-percentage" "file-encoding"))
-  (set-option! "statusline.mode.normal" "NORMAL")
-  (set-option! "statusline.mode.insert" "INSERT")
-  (set-option! "statusline.mode.select" "SELECT")
-  (set-option! "whitespace.render" (hash "space" "all" "tab" "all"))
-  (set-option! "indent-guides.render" #t)
-  (set-option! "indent-guides.skip-levels" 1)
-  (set-option! "indent-guides.character" "┊")
   (hx.theme "modified_gruvbox")
   (hx.icons "nerdfonts"))

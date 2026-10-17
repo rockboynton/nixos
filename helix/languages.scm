@@ -27,8 +27,9 @@
           overrides))))
 
 (define (configure-language-servers!)
-  (server! "haskell-language-server"
-    (hash "command" "haskell-language-server" "args" '("--lsp")))
+  (define-lsp "haskell-language-server"
+    (command "haskell-language-server")
+    (args '("--lsp")))
   (server! "rust-analyzer"
     (hash "config"
       (hash 'cargo (hash 'targetDir #t)
@@ -43,8 +44,8 @@
             'formatterProseWrap #t
             ;; Use the project's tinymist.lock instead of compiling each imported file.
             'projectResolution "lockDatabase")))
-  (server! "rumdl" (hash "command" "rumdl" "args" '("server")))
-  (server! "steel-language-server" (hash "command" "steel-language-server")))
+  (define-lsp "rumdl" (command "rumdl") (args '("server")))
+  (define-lsp "steel-language-server" (command "steel-language-server")))
 
 (define (language! name overrides)
   ;; Batch native updates, then refresh open documents once at the end.
