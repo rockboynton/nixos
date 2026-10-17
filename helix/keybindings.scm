@@ -99,6 +99,8 @@
     "A-E" "move_next_sub_word_end"
     "ret" "goto_word"
     "C-S" "save_selection"
+    ;; Window-menu explorer focus toggle; Space E independently toggles visibility.
+    "C-w" (hash "e" ":file-tree-focus")
     "z" (hash "f" fold-bindings)
     "space" space-bindings
     "'" tool-bindings))
@@ -114,6 +116,7 @@
 
 (define selection-bindings
   (hash
+    "C-w" (hash "e" ":file-tree-focus")
     "tab" "extend_parent_node_end"
     "S-tab" "extend_parent_node_start"
     "X" "select_line_above"
