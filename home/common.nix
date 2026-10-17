@@ -23,6 +23,14 @@ let
         })
     ];
   };
+  jjuiPackage = pkgs.writeShellApplication {
+    name = "jjui";
+    runtimeInputs = [ helixPackage config.programs.jujutsu.package ];
+    text = ''
+      NEOHELIX_JJUI_BIN=${lib.getExe pkgs.jjui}
+      NEOHELIX_HX_BIN=${lib.getExe helixPackage}
+    '' + builtins.readFile ../jjui/launch.sh;
+  };
 in
 {
   assertions = [
@@ -100,7 +108,7 @@ in
         hunk
         jj-starship
         jq
-        jjui
+        jjuiPackage
         lazygit
         lsd
         mergiraf
