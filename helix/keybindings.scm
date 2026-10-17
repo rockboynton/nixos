@@ -61,7 +61,8 @@
     "q" ":quit-all"
     "i" ":toggle lsp.display-inlay-hints"
     "t" ":toggle soft-wrap.enable"
-    "E" ":file-tree-toggle"
+    "e" ":file-tree-toggle"
+    "E" "file_explorer_in_current_buffer_directory"
     ;; Zellij reserves Alt-w globally, so trim uses a plain shifted key.
     "W" ":trim"
     ;; Keep Space R's built-in clipboard replacement. These Alt keys are
@@ -99,7 +100,7 @@
     "A-E" "move_next_sub_word_end"
     "ret" "goto_word"
     "C-S" "save_selection"
-    ;; Window-menu explorer focus toggle; Space E independently toggles visibility.
+    ;; Window-menu explorer focus toggle; Space e independently toggles visibility.
     "C-w" (hash "e" ":file-tree-focus")
     "z" (hash "f" fold-bindings)
     "space" space-bindings
@@ -117,6 +118,9 @@
 (define selection-bindings
   (hash
     "C-w" (hash "e" ":file-tree-focus")
+    "space" (hash
+              "e" ":file-tree-toggle"
+              "E" "file_explorer_in_current_buffer_directory")
     "tab" "extend_parent_node_end"
     "S-tab" "extend_parent_node_start"
     "X" "select_line_above"
