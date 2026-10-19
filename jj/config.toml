@@ -28,7 +28,15 @@ diff-instructions = false
 program = "hx"
 # Preserve the workspace for Neohelix configuration and reusable diff workers.
 diff-do-chdir = false
-diff-args = ["--render-diff", "--color", "always", "--width", "$width", "$left", "$right"]
+diff-args = [
+  "--render-diff",
+  "--color",
+  "always",
+  "--width",
+  "$width",
+  "$left",
+  "$right",
+]
 diff-invocation-mode = "dir"
 edit-args = ["--review", "--diff-layout", "inline", "$left", "$right"]
 edit-invocation-mode = "dir"
@@ -36,7 +44,17 @@ edit-invocation-mode = "dir"
 [merge-tools.neohelix-inline]
 program = "hx"
 diff-do-chdir = false
-diff-args = ["--render-diff", "--diff-layout", "inline", "--color", "always", "--width", "$width", "$left", "$right"]
+diff-args = [
+  "--render-diff",
+  "--diff-layout",
+  "inline",
+  "--color",
+  "always",
+  "--width",
+  "$width",
+  "$left",
+  "$right",
+]
 diff-invocation-mode = "dir"
 
 [merge-tools.delta]

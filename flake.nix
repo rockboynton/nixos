@@ -56,7 +56,7 @@
           nixpkgs-fmt.enable = true; # nix
           # kdlfmt.enable = true; # KDL, add back when more options like preserving newlines are added
           taplo.enable = true; # taplo
-          mdformat.enable = true; # Markdown
+          rumdl-format.enable = true; # Markdown
           stylua = {
             enable = true; # Lua
             settings = {
@@ -65,6 +65,7 @@
             };
           };
         };
+        settings.formatter.rumdl-format.options = [ "--config" "${./rumdl/rumdl.toml}" ];
       };
     in
     {
@@ -116,7 +117,6 @@
             ] ++ (with pkgs; [
               taplo
               harper
-              mdformat
               rumdl
             ]);
           };
