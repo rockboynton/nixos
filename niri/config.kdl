@@ -186,10 +186,10 @@ binds {
     WheelScrollLeft cooldown-ms=100 { spawn-sh "wtype -M ctrl -M shift -k tab -m ctrl -m shift"; }
     WheelScrollRight cooldown-ms=100 { spawn-sh "wtype -M ctrl -k tab -m ctrl"; }
     // Workspace scrolling (left encoder)
-    Ctrl+Right { focus-column-or-monitor-right; }
-    Ctrl+Left { focus-column-or-monitor-left; }
-    Mod+Ctrl+Right     { focus-window-or-workspace-down; }
-    Mod+Ctrl+Left     { focus-window-or-workspace-up; }
+    Ctrl+Right     { focus-window-or-workspace-down; }
+    Ctrl+Left     { focus-window-or-workspace-up; }
+    Mod+Ctrl+Right { focus-column-or-monitor-right; }
+    Mod+Ctrl+Left { focus-column-or-monitor-left; }
     // Overview (left encoder button)
     Ctrl+Up { toggle-overview; }
 
