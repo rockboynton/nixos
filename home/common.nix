@@ -445,15 +445,15 @@ in
 
     zellij = {
       enable = true;
-      # Retains pane focus across tabs and interprets Kitty Unicode placeholders
-      # for Neohelix image previews (upstream PR #5531).
+      # Fork main follows upstream with pane-focus fixes and Kitty Unicode
+      # placeholders for Neohelix previews (PR #5531), retaining compressed media.
       package = pkgs.zellij.override {
         zellij-unwrapped = pkgs.zellij-unwrapped.overrideAttrs (_: {
           version = "0.46.0";
           src = inputs.zellij-src;
           cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
             src = inputs.zellij-src;
-            hash = "sha256-lOwmzZZPjit1Hh7/TFZEuUcqBKdZGtvoKT6u6nNxm+Y=";
+            hash = "sha256-UzIxPAu6H0dIV+OoLoIDr63HxRr/MH7FTxr6n6X88es=";
           };
         });
       };

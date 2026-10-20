@@ -403,16 +403,16 @@
     "zellij-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1792076670,
-        "narHash": "sha256-NJF2mKwWkJXAcbmZo83YAdFxLINEp3lzkgg1H3afjpo=",
+        "lastModified": 1792483863,
+        "narHash": "sha256-4+vmQqHaLCCkH2Jm4Fz63l7F+yGCDSsJkohGA7u/6RM=",
         "owner": "rockboynton",
         "repo": "zellij",
-        "rev": "d1e634ee62f29b78c6175db45a9df72b4d4e2a9f",
+        "rev": "e28b0e6eb46ce91de148d4efc89d98809dd62695",
         "type": "github"
       },
       "original": {
         "owner": "rockboynton",
-        "ref": "kitty-unicode-placeholders",
+        "ref": "main",
         "repo": "zellij",
         "type": "github"
       }
