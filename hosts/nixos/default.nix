@@ -1,6 +1,8 @@
 { pkgs, lib, config, inputs, ... }:
 
 let
+  flakePath = "/home/rockboynton/sources/nixos";
+
   niriPackage = pkgs.niri.overrideAttrs (old: {
     src = inputs.niri-src;
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
@@ -190,6 +192,26 @@ in
       polkitPolicyOwners = [ "rockboynton" ];
     };
   };
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = "path:${flakePath}#nixos";
+    upgrade = false; # Update flake inputs explicitly before rebuilding.
+    dates = "03:00";
+    persistent = true;
+    operation = "switch";
+    allowReboot = false;
+    flags = [ "--print-build-logs" ];
+  };
+
+  systemd.timers.nixos-upgrade.timerConfig.WakeSystem = true;
+
+  # Keep flake.lock owned by the user when the root upgrade service updates it.
+  systemd.services.nixos-upgrade.preStart = ''
+    ${pkgs.util-linux}/bin/runuser -u rockboynton -- \
+      ${config.nix.package}/bin/nix flake update \
+      --flake path:${flakePath}
+  '';
 
   # don't change this
   system.stateVersion = "23.05"; # Did you read the comment?
