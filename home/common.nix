@@ -4,25 +4,7 @@ let
   nixosConfigDir = "${config.home.homeDirectory}/sources/nixos";
   system = pkgs.stdenv.hostPlatform.system;
   mkOutOfStoreSymlink = config.lib.file.mkOutOfStoreSymlink;
-  helixPackage = inputs.helix.packages.${system}.helix.override {
-    # The grammar currently pinned by Helix does not compile with GCC 16/glibc 2.44.
-    # https://github.com/helix-editor/helix/issues/16347
-    grammarOverlays = [
-      (_: previous:
-        assert previous.perl.version == "72a08a496a23212f23802490ef6f4700d68cfd0e";
-        {
-          perl = previous.perl.overrideAttrs (_: {
-            version = "aa5600c8df1eb9ed111db72e20c741dd73ec336a";
-            src = pkgs.fetchFromGitHub {
-              owner = "tree-sitter-perl";
-              repo = "tree-sitter-perl";
-              rev = "aa5600c8df1eb9ed111db72e20c741dd73ec336a";
-              hash = "sha256-APt/3LOHO6LgzQGugS3fY6d55hyVb6nbOhIEu5Atn4c=";
-            };
-          });
-        })
-    ];
-  };
+  helixPackage = inputs.helix.packages.${system}.helix;
 in
 {
   assertions = [
