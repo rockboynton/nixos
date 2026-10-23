@@ -188,8 +188,8 @@ in
         js = "jj status";
         jst = "jj status";
         jp = "jj push";
-        jf = "jj fetch";
-        jfa = "jj fetch --all-remotes";
+        jjf = "jj fetch";
+        jjfa = "jj fetch --all-remotes";
         je = "jj edit";
         jn = "jj new";
         ja = "jj abandon";

@@ -18,6 +18,7 @@ email = "rboynton@anduril.com"
 email = "rock.boynton@yahoo.com"
 
 [ui]
+default-command = "log"
 merge-editor = "mergiraf"
 diff-formatter = "neohelix"
 diff-editor = "neohelix"
@@ -72,10 +73,27 @@ diff-args = ["--color=always", "$left", "$right"]
 [revsets]
 bookmark-advance-to = "@-"
 
+[revset-aliases]
+# Megamerge workflow: https://isaaccorbrey.com/notes/jujutsu-megamerges-for-fun-and-profit
+"closest_merge(to)" = "heads(::to & merges())"
+# The megamerge is the newest ancestor of @ described exactly "megamerge".
+"megamerge()" = "heads(::@ & subject(exact:'megamerge'))"
+# Mutable commits outside the megamerge, its branches, and the work above it.
+"stale()" = "mutable() & ~::megamerge() & ~megamerge()::"
+
 [aliases]
 tug = ["bookmark", "advance"]
 push = ["git", "push"]
 fetch = ["git", "fetch"]
+# Move the given revisions between trunk and the megamerge.
+stack = ["rebase", "--after", "trunk()", "--before", "closest_merge(@)", "--revision"]
+# Stack everything after the megamerge, skipping empty commits.
+stage = ["stack", "closest_merge(@)+:: ~ empty()"]
+# Rebase all mutable work onto trunk.
+restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
 
 [remotes.origin]
 auto-track-bookmarks = 'glob:"rboynton/*" | glob:"rockboynton/*"'
+
+[snapshot]
+auto-update-stale = true
