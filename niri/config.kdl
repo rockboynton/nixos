@@ -161,7 +161,7 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
-    Mod+M                allow-when-locked=true { spawn-sh "noctalia msg mic-mute"; }
+    Mod+M               { power-off-monitors; }
     XF86AudioPlay { spawn-sh "noctalia msg media toggle"; }
     Mod+D { spawn-sh "noctalia msg notification-clear-active"; }
     Mod+Alt+D { spawn-sh "noctalia msg notification-invoke-latest"; }
