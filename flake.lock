@@ -127,11 +127,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1792097389,
-        "narHash": "sha256-nvwyka5vwo5i+c1iEJu8mqyRSpmc0QMibPDvEabQbXc=",
+        "lastModified": 1792869693,
+        "narHash": "sha256-nX2Z1fAJtSdaI23Wybfg7+RTbz3JTq6s4hj0b3nZm5s=",
         "owner": "rockboynton",
         "repo": "modeling-app",
-        "rev": "a2c9147cef33c165fe7ae298032ef0affbfa57cc",
+        "rev": "0e6777fc194a4ccbf2e33fe7a411596180720ab4",
         "type": "github"
       },
       "original": {
