@@ -7,10 +7,10 @@ let
     src = inputs.niri-src;
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       src = inputs.niri-src;
-      hash = "sha256-JJfJ8o5yuI8mfXDkEfdCVcqQpxIXICV3dji7HoLgKBI=";
+      hash = "sha256-4VQqTrVB6p8M3U7xqF+K6vSKrQcqhW+OnZyAp6j/fGA=";
     };
     env = old.env // {
-      NIRI_BUILD_COMMIT = "f8b7b7fcae6b1548ce799f8968210d045b50500b";
+      NIRI_BUILD_COMMIT = inputs.niri-src.rev;
     };
   });
 in
@@ -206,11 +206,11 @@ in
 
   systemd.timers.nixos-upgrade.timerConfig.WakeSystem = true;
 
-  # Keep flake.lock owned by the user when the root upgrade service updates it.
+  # Update the lockfile and local Cargo hashes as the repository owner.
   systemd.services.nixos-upgrade.preStart = ''
     ${pkgs.util-linux}/bin/runuser -u rockboynton -- \
-      ${config.nix.package}/bin/nix flake update \
-      --flake path:${flakePath}
+      ${pkgs.python3}/bin/python ${../../scripts/update-flake.py} \
+      --nix ${config.nix.package}/bin/nix --flake ${lib.escapeShellArg flakePath}
   '';
 
   # don't change this
