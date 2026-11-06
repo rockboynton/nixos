@@ -90,7 +90,7 @@ stack = ["rebase", "--after", "trunk()", "--before", "closest_merge(@)", "--revi
 # Stack everything after the megamerge, skipping empty commits.
 stage = ["stack", "closest_merge(@)+:: ~ empty()"]
 # Rebase all mutable work onto trunk.
-restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents"]
+restack = ["rebase", "--onto", "trunk()", "--source", "roots(trunk()..) & mutable()", "--simplify-parents", "--skip-emptied"]
 
 [remotes.origin]
 auto-track-bookmarks = 'glob:"rboynton/*" | glob:"rockboynton/*"'
