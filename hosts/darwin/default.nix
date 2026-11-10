@@ -29,6 +29,7 @@
       "thunderbird"
       "saleae-logic"
       "element"
+      "xquartz"
     ];
   };
 
