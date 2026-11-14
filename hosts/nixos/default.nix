@@ -7,7 +7,7 @@ let
     src = inputs.niri-src;
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       src = inputs.niri-src;
-      hash = "sha256-4VQqTrVB6p8M3U7xqF+K6vSKrQcqhW+OnZyAp6j/fGA=";
+      hash = "sha256-rLVTigIUf8rxn25bVdjVyOqPPjBq8KpKINoXQ/gFYxI=";
     };
     env = old.env // {
       NIRI_BUILD_COMMIT = inputs.niri-src.rev;
@@ -205,6 +205,18 @@ in
   };
 
   systemd.timers.nixos-upgrade.timerConfig.WakeSystem = true;
+
+  systemd.services.nixos-upgrade.unitConfig = {
+    OnSuccess = "suspend-after-nixos-upgrade.service";
+    OnFailure = "suspend-after-nixos-upgrade.service";
+  };
+  systemd.services.suspend-after-nixos-upgrade = {
+    description = "Suspend after a NixOS upgrade attempt";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.systemd}/bin/systemctl suspend";
+    };
+  };
 
   # Update the lockfile and local Cargo hashes as the repository owner.
   systemd.services.nixos-upgrade.preStart = ''
