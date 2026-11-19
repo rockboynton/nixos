@@ -17,11 +17,11 @@ in
       '';
     }
     {
-      assertion = !lib.versionOlder "0.45.1" pkgs.zellij.version;
+      assertion = !lib.versionOlder "0.46.0" pkgs.zellij.version;
       message = ''
-        nixpkgs Zellij advanced from the last reviewed version (0.45.1) to ${pkgs.zellij.version}.
-        Recheck zellij-org/zellij issue #1676. Remove the `zellij-src` override if it is fixed upstream; otherwise
-        update the reviewed version in this assertion.
+        nixpkgs Zellij advanced from the last reviewed version (0.46.0) to ${pkgs.zellij.version}.
+        Recheck pane-focus behavior from PR #5062 and Kitty Unicode placeholders from PR #5531.
+        Keep the `zellij-src` override until the fork's changes are upstream; otherwise update the reviewed version.
       '';
     }
   ];
@@ -419,15 +419,17 @@ in
 
     zellij = {
       enable = true;
-      # Fork main follows upstream with pane-focus fixes and Kitty Unicode
+      # Fork megamerge follows upstream with pane-focus fixes and Kitty Unicode
       # placeholders for Neohelix previews (PR #5531), retaining compressed media.
       package = pkgs.zellij.override {
-        zellij-unwrapped = pkgs.zellij-unwrapped.overrideAttrs (_: {
+        zellij-unwrapped = pkgs.zellij-unwrapped.overrideAttrs (old: {
           version = "0.46.0";
           src = inputs.zellij-src;
+          # The updated fork uses aws-lc-sys, which nixpkgs links to the system library.
+          buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.aws-lc ];
           cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
             src = inputs.zellij-src;
-            hash = "sha256-UzIxPAu6H0dIV+OoLoIDr63HxRr/MH7FTxr6n6X88es=";
+            hash = "sha256-JRtVC5vViqMukM4O/Oq1IBFYO6+yU1SNGL7xqWWqiRQ=";
           };
         });
       };

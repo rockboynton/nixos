@@ -7,7 +7,7 @@ let
     src = inputs.niri-src;
     cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
       src = inputs.niri-src;
-      hash = "sha256-rLVTigIUf8rxn25bVdjVyOqPPjBq8KpKINoXQ/gFYxI=";
+      hash = "sha256-J8U0ebNguESGVOZF5qIKG53+zmc65b7UP3djq/ZjL48=";
     };
     env = old.env // {
       NIRI_BUILD_COMMIT = inputs.niri-src.rev;

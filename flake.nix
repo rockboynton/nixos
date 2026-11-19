@@ -28,7 +28,7 @@
     # No flake.nix upstream; this is a source-only input for overriding
     # zellij-unwrapped's src below.
     zellij-src = {
-      url = "github:rockboynton/zellij/main";
+      url = "github:rockboynton/zellij/megamerge";
       flake = false;
     };
     # Keep Niri's upstream master until nixpkgs includes PR #3966.
