@@ -40,6 +40,16 @@
       (hash 'exportPdf "onType"
             'outputPath "$root/target/$dir/$name"
             'lint (hash 'enabled #t 'when "onType")
+            ;; Helix cannot start tinymist's preview by itself, so the language server starts a background preview on a
+            ;; TCP port instead (http://127.0.0.1:23635) and opens it in the browser. The preview refreshes on each
+            ;; keystroke (the default). Colors are never inverted, so the slide colors stay true. Slide mode shows one
+            ;; page at a time, so the arrow keys and space move exactly one slide.
+            'preview (hash 'refresh "onType"
+                           'background (hash 'enabled #t
+                                             'args (list "--data-plane-host=127.0.0.1:23635"
+                                                         "--invert-colors=never"
+                                                         "--preview-mode=slide"
+                                                         "--open")))
             'formatterMode "typstyle"
             'formatterProseWrap #t
             ;; Use the project's tinymist.lock instead of compiling each imported file.
@@ -69,4 +79,7 @@
     (hash "auto-format" #t "language-servers" '("tinymist")
           "formatter" (hash "command" "typstyle" "args" '("--wrap-text" "--line-width=120"))))
   (language! "scheme" (hash "language-servers" '("steel-language-server")))
+  (let ([local (string-append (env-var "HOME") "/.config/neohelix-private/languages.scm")])
+    (when (is-file? local)
+      (load local)))
   (refresh-all-language-configs!))
