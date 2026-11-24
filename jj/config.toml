@@ -24,20 +24,22 @@ diff-formatter = "neohelix"
 diff-editor = "neohelix"
 # Neohelix has its own review UI; omit JJ's synthetic instruction file.
 diff-instructions = false
+# Where lines cross, show the vertical line (branch graph style only).
+graph.crossing = "prefer-vertical"
 
 [colors]
-"graph lane0" = "red"
-"graph lane1" = "green"
-"graph lane2" = "yellow"
-"graph lane3" = "blue"
-"graph lane4" = "magenta"
-"graph lane5" = "cyan"
-"graph lane6" = { fg = "red", bold = true }
-"graph lane7" = { fg = "green", bold = true }
-"graph lane8" = { fg = "yellow", bold = true }
-"graph lane9" = { fg = "blue", bold = true }
-"graph lane10" = { fg = "magenta", bold = true }
-"graph lane11" = { fg = "cyan", bold = true }
+"graph line0" = "red"
+"graph line1" = "green"
+"graph line2" = "yellow"
+"graph line3" = "blue"
+"graph line4" = "magenta"
+"graph line5" = "cyan"
+"graph line6" = { fg = "red", bold = true }
+"graph line7" = { fg = "green", bold = true }
+"graph line8" = { fg = "yellow", bold = true }
+"graph line9" = { fg = "blue", bold = true }
+"graph line10" = { fg = "magenta", bold = true }
+"graph line11" = { fg = "cyan", bold = true }
 
 [merge-tools.neohelix]
 program = "hx"
