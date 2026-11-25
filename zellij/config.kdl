@@ -212,9 +212,9 @@ theme "gruvbox-dark"
 
 terminal {
     font "FiraCode Nerd Font"
-    font_size 13
+    font_size 16
     opacity 0.9
-    startup_mode "windowed"
+    startup_mode "fullscreen"
 
     theme {
         background "#282828"
