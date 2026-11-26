@@ -403,11 +403,11 @@
     "zellij-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1795077112,
-        "narHash": "sha256-QPqQFbgZ+g4MHiIURTgiDPOxS2izZ5wxWA8MwNqI1Ww=",
+        "lastModified": 1795659347,
+        "narHash": "sha256-T8h5yIAib0H9Rh5bRspBjPbvabMmhlaKBjQorf91U+Q=",
         "owner": "rockboynton",
         "repo": "zellij",
-        "rev": "a17c53e731656f545053b0085b8ba33a710ba03e",
+        "rev": "be087b00d7dc46186690dcde5eec2d771a891b13",
         "type": "github"
       },
       "original": {

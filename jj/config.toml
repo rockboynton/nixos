@@ -24,7 +24,7 @@ diff-formatter = "neohelix"
 diff-editor = "neohelix"
 # Neohelix has its own review UI; omit JJ's synthetic instruction file.
 diff-instructions = false
-# Where lines cross, show the vertical line (branch graph style only).
+# Where lines cross, show the vertical line.
 graph.crossing = "prefer-vertical"
 
 [colors]
